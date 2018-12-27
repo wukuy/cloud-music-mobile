@@ -1,0 +1,4 @@
+#Thu Dec 27 20:37:13 CST 2018
+base.0=/home/wukuy/桌面/my-code/cloud-music-mobile/build/app/intermediates/transforms/dexMerger/debug/0
+path.0=classes.dex
+renamed.0=classes.dex
