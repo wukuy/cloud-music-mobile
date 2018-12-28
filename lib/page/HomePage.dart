@@ -49,6 +49,7 @@ class _HomePageState extends State<HomePage>
             controller: _tabController,
             tabs: _tabs.map((item) => item.tab).toList(),
             indicatorWeight: 0.1,
+            indicatorColor: Colors.transparent,
             // isScrollable: true,
             // labelPadding: EdgeInsets.only(left: 5, right: 5),
           ),
