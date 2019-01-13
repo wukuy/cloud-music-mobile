@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/cloud-music-mobile.iml" filepath="$PROJECT_DIR$/.idea/cloud-music-mobile.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cloud_music_mobile.iml" filepath="$PROJECT_DIR$/cloud_music_mobile.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android/cloud_music_mobile_android.iml" filepath="$PROJECT_DIR$/android/cloud_music_mobile_android.iml" />
     </modules>
   </component>
 </project>

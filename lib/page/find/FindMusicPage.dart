@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_music_mobile/page/RecommendPage.dart';
-import 'package:cloud_music_mobile/page/FriendPage.dart';
-import 'package:cloud_music_mobile/page/RadioPage.dart';
+import 'package:cloud_music_mobile/page/find/RecommendPage.dart';
+import 'package:cloud_music_mobile/page/find/FriendPage.dart';
+import 'package:cloud_music_mobile/page/find/RadioPage.dart';
 
 class FindMusicPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _FindMusicState();
 }
 
-class _FindMusicState extends State {
+class _FindMusicState extends State{
   final List<TabItem> _tabs = <TabItem>[
     TabItem(tab: Tab(text: '推荐'), page: RecommendPage()),
     TabItem(tab: Tab(text: '朋友'), page: FriendPage()),
     TabItem(tab: Tab(text: '电台'), page: RadioPage()),
   ];
+
+  @override
+    void initState() {
+      super.initState();
+    }
 
   @override
   Widget build(BuildContext context) {

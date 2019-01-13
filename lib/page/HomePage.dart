@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_music_mobile/widget/HomeDrawer.dart';
-import 'package:cloud_music_mobile/page/FindMusicPage.dart';
-import 'package:cloud_music_mobile/page/MyMusicPage.dart';
-import 'package:cloud_music_mobile/page/Mvpage.dart';
+import 'package:cloud_music_mobile/page/find/FindMusicPage.dart';
+import 'package:cloud_music_mobile/page/my/MyMusicPage.dart';
+import 'package:cloud_music_mobile/page/mv/Mvpage.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -13,29 +13,40 @@ class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   final List<TabItem> _tabs = <TabItem>[
     TabItem(
-        tab: Tab(
-          child: Image.asset('lib/assets/image/t_actionbar_music_selected.png'),
-        ),
-        page: MyMusicPage()),
+      selected: 'lib/assets/image/t_actionbar_music_selected.png',
+      normal: 'lib/assets/image/t_actionbar_music_normal.png',
+      page: MyMusicPage(),
+    ),
     TabItem(
-        tab: Tab(
-          child:
-              Image.asset('lib/assets/image/t_actionbar_discover_normal.png'),
-        ),
-        page: FindMusicPage()),
+      selected: 'lib/assets/image/t_actionbar_discover_selected.png',
+      normal: 'lib/assets/image/t_actionbar_discover_normal.png',
+      page: FindMusicPage(),
+    ),
     TabItem(
-        tab: Tab(
-          child: Image.asset('lib/assets/image/t_actionbar_video_normal.png'),
-        ),
-        page: Mvpage()),
+      selected: 'lib/assets/image/t_actionbar_video_selected.png',
+      normal: 'lib/assets/image/t_actionbar_video_normal.png',
+      page: Mvpage(),
+    ),
   ];
 
   TabController _tabController;
+  int _tabControllerIndex = 1;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: _tabs.length, vsync: this);
+    _tabController = TabController(
+      length: _tabs.length,
+      vsync: this,
+    );
+    _tabController.index = _tabControllerIndex;
+    _tabController.addListener(() {
+      if (_tabController.indexIsChanging) {
+        setState(() {
+           _tabControllerIndex = _tabController.index;
+        });
+      }
+    });
   }
 
   @override
@@ -44,12 +55,18 @@ class _HomePageState extends State<HomePage>
       appBar: AppBar(
         elevation: 0,
         title: Container(
-          padding: EdgeInsets.only(left: 20, right: 20),
+          padding: EdgeInsets.only(left: 30, right: 30),
           child: TabBar(
             controller: _tabController,
-            tabs: _tabs.map((item) => item.tab).toList(),
+            tabs: _tabs.map((item) {
+              if (_tabs.indexOf(item) == _tabControllerIndex) {
+                return Tab(child: Image.asset(item.selected));
+              }
+              return Tab(child: Image.asset(item.normal));
+            }).toList(),
             indicatorWeight: 0.1,
             indicatorColor: Colors.transparent,
+            labelPadding: EdgeInsets.only(left: 5, right: 5),
             // isScrollable: true,
             // labelPadding: EdgeInsets.only(left: 5, right: 5),
           ),
@@ -71,9 +88,9 @@ class _HomePageState extends State<HomePage>
 }
 
 class TabItem {
-  Tab tab;
+  String selected;
+  String normal;
   Widget page;
-  String text;
 
-  TabItem({this.tab, this.page, this.text});
+  TabItem({this.selected, this.normal, this.page});
 }
