@@ -30,17 +30,6 @@ class FindDao {
     }
   }
 
-  static djprogram() async {
-    var result = await Http(loading: false).get('/personalized/djprogram');
-    List list = [];
-    if(result != null) {
-      for(int i = 0; i < 20; i++){
-        list.addAll(Recommend.fromJson(result.data).result);
-      }
-      return  list;
-    }
-  }
-
   /// 获取歌单详情
   static getSongDetail(data) async {
     var result = await Http().get('/playlist/detail', data: data);

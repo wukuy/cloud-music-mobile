@@ -7,22 +7,23 @@ import 'package:redux/redux.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:cloud_music_mobile/common/redux/AppState.dart';
 import 'package:cloud_music_mobile/common/redux/PlayInfoState.dart';
-import 'package:audioplayer/audioplayer.dart';
+import 'package:cloud_music_mobile/widget/PlayBar.dart';
 
 AppState mainReducer(AppState state, action) {
+  state.playInfoState = action;
   return state;
 }
 
 void main() {
-   Store<AppState> store = Store<AppState>(mainReducer, initialState: AppState(
-    playInfoState: PlayInfoState(
-      url: 'http://m10.music.126.net/20190112190259/dd105d431403de002bbc845459472ad3/ymusic/5258/0f5f/015c/e23eb784398544031837660e6d233a6e.mp3',
-      songName: '',
-      songList: []
-    )
-  ));
+  Store<AppState> store = Store<AppState>(mainReducer,
+      initialState: AppState(
+          playInfoState: PlayInfoState(
+              url:
+                  'http://m10.music.126.net/20190114161948/73365971a8a0c477a948cb9fc340e288/ymusic/c5e9/9900/3949/5cea2ee5ea7ac345d47db39af454e207.mp3',
+              songName: '歌曲名称',
+              songList: [])));
 
-   runApp(CloudMusic(store));
+  runApp(CloudMusic(store));
 }
 
 class CloudMusic extends StatelessWidget {
@@ -32,19 +33,27 @@ class CloudMusic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'cloud music',
-      theme: ThemeData(
-          // primarySwatch: Colors.blue,
-          primaryColor: Color(0xffdd4137)),
-      home: BusEventProvider(child: StoreProvider(
-        store: store,
-        child: HomePage()
-      )),
+    return StoreProvider(
+      store: store,
+      child: MaterialApp(
+          title: 'cloud music',
+          theme: ThemeData(
+              // primarySwatch: Colors.blue,
+              primaryColor: Color(0xffdd4137)),
+          home: BusEventProvider(
+              child: Flex(
+            direction: Axis.vertical,
+            children: <Widget>[
+              Expanded(
+                flex: 1,
+                child: HomePage(),
+              ),
+              PlayBar()
+            ],
+          ))),
     );
   }
 }
-
 
 class BusEventProvider extends StatefulWidget {
   final Widget child;
@@ -58,7 +67,7 @@ class _BusEventProvider extends State<BusEventProvider> {
   @override
   void initState() {
     super.initState();
-    
+
     Loading.eventBus.on<LoadingEvent>().listen((event) {
       event.show ? showLoading() : hideLoading();
     });

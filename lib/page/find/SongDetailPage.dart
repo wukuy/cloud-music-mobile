@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_music_mobile/common/dao/FindDao.dart';
-import 'package:audioplayer/audioplayer.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:redux/redux.dart';
 import 'package:cloud_music_mobile/common/redux/AppState.dart';
 import 'package:cloud_music_mobile/common/redux/PlayInfoState.dart';
 
@@ -191,50 +191,63 @@ class SongListItem extends StatefulWidget {
 class _SongListItem extends State<SongListItem> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-        color: Colors.white,
-        child: InkWell(
-          onTap: () {
-            print('点击');
-          },
-          child: Container(
-            padding: EdgeInsets.only(top: 10, bottom: 10),
-            child: Row(
-              children: <Widget>[
-                Container(
-                  width: 50,
-                  alignment: Alignment.center,
-                  child: Text(
-                    "${widget.index}",
-                    style: TextStyle(fontSize: 12, color: Color(0xff666666)),
+    Store<AppState> appStore;
+
+    return StoreBuilder<AppState>(
+      builder: (BuildContext context, Store<AppState> store) {
+        appStore = store;
+
+        return Container(
+          color: Colors.white,
+          child: InkWell(
+            onTap: () {
+              // store.state.playInfoState
+              store.dispatch(PlayInfoState(
+                url: '',
+                songName: '歌曲名称改变2323',
+              ));
+            },
+            child: Container(
+              padding: EdgeInsets.only(top: 10, bottom: 10),
+              child: Row(
+                children: <Widget>[
+                  Container(
+                    width: 50,
+                    alignment: Alignment.center,
+                    child: Text(
+                      "${widget.index}",
+                      style: TextStyle(fontSize: 12, color: Color(0xff666666)),
+                    ),
                   ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  Expanded(
+                    flex: 1,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          widget.songName,
+                          style: TextStyle(fontSize: 14),
+                        ),
+                        Text(
+                          widget.singerName,
+                          style: TextStyle(fontSize: 12, color: Colors.grey),
+                        ),
+                        Divider()
+                      ],
+                    ),
+                  ),
+                  Row(
                     children: <Widget>[
-                      Text(
-                        widget.songName,
-                        style: TextStyle(fontSize: 14),
-                      ),
-                      Text(
-                        widget.singerName,
-                        style: TextStyle(fontSize: 12, color: Colors.grey),
-                      ),
-                      Divider()
+                      Icon(Icons.play_circle_outline),
+                      Icon(Icons.more_vert),
                     ],
-                  ),
-                ),
-                Row(
-                  children: <Widget>[
-                    Icon(Icons.play_circle_outline),
-                    Icon(Icons.more_vert),
-                  ],
-                )
-              ],
+                  )
+                ],
+              ),
             ),
           ),
-        ));
+        );
+      },
+    );
   }
 }

@@ -9,13 +9,13 @@ class RecommendPage extends StatefulWidget {
   State<StatefulWidget> createState() => _RecommendPageState();
 }
 
-class _RecommendPageState extends State  with AutomaticKeepAliveClientMixin{
+class _RecommendPageState extends State with AutomaticKeepAliveClientMixin {
   List _bannerData = [];
   List _songSheet = [];
   List _newsong = [];
   List _djprogram = [];
-  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<
-      RefreshIndicatorState>();
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+      new GlobalKey<RefreshIndicatorState>();
 
   @override
   void initState() {
@@ -117,8 +117,7 @@ class Banner extends StatelessWidget {
               borderRadius: BorderRadius.all(Radius.circular(6)),
               image: DecorationImage(
                   fit: BoxFit.fill,
-                  image:
-                      CachedNetworkImageProvider(data[index].imageUrl)),
+                  image: CachedNetworkImageProvider(data[index].imageUrl)),
             ),
           );
         },
@@ -240,8 +239,7 @@ class BoxContent extends StatelessWidget {
                         borderRadius: BorderRadius.all(Radius.circular(4)),
                         image: DecorationImage(
                           fit: BoxFit.fitWidth,
-                          image: CachedNetworkImageProvider(
-                              list[index].picUrl),
+                          image: CachedNetworkImageProvider(list[index].picUrl),
                         ),
                       ),
                     ),
@@ -256,9 +254,9 @@ class BoxContent extends StatelessWidget {
                 ],
               ),
               onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => SongDetailPage(
-                        title: title, id: list[index].id)));
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                  return SongDetailPage(title: title, id: list[index].id);
+                }));
               },
             );
           },

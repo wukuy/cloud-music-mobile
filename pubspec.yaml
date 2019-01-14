@@ -27,7 +27,7 @@ dependencies:
   flutter_redux: ^0.5.2
   # 图片缓存
   cached_network_image: ^0.5.1
-  audioplayer: ^0.5.2
+  audioplayers: ^0.8.0
 
 dev_dependencies:
   flutter_test:
