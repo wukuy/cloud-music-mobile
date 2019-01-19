@@ -40,6 +40,9 @@ class FindDao {
 
   /// 获取歌曲
   static getSongUrl(data) async {
-    return (await Http().get('/song/url', data: data)).data["data"][0];
+    var result = await Http().get('/song/url', data: data);
+    if(result != null) {
+      return result.data["data"][0];
+    }
   }
 }

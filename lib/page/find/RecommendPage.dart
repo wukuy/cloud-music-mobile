@@ -164,7 +164,7 @@ class Menu extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Color(0xffdd4137),
+                        color: Theme.of(context).primaryColor,
                         boxShadow: [
                           BoxShadow(
                             color: Colors.grey,

@@ -191,21 +191,22 @@ class SongListItem extends StatefulWidget {
 class _SongListItem extends State<SongListItem> {
   @override
   Widget build(BuildContext context) {
-    Store<AppState> appStore;
-
     return StoreBuilder<AppState>(
       builder: (BuildContext context, Store<AppState> store) {
-        appStore = store;
-
         return Container(
           color: Colors.white,
           child: InkWell(
             onTap: () {
               // store.state.playInfoState
-              store.dispatch(PlayInfoState(
-                url: '',
-                songName: '歌曲名称改变2323',
-              ));
+              store.dispatch(
+                PlayInfoState(
+                  url: '',
+                  songName: widget.songName,
+                  singer: widget.singerName,
+                ),
+              );
+
+              _getSongUrl(store);
             },
             child: Container(
               padding: EdgeInsets.only(top: 10, bottom: 10),
@@ -249,5 +250,19 @@ class _SongListItem extends State<SongListItem> {
         );
       },
     );
+  }
+
+  _getSongUrl(Store store) async {
+    var result = await FindDao.getSongUrl({'id': widget.id});
+    if (result != null) {
+      print(result);
+      store.dispatch(
+        PlayInfoState(
+          url: result['url'],
+          songName: widget.songName,
+          singer: widget.singerName,
+        ),
+      );
+    }
   }
 }

@@ -30,7 +30,7 @@ class _FindMusicState extends State{
           Expanded(
             flex: 0,
             child: Container(
-              color: Color(0xffdd4137),
+              color: Theme.of(context).primaryColor,
               child: TabBar(
                 tabs: _tabs.map((item) => item.tab).toList(),
                 indicatorColor: Colors.white,

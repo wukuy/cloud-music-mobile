@@ -15,6 +15,8 @@ class PlayBar extends StatelessWidget {
       if (result == 1) {
         print('播放');
       }
+    }else {
+      pause();
     }
   }
 
@@ -65,15 +67,28 @@ class PlayBar extends StatelessWidget {
               Expanded(
                 flex: 1,
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(
+                    Container(
+                      padding: EdgeInsets.only(bottom: 4),
+                      child: Text(
                       playInfoState.songName,
-                      style: TextStyle(fontSize: 14),
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.black87,
+                        decoration: TextDecoration.none,
+                      ),
+                    ),
                     ),
                     Text(
-                      'xxxxbbbbb',
-                      style: TextStyle(fontSize: 14),
+                      playInfoState.singer ?? '',
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: Colors.black38,
+                        decoration: TextDecoration.none,
+                        fontWeight: FontWeight.w500
+                      ),
                     ),
                   ],
                 ),
