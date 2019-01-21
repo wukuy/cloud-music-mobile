@@ -14,7 +14,7 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="cloud_music_mobile"
+        android:label="云音乐"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

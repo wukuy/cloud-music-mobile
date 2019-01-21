@@ -12,19 +12,18 @@ class FriendPage extends StatefulWidget {
 class _FriendPageState extends State with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
-    return StoreBuilder(
-      builder: (BuildContext context, Store<AppState> store) {
-        return Container(
-          width: 80,
-          height: 80,
-          decoration: BoxDecoration(
-              shape: BoxShape.circle, color: Theme.of(context).primaryColor,),
-          child: InkWell(
-            onTap: () {},
-            child: Text('data'),
-          ),
-        );
+    return new InkWell(
+//   highlightColor: Colors.red,
+      splashColor: Colors.greenAccent,
+      onTap: () {
       },
+      child: Container(
+        width: 120.0,
+        height: 40.0,
+        child: new Center(
+          child: new Text("测试水波纹"),
+        ),
+      ),
     );
   }
 

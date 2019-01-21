@@ -8,7 +8,7 @@ class FindMusicPage extends StatefulWidget {
   State<StatefulWidget> createState() => _FindMusicState();
 }
 
-class _FindMusicState extends State{
+class _FindMusicState extends State {
   final List<TabItem> _tabs = <TabItem>[
     TabItem(tab: Tab(text: '推荐'), page: RecommendPage()),
     TabItem(tab: Tab(text: '朋友'), page: FriendPage()),
@@ -16,9 +16,9 @@ class _FindMusicState extends State{
   ];
 
   @override
-    void initState() {
-      super.initState();
-    }
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,24 +27,20 @@ class _FindMusicState extends State{
       child: Flex(
         direction: Axis.vertical,
         children: <Widget>[
-          Expanded(
-            flex: 0,
-            child: Container(
-              color: Theme.of(context).primaryColor,
-              child: TabBar(
-                tabs: _tabs.map((item) => item.tab).toList(),
-                indicatorColor: Colors.white,
-                indicatorPadding: EdgeInsets.only(bottom: 10),
-                indicatorSize: TabBarIndicatorSize.label,
-              ),
+          Material(
+            color: Theme.of(context).primaryColor,
+            child: TabBar(
+              tabs: _tabs.map((item) => item.tab).toList(),
+              indicatorColor: Colors.white,
+              indicatorPadding: EdgeInsets.only(bottom: 10),
+              indicatorSize: TabBarIndicatorSize.label,
             ),
           ),
           Expanded(
-            flex: 1,
-            child: TabBarView(
-              children: _tabs.map((item) => item.page).toList(),
-            )
-          )
+              flex: 1,
+              child: TabBarView(
+                children: _tabs.map((item) => item.page).toList(),
+              ))
         ],
       ),
     );

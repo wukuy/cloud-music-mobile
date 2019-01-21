@@ -3,44 +3,20 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:cloud_music_mobile/common/redux/AppState.dart';
 import 'package:cloud_music_mobile/common/redux/PlayInfoState.dart';
-import 'package:audioplayers/audioplayers.dart';
+import 'package:cloud_music_mobile/page/common/PlayDetailPage.dart';
+import 'package:cloud_music_mobile/widget/Img.dart';
+import 'package:cloud_music_mobile/common/redux/PlayerState.dart';
 
 class PlayBar extends StatelessWidget {
-  AudioPlayer audioPlayer = new AudioPlayer();
-
-  play(url) async {
-    print('执行play方法');
-    if (url != '') {
-      int result = await audioPlayer.play(url);
-      if (result == 1) {
-        print('播放');
-      }
-    }else {
-      pause();
-    }
-  }
-
-  pause() async {
-    int result = await audioPlayer.pause();
-    if (result == 1) {
-      print('暂停');
-    }
-  }
-
-  resume() async {
-    int result = await audioPlayer.resume();
-    if (result == 1) {
-      print('恢复播放');
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return StoreBuilder<AppState>(
       builder: (BuildContext context, Store<AppState> store) {
         PlayInfoState playInfoState = store.state.playInfoState;
-        play(playInfoState.url);
-        print(playInfoState.songName);
+        PlayerState playerState = store.state.playerState;
+
+        bool playState = (PlayActions.play.index == playerState.state ||
+            PlayActions.resume.index == playerState.state);
 
         return Container(
           height: 46,
@@ -48,58 +24,81 @@ class PlayBar extends StatelessWidget {
           decoration: BoxDecoration(
               color: Colors.white,
               border: Border(top: BorderSide(color: Color(0xffeeeeee)))),
-          child: Flex(
-            direction: Axis.horizontal,
-            children: <Widget>[
-              Container(
-                width: 36,
-                height: 36,
-                margin: EdgeInsets.only(right: 10),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(4)),
-                  image: DecorationImage(
-                    fit: BoxFit.fill,
-                    image: NetworkImage(playInfoState.coverPic ??
-                        'http://img5.duitang.com/uploads/item/201411/07/20141107164412_v284V.jpeg'),
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Container(
-                      padding: EdgeInsets.only(bottom: 4),
-                      child: Text(
-                      playInfoState.songName,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.black87,
-                        decoration: TextDecoration.none,
-                      ),
-                    ),
-                    ),
-                    Text(
-                      playInfoState.singer ?? '',
-                      style: TextStyle(
-                        fontSize: 10,
-                        color: Colors.black38,
-                        decoration: TextDecoration.none,
-                        fontWeight: FontWeight.w500
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Wrap(
+          child: Material(
+            child: InkWell(
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (BuildContext context) => PlayDetailPage()));
+              },
+              child: Flex(
+                direction: Axis.horizontal,
                 children: <Widget>[
-                  Icon(Icons.merge_type),
-                  Icon(Icons.message),
+                  Container(
+                    width: 36,
+                    height: 36,
+                    margin: EdgeInsets.only(right: 10),
+                    child: Img(playInfoState.coverPic),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          padding: EdgeInsets.only(bottom: 4),
+                          child: Text(
+                            playInfoState.songName,
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.black87,
+                              decoration: TextDecoration.none,
+                            ),
+                          ),
+                        ),
+                        Text(
+                          playInfoState.singer ?? '',
+                          style: TextStyle(
+                              fontSize: 10,
+                              color: Colors.black38,
+                              decoration: TextDecoration.none,
+                              fontWeight: FontWeight.w500),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Wrap(
+                    children: <Widget>[
+                      InkWell(
+                        onTap: () {
+                          store.dispatch(PlayerState(playState
+                              ? PlayActions.pause
+                              : PlayActions.resume));
+                        },
+                        child: Icon(
+                          playState
+                              ? Icons.pause_circle_outline
+                              : Icons.play_circle_outline,
+                          size: 32,
+                          color: Colors.black54,
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(left: 12, right: 4),
+                        child: InkWell(
+                          onTap: () {},
+                          child: Icon(
+                            Icons.list,
+                            size: 32,
+                            color: Colors.black54,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
-            ],
+            ),
           ),
         );
       },

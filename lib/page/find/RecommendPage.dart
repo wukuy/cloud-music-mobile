@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:cloud_music_mobile/common/dao/FindDao.dart';
 import 'package:cloud_music_mobile/page/find/SongDetailPage.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_music_mobile/widget/Img.dart';
+import 'package:cloud_music_mobile/assets/ConstDefine.dart';
+import 'package:cloud_music_mobile/assets/style/ColorDefine.dart';
 
 class RecommendPage extends StatefulWidget {
   @override
@@ -48,6 +50,7 @@ class _RecommendPageState extends State with AutomaticKeepAliveClientMixin {
       key: _refreshIndicatorKey,
       color: Colors.red,
       child: CustomScrollView(
+        cacheExtent: 2000,
         slivers: <Widget>[
           SliverList(
             delegate: SliverChildListDelegate([
@@ -108,35 +111,26 @@ class Banner extends StatelessWidget {
   }
 
   _swiper() {
-    if (data.length != 0) {
-      return Swiper(
-        itemBuilder: (BuildContext context, int index) {
-          return Container(
-            margin: EdgeInsets.only(left: 8, right: 8),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(6)),
-              image: DecorationImage(
-                  fit: BoxFit.fill,
-                  image: CachedNetworkImageProvider(data[index].imageUrl)),
-            ),
-          );
-        },
-        itemCount: data.length,
-        pagination: SwiperPagination(),
-        // control: SwiperControl(),
-        scale: 0.99,
-        autoplay: true,
-      );
-    } else {
-      return Container(
-        margin: EdgeInsets.only(left: 8, right: 8),
-        height: 150,
-        decoration: BoxDecoration(
-          color: Colors.grey,
-          borderRadius: BorderRadius.all(Radius.circular(6)),
-        ),
-      );
-    }
+    return Swiper(
+      itemBuilder: (BuildContext context, int index) {
+        return Container(
+          margin: EdgeInsets.only(left: 8, right: 8),
+          child:  Img(
+            data.length > 0 ? data[index].imageUrl : ConstDefine.placeholderPic,
+                  height: 120,
+                  radius: 6,
+                  fit: BoxFit.fitHeight,
+                  color: Color(ColorDefine.placeholder),
+                )
+
+        );
+      },
+      itemCount: data.length == 0 ? 2 : data.length,
+      pagination: SwiperPagination(),
+      // control: SwiperControl(),
+      scale: 0.99,
+      autoplay: true,
+    );
   }
 }
 
@@ -221,46 +215,46 @@ class BoxContent extends StatelessWidget {
         //Grid
         gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
-          mainAxisSpacing: 20.0,
-          crossAxisSpacing: 6.0,
-          childAspectRatio: .8,
+          childAspectRatio: 6 / 8,
+          mainAxisSpacing: 10.0,
+          crossAxisSpacing: 3,
         ),
         delegate: SliverChildBuilderDelegate(
           (BuildContext context, int index) {
             return InkWell(
-              child: Flex(
-                direction: Axis.vertical,
+              child: Column(
                 children: <Widget>[
-                  Expanded(
-                    flex: 1,
-                    child: Container(
-                      padding: EdgeInsets.only(bottom: 6),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(4)),
-                        image: DecorationImage(
-                          fit: BoxFit.fitWidth,
-                          image: CachedNetworkImageProvider(list[index].picUrl),
-                        ),
+                  Img(
+                    list.length > 0 ? list[index].picUrl : '',
+                    width: 126,
+                    height: 120,
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(top: 4),
+                    child: Text(
+                      list.length > 0 ? list[index].name : "",
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Color(0xff333333),
                       ),
                     ),
-                  ),
-                  Text(
-                    list[index].name,
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Color(0xff333333),
-                    ),
-                  ),
+                  )
                 ],
               ),
               onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                  return SongDetailPage(title: title, id: list[index].id);
-                }));
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return SongDetailPage(title: title, id: list[index].id);
+                    },
+                  ),
+                );
               },
             );
           },
-          childCount: list.length != 0 ? 6 : 0,
+          childCount: 6,
         ),
       ),
     );
@@ -275,31 +269,28 @@ class BoxTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverList(
-      delegate: SliverChildListDelegate(
-        [
-          Container(
-            padding: EdgeInsets.only(top: 20, bottom: 10, left: 10),
-            child: Wrap(
-              children: <Widget>[
-                InkWell(
-                  onTap: onTap,
-                  child: Text(
+      delegate: SliverChildListDelegate([
+        Container(
+            padding: EdgeInsets.only(top: 5),
+            child: FlatButton(
+              onPressed: onTap,
+              child: Row(
+                children: <Widget>[
+                  Text(
                     title,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Color(0xff333333),
                     ),
                   ),
-                ),
-                Icon(
-                  Icons.chevron_right,
-                  color: Colors.grey,
-                )
-              ],
-            ),
-          )
-        ],
-      ),
+                  Icon(
+                    Icons.chevron_right,
+                    color: Colors.grey,
+                  )
+                ],
+              ),
+            )),
+      ]),
     );
   }
 }

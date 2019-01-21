@@ -7,21 +7,20 @@ import 'package:redux/redux.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:cloud_music_mobile/common/redux/AppState.dart';
 import 'package:cloud_music_mobile/common/redux/PlayInfoState.dart';
+import 'package:cloud_music_mobile/common/redux/PlayerState.dart';
 import 'package:cloud_music_mobile/widget/PlayBar.dart';
-
-AppState mainReducer(AppState state, action) {
-  state.playInfoState = action;
-  return state;
-}
+import 'package:audioplayers/audioplayers.dart';
 
 void main() {
-  Store<AppState> store = Store<AppState>(mainReducer,
-      initialState: AppState(
-          playInfoState: PlayInfoState(
-              url:
-                  'http://m10.music.126.net/20190114161948/73365971a8a0c477a948cb9fc340e288/ymusic/c5e9/9900/3949/5cea2ee5ea7ac345d47db39af454e207.mp3',
-              songName: '歌曲名称',
-              songList: [])));
+  AudioPlayer audioPlayer = new AudioPlayer();
+
+  Store<AppState> store = Store<AppState>(
+    mainReducer,
+    initialState: AppState(
+      playInfoState: PlayInfoState(url: '', songName: '歌曲名称', songList: []),
+      playerState: PlayerState.audioPlayer(audioPlayer)
+    ),
+  );
 
   runApp(CloudMusic(store));
 }
@@ -36,10 +35,13 @@ class CloudMusic extends StatelessWidget {
     return StoreProvider(
       store: store,
       child: MaterialApp(
-          title: 'cloud music',
+          title: '云音乐',
           theme: ThemeData(
-              // primarySwatch: Colors.blue,
-              primaryColor: Color(0xffdd4137)),
+            // primarySwatch: Colors.blue,
+            primaryColor: Color(0xffdd4137),
+            // highlightColor: Colors.white70,
+            splashColor: Color(0x22000000),
+          ),
           home: BusEventProvider(
               child: Flex(
             direction: Axis.vertical,

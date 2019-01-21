@@ -33,7 +33,7 @@ class Http {
   }
 
   setConfig() {
-    dio.options.baseUrl="http://api.music.wukuy.cn";
+    dio.options.baseUrl="http://api.music.wukuy.cn:3000";
     dio.options.connectTimeout = 5000;
     dio.options.receiveTimeout = 3000;
   }

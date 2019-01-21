@@ -4,6 +4,9 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:cloud_music_mobile/common/redux/AppState.dart';
 import 'package:cloud_music_mobile/common/redux/PlayInfoState.dart';
+import 'package:cloud_music_mobile/common/redux/PlayerState.dart';
+import 'package:cloud_music_mobile/widget/Img.dart';
+import 'dart:ui';
 
 class SongDetailPage extends StatefulWidget {
   final String title;
@@ -36,26 +39,91 @@ class _SongDetailPage extends State<SongDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-          // elevation: 0,
-        ),
-        body: ListView.builder(
-          itemCount: count,
-          itemBuilder: (context, idx) {
-            if (idx == 0) {
-              return SongDescribe(data: describe);
+    return BackgroundBlur(Scaffold(
+      backgroundColor: Colors.transparent,
+      appBar: AppBar(
+        title: Text(widget.title),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
+      body: ListView.builder(
+        itemCount: count,
+        itemBuilder: (context, idx) {
+          if (idx == 0) {
+            return SongDescribe(data: describe);
+          } else {
+            Map item = list[idx - 1];
+            SongListItem songListItem = SongListItem(
+                songName: item["name"],
+                id: item["id"],
+                singerName: item["ar"][0]["name"],
+                coverPic: item["al"]["picUrl"],
+                index: idx);
+
+            if (idx == 1) {
+              return Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(8),
+                    topRight: Radius.circular(8),
+                  ),
+                ),
+                child: songListItem,
+              );
             } else {
-              Map item = list[idx - 1];
-              return SongListItem(
-                  songName: item["name"],
-                  id: item["id"],
-                  singerName: item["ar"][0]["name"],
-                  index: idx);
+              return Container(
+                color: Colors.white,
+                child: songListItem,
+              );
             }
-          },
-        ));
+          }
+        },
+      ),
+    ), data: describe);
+  }
+}
+
+class BackgroundBlur extends StatelessWidget {
+  final Widget child;
+  final Map data;
+  BackgroundBlur(this.child, {this.data});
+
+  @override
+  Widget build(BuildContext context) {
+    return StoreBuilder<AppState>(
+      builder: (BuildContext context, Store<AppState> store) {
+        return Container(
+          child: Stack(
+            children: <Widget>[
+              Positioned(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints.expand(),
+                  child: Img(
+                    data == null ? '' : data['coverImgUrl'],
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              Positioned(
+                child: IgnorePointer(
+                  ignoring: true,
+                  child: BackdropFilter(
+                    filter: new ImageFilter.blur(sigmaX: 100, sigmaY: 100),
+                    child: Container(
+                      color: Colors.black.withOpacity(0.1),
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
+                child: child,
+              )
+            ],
+          ),
+        );
+      },
+    );
   }
 }
 
@@ -73,7 +141,7 @@ class _SongDescribe extends State<SongDescribe> {
     return Container(
       height: 220,
       padding: EdgeInsets.only(left: 20, right: 20, top: 20),
-      color: Colors.grey,
+      // color: Colors.grey,
       child: Column(
         children: <Widget>[
           Container(
@@ -84,12 +152,10 @@ class _SongDescribe extends State<SongDescribe> {
                 Container(
                   height: 120,
                   width: 120,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(4)),
-                    image: DecorationImage(
-                      fit: BoxFit.fill,
-                      image: NetworkImage(widget.data["coverImgUrl"]),
-                    ),
+                  child: Img(
+                    widget.data["coverImgUrl"],
+                    fit: BoxFit.fill,
+                    radius: 4,
                   ),
                 ),
                 Expanded(
@@ -182,7 +248,9 @@ class SongListItem extends StatefulWidget {
   final int id;
   final String singerName;
   final int index;
-  SongListItem({this.songName, this.id, this.singerName, this.index});
+  final String coverPic;
+  SongListItem(
+      {this.songName, this.id, this.singerName, this.index, this.coverPic});
 
   @override
   State<StatefulWidget> createState() => _SongListItem();
@@ -193,58 +261,46 @@ class _SongListItem extends State<SongListItem> {
   Widget build(BuildContext context) {
     return StoreBuilder<AppState>(
       builder: (BuildContext context, Store<AppState> store) {
-        return Container(
-          color: Colors.white,
-          child: InkWell(
-            onTap: () {
-              // store.state.playInfoState
-              store.dispatch(
-                PlayInfoState(
-                  url: '',
-                  songName: widget.songName,
-                  singer: widget.singerName,
+        return InkWell(
+          onTap: () {
+            _getSongUrl(store);
+          },
+          child: Container(
+            padding: EdgeInsets.only(top: 10, bottom: 10),
+            child: Row(
+              children: <Widget>[
+                Container(
+                  width: 50,
+                  alignment: Alignment.center,
+                  child: Text(
+                    "${widget.index}",
+                    style: TextStyle(fontSize: 12, color: Color(0xff666666)),
+                  ),
                 ),
-              );
-
-              _getSongUrl(store);
-            },
-            child: Container(
-              padding: EdgeInsets.only(top: 10, bottom: 10),
-              child: Row(
-                children: <Widget>[
-                  Container(
-                    width: 50,
-                    alignment: Alignment.center,
-                    child: Text(
-                      "${widget.index}",
-                      style: TextStyle(fontSize: 12, color: Color(0xff666666)),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          widget.songName,
-                          style: TextStyle(fontSize: 14),
-                        ),
-                        Text(
-                          widget.singerName,
-                          style: TextStyle(fontSize: 12, color: Colors.grey),
-                        ),
-                        Divider()
-                      ],
-                    ),
-                  ),
-                  Row(
+                Expanded(
+                  flex: 1,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Icon(Icons.play_circle_outline),
-                      Icon(Icons.more_vert),
+                      Text(
+                        widget.songName,
+                        style: TextStyle(fontSize: 14),
+                      ),
+                      Text(
+                        widget.singerName,
+                        style: TextStyle(fontSize: 12, color: Colors.grey),
+                      ),
+                      Divider()
                     ],
-                  )
-                ],
-              ),
+                  ),
+                ),
+                Row(
+                  children: <Widget>[
+                    Icon(Icons.play_circle_outline),
+                    Icon(Icons.more_vert),
+                  ],
+                )
+              ],
             ),
           ),
         );
@@ -255,14 +311,15 @@ class _SongListItem extends State<SongListItem> {
   _getSongUrl(Store store) async {
     var result = await FindDao.getSongUrl({'id': widget.id});
     if (result != null) {
-      print(result);
       store.dispatch(
         PlayInfoState(
-          url: result['url'],
-          songName: widget.songName,
-          singer: widget.singerName,
-        ),
+            url: result['url'],
+            songName: widget.songName,
+            singer: widget.singerName,
+            coverPic: widget.coverPic),
       );
+
+      store.dispatch(PlayerState(PlayActions.play));
     }
   }
 }

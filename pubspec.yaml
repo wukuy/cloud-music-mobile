@@ -55,7 +55,24 @@ flutter:
     - lib/assets/image/t_actionbar_video_selected.png
     - lib/assets/image/bg.jpg
     - lib/assets/image/head_pic.jpeg
+    - lib/assets/image/placeholder_pic.png
+    - lib/assets/image/play_next.png
+    - lib/assets/image/play_up.png
+    - lib/assets/image/play.png
+    - lib/assets/image/play_pause.png
+    - lib/assets/image/play_mode_loop.png
+    - lib/assets/image/play_list.png
+    - lib/assets/image/cd_decorate.png
+    - lib/assets/image/cd_decorate_1.png
+    - lib/assets/image/cd_play_ctrl.png
+    - lib/assets/image/love.png
+    - lib/assets/image/more.png
+    - lib/assets/image/download.png
+    - lib/assets/image/sound_effects.png
 
+    
+
+    
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.

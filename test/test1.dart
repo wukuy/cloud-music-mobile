@@ -1,6 +1,4 @@
 void main() {
-  List list = [1,23,4,];
-  list.forEach((el) {
-    print(list.indexOf(el));
-  });
+  Map a = {"data": 2};
+  print(a["data1"]?.a ?? 12);
 }
