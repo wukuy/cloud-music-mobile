@@ -195,13 +195,14 @@ class BackgroundBlur extends StatelessWidget {
           child: Stack(
             children: [
               Positioned(
-                  child: ConstrainedBox(
-                constraints: new BoxConstraints.expand(),
-                child: Img(
-                  playInfoState.coverPic,
-                  fit: BoxFit.cover,
+                child: ConstrainedBox(
+                  constraints: new BoxConstraints.expand(),
+                  child: Img(
+                    playInfoState.coverPic,
+                    fit: BoxFit.cover,
+                  ),
                 ),
-              )),
+              ),
               Positioned(
                 child: IgnorePointer(
                   ignoring: true,

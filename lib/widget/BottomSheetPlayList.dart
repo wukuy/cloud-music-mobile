@@ -1,36 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:redux/redux.dart';
+import 'package:cloud_music_mobile/common/redux/AppState.dart';
 
 class BottomSheetPlayList {
-  static show(context, List list) {
-    list = [
-      {"songName": '张三'},
-      {"songName": '张三1'},
-      {"songName": '张三2'},
-      {"songName": '张三'}
-    ];
-
+  static show(context) {
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
-        return Container(
-          height: 395,
-          decoration: BoxDecoration(
-              //color: Colors.white,
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(8), topRight: Radius.circular(8))),
-          child: Flex(
-            direction: Axis.vertical,
-            children: <Widget>[
-              _title(),
-              Divider(
-                height: 1,
-              ),
-              Expanded(
-                child: _list(list),
-              )
-            ],
-          ),
-        );
+        return StoreBuilder<AppState>(builder: (BuildContext context, Store<AppState> store) {
+          return Container(
+            height: 395,
+            decoration: BoxDecoration(
+                //color: Colors.white,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(8), topRight: Radius.circular(8))),
+            child: Flex(
+              direction: Axis.vertical,
+              children: <Widget>[
+                _title(),
+                Divider(
+                  height: 1,
+                ),
+                Expanded(
+                  child: _list(store),
+                )
+              ],
+            ),
+          );
+        });
       },
     );
   }
@@ -63,7 +61,10 @@ class BottomSheetPlayList {
     );
   }
 
-  static _list(list) {a
+  static _list(Store<AppState> store) {
+    List list = store.state.playInfoState.songList;
+    print(list);
+
     return ListView.builder(
       itemCount: list.length,
       itemBuilder: (BuildContext context, int idx) {

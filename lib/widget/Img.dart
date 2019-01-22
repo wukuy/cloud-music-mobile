@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_music_mobile/assets/ConstDefine.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class Img extends StatelessWidget {
   final String url;
@@ -20,11 +21,18 @@ class Img extends StatelessWidget {
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.all(Radius.circular(radius)),
-        child: FadeInImage.assetNetwork(
+        child: CachedNetworkImage(
           width: width,
           height: height,
-          image: url ?? '',
-          placeholder: ConstDefine.placeholderPic,
+          errorWidget: Image.asset(
+            ConstDefine.placeholderPic,
+            fit: fit,
+          ),
+          placeholder: Image.asset(
+            ConstDefine.placeholderPic,
+            fit: fit,
+          ),
+          imageUrl: url ?? '',
           fit: fit,
         ),
       ),

@@ -17,7 +17,7 @@ void main() {
   Store<AppState> store = Store<AppState>(
     mainReducer,
     initialState: AppState(
-      playInfoState: PlayInfoState(url: '', songName: '歌曲名称', songList: []),
+      playInfoState: PlayInfoState(url: '', songName: '', songList: []),
       playerState: PlayerState.audioPlayer(audioPlayer)
     ),
   );

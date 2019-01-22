@@ -88,7 +88,7 @@ class PlayBar extends StatelessWidget {
                         padding: EdgeInsets.only(left: 12, right: 4),
                         child: InkWell(
                           onTap: () {
-                            BottomSheetPlayList.show(context, []);
+                            BottomSheetPlayList.show(context);
                           },
                           child: Icon(
                             Icons.list,

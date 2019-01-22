@@ -54,6 +54,7 @@ class _SongDetailPage extends State<SongDetailPage> {
           } else {
             Map item = list[idx - 1];
             SongListItem songListItem = SongListItem(
+                list: list,
                 songName: item["name"],
                 id: item["id"],
                 singerName: item["ar"][0]["name"],
@@ -109,7 +110,7 @@ class BackgroundBlur extends StatelessWidget {
                 child: IgnorePointer(
                   ignoring: true,
                   child: BackdropFilter(
-                    filter: new ImageFilter.blur(sigmaX: 100, sigmaY: 100),
+                    filter: new ImageFilter.blur(sigmaX: 0, sigmaY: 0),
                     child: Container(
                       color: Colors.black.withOpacity(0.1),
                     ),
@@ -244,13 +245,14 @@ class _SongDescribe extends State<SongDescribe> {
 }
 
 class SongListItem extends StatefulWidget {
+  final List list;
   final String songName;
   final int id;
   final String singerName;
   final int index;
   final String coverPic;
   SongListItem(
-      {this.songName, this.id, this.singerName, this.index, this.coverPic});
+      {this.songName, this.id, this.singerName, this.index, this.coverPic, this.list});
 
   @override
   State<StatefulWidget> createState() => _SongListItem();
@@ -316,7 +318,9 @@ class _SongListItem extends State<SongListItem> {
             url: result['url'],
             songName: widget.songName,
             singer: widget.singerName,
-            coverPic: widget.coverPic),
+            coverPic: widget.coverPic,
+            songList: widget.list),
+            songId: id
       );
 
       store.dispatch(PlayerState(PlayActions.play));
