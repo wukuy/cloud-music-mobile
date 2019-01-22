@@ -63,7 +63,7 @@ class BottomSheetPlayList {
     );
   }
 
-  static _list(list) {
+  static _list(list) {a
     return ListView.builder(
       itemCount: list.length,
       itemBuilder: (BuildContext context, int idx) {
