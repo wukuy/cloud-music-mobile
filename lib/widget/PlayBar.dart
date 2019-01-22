@@ -6,6 +6,7 @@ import 'package:cloud_music_mobile/common/redux/PlayInfoState.dart';
 import 'package:cloud_music_mobile/page/common/PlayDetailPage.dart';
 import 'package:cloud_music_mobile/widget/Img.dart';
 import 'package:cloud_music_mobile/common/redux/PlayerState.dart';
+import 'package:cloud_music_mobile/widget/BottomSheetPlayList.dart';
 
 class PlayBar extends StatelessWidget {
   @override
@@ -86,7 +87,9 @@ class PlayBar extends StatelessWidget {
                       Container(
                         padding: EdgeInsets.only(left: 12, right: 4),
                         child: InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            BottomSheetPlayList.show(context, []);
+                          },
                           child: Icon(
                             Icons.list,
                             size: 32,
