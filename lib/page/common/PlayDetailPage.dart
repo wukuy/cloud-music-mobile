@@ -7,6 +7,7 @@ import 'package:cloud_music_mobile/common/redux/AppState.dart';
 import 'package:cloud_music_mobile/common/redux/PlayInfoState.dart';
 import 'package:cloud_music_mobile/common/redux/PlayerState.dart';
 import 'package:cloud_music_mobile/widget/Img.dart';
+import 'package:cloud_music_mobile/models/Song.dart';
 
 class PlayDetailPage extends StatelessWidget {
   @override
@@ -15,11 +16,12 @@ class PlayDetailPage extends StatelessWidget {
         builder: (BuildContext context, Store<AppState> store) {
       PlayInfoState playInfoState = store.state.playInfoState;
       PlayerState playerState = store.state.playerState;
+      Song info = playInfoState.getPlayInfo();
 
       return BackgroundBlur(Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
-          title: Text(playInfoState.songName),
+          title: Text(info.songName),
           backgroundColor: Colors.transparent,
           elevation: 0,
         ),
@@ -30,7 +32,7 @@ class PlayDetailPage extends StatelessWidget {
               height: 2,
             ),
             Expanded(
-              child: _content(playInfoState),
+              child: _content(info),
             ),
             _playCtrl(playerState, store)
           ],
@@ -39,7 +41,7 @@ class PlayDetailPage extends StatelessWidget {
     });
   }
 
-  _content(PlayInfoState playInfoState) {
+  _content(Song info) {
     return Stack(
       children: <Widget>[
         Positioned(
@@ -63,7 +65,7 @@ class PlayDetailPage extends StatelessWidget {
             width: 182,
             height: 182,
             child: ClipOval(
-              child: Img(playInfoState.coverPic),
+              child: Img(info.coverPic),
             ),
           ),
         ),
@@ -190,6 +192,7 @@ class BackgroundBlur extends StatelessWidget {
     return StoreBuilder<AppState>(
       builder: (BuildContext context, Store<AppState> store) {
         PlayInfoState playInfoState = store.state.playInfoState;
+        Song info = playInfoState.getPlayInfo();
 
         return Container(
           child: Stack(
@@ -198,7 +201,7 @@ class BackgroundBlur extends StatelessWidget {
                 child: ConstrainedBox(
                   constraints: new BoxConstraints.expand(),
                   child: Img(
-                    playInfoState.coverPic,
+                    info.coverPic,
                     fit: BoxFit.cover,
                   ),
                 ),

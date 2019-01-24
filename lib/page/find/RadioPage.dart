@@ -80,7 +80,7 @@ class _RadioPageState extends State with AutomaticKeepAliveClientMixin {
 class BoxContent extends StatelessWidget {
   final Function api;
   final String title;
-  List list = [];
+  final List list;
   BoxContent({this.api, this.title, this.list});
 
   @override
@@ -123,7 +123,7 @@ class BoxContent extends StatelessWidget {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) {
-                      return SongDetailPage(title: title, id: list[index].id);
+                      return SongDetailPage(title: title, songSheetId: list[index].id);
                     },
                   ),
                 );

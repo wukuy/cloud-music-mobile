@@ -8,8 +8,8 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:cloud_music_mobile/common/redux/AppState.dart';
 import 'package:cloud_music_mobile/common/redux/PlayInfoState.dart';
 import 'package:cloud_music_mobile/common/redux/PlayerState.dart';
-import 'package:cloud_music_mobile/widget/PlayBar.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:cloud_music_mobile/widget/PlayBar.dart';
 
 void main() {
   AudioPlayer audioPlayer = new AudioPlayer();
@@ -17,7 +17,7 @@ void main() {
   Store<AppState> store = Store<AppState>(
     mainReducer,
     initialState: AppState(
-      playInfoState: PlayInfoState(url: '', songName: '', songList: []),
+      playInfoState: PlayInfoState(null, []),
       playerState: PlayerState.audioPlayer(audioPlayer)
     ),
   );
@@ -26,7 +26,7 @@ void main() {
 }
 
 class CloudMusic extends StatelessWidget {
-  Store<AppState> store;
+  final Store<AppState> store;
 
   CloudMusic(this.store);
 

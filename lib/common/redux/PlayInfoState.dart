@@ -1,23 +1,21 @@
-class Song {
-  // 歌曲id
-  int songId;
-  // 歌手
-  int singer;
-  // 封面
-  int coverPic;
-  // 歌曲url
-  String url;
-  // 歌曲名称
-  String songName;
-
-  Song({this.singer, this.coverPic, this.url, this.songName});
-}
+import 'package:cloud_music_mobile/models/Song.dart';
 
 class PlayInfoState {
   int playSongId;
+  String url;
   List<Song> songList;
 
-  PlayInfoState(this.playSongId, this.songList);
+  PlayInfoState(this.playSongId, this.songList, {this.url});
+
+  getPlayInfo() {
+    Song song;
+    for(int idx = 0; idx < songList.length; idx++){
+      if(songList[idx].songId == playSongId) {
+        song = songList[idx];
+        return song;
+      }
+    }
+  }
 }
 
 playInfoReducer(state, action) {

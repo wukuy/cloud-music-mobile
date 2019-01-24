@@ -21,18 +21,11 @@ class Img extends StatelessWidget {
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.all(Radius.circular(radius)),
-        child: CachedNetworkImage(
+        child: FadeInImage.assetNetwork(
           width: width,
           height: height,
-          errorWidget: Image.asset(
-            ConstDefine.placeholderPic,
-            fit: fit,
-          ),
-          placeholder: Image.asset(
-            ConstDefine.placeholderPic,
-            fit: fit,
-          ),
-          imageUrl: url ?? '',
+          placeholder: ConstDefine.placeholderPic,
+          image: url ?? '',
           fit: fit,
         ),
       ),

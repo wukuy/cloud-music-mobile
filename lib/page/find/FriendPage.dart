@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:redux/redux.dart';
-import 'package:flutter_redux/flutter_redux.dart';
-import 'package:cloud_music_mobile/common/redux/AppState.dart';
-import 'package:cloud_music_mobile/common/redux/PlayInfoState.dart';
 
 class FriendPage extends StatefulWidget {
   @override

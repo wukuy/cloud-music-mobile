@@ -1,4 +1,10 @@
 void main() {
-  Map a = {"data": 2};
-  print(a["data1"]?.a ?? 12);
+  var list = [{"a": 1}, {"a":2}];
+  var cc = list.map((item) {
+    return {
+      "c": item["a"]
+    };
+  });
+
+  print(cc.toList());
 }

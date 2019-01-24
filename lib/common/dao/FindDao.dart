@@ -1,9 +1,11 @@
 import 'package:cloud_music_mobile/common/Http.dart';
 import 'package:cloud_music_mobile/models/FindBanner.dart';
 import 'package:cloud_music_mobile/models/Recommend.dart';
+import 'package:cloud_music_mobile/models/SongDetail.dart';
+import 'package:cloud_music_mobile/models/Song.dart';
 
 class FindDao {
-  // 获取发现页面所以接口数据获取
+  // 获取发现页面接口数据获取
   static getFindPageData() async {
     var result = await Http.all([
       /// 获取轮播图
@@ -33,8 +35,29 @@ class FindDao {
   /// 获取歌单详情
   static getSongDetail(data) async {
     var result = await Http().get('/playlist/detail', data: data);
-    if(result != null) {
-      return result.data;
+    if(result != null && result.data["code"] == 200) {
+      Map data = result.data["playlist"];
+      List<Song> playlist = data["tracks"].map<Song>((item) {
+          return Song(
+            songName: item["name"],
+            songId: item["id"],
+            singer: item["ar"][0]["name"],
+            coverPic: item["al"]["picUrl"],
+          );
+      }).toList();
+
+      var info = {
+        "title": data["name"],
+        "nickname": data["creator"]["nickname"],
+        "avatarUrl": data["creator"]["avatarUrl"],
+        "commentCount": data["commentCount"],
+        "shareCount": data["shareCount"]
+      };
+
+      return {
+        "info": SongDetail.fromJson(info),
+        "playlist": playlist,
+      };
     }
   }
 

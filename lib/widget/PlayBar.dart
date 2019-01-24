@@ -7,6 +7,7 @@ import 'package:cloud_music_mobile/page/common/PlayDetailPage.dart';
 import 'package:cloud_music_mobile/widget/Img.dart';
 import 'package:cloud_music_mobile/common/redux/PlayerState.dart';
 import 'package:cloud_music_mobile/widget/BottomSheetPlayList.dart';
+import 'package:cloud_music_mobile/models/Song.dart';
 
 class PlayBar extends StatelessWidget {
   @override
@@ -15,6 +16,7 @@ class PlayBar extends StatelessWidget {
       builder: (BuildContext context, Store<AppState> store) {
         PlayInfoState playInfoState = store.state.playInfoState;
         PlayerState playerState = store.state.playerState;
+        Song info = playInfoState.getPlayInfo();
 
         bool playState = (PlayActions.play.index == playerState.state ||
             PlayActions.resume.index == playerState.state);
@@ -38,7 +40,7 @@ class PlayBar extends StatelessWidget {
                     width: 36,
                     height: 36,
                     margin: EdgeInsets.only(right: 10),
-                    child: Img(playInfoState.coverPic),
+                    child: Img(info?.coverPic ?? ''),
                   ),
                   Expanded(
                     flex: 1,
@@ -49,7 +51,7 @@ class PlayBar extends StatelessWidget {
                         Container(
                           padding: EdgeInsets.only(bottom: 4),
                           child: Text(
-                            playInfoState.songName,
+                            info?.songName ?? '',
                             style: TextStyle(
                               fontSize: 12,
                               color: Colors.black87,
@@ -58,7 +60,7 @@ class PlayBar extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          playInfoState.singer ?? '',
+                          info?.singer ?? '',
                           style: TextStyle(
                               fontSize: 10,
                               color: Colors.black38,

@@ -3,7 +3,8 @@ import 'package:cloud_music_mobile/common/dao/FindDao.dart';
 import 'package:cloud_music_mobile/page/find/SongDetailPage.dart';
 import 'package:cloud_music_mobile/widget/Img.dart';
 import 'package:cloud_music_mobile/widget/SwiperAndMenu.dart';
-
+import 'package:cloud_music_mobile/models/Recommend.dart';
+import 'package:cloud_music_mobile/models/FindBanner.dart';
 
 class RecommendPage extends StatefulWidget {
   @override
@@ -11,10 +12,10 @@ class RecommendPage extends StatefulWidget {
 }
 
 class _RecommendPageState extends State with AutomaticKeepAliveClientMixin {
-  List _bannerData = [];
-  List _songSheet = [];
-  List _newsong = [];
-  List _djprogram = [];
+  List<Banners> _bannerData = [];
+  List<Result> _songSheet = [];
+  List<Result> _newsong = [];
+  List<Result> _djprogram = [];
   final List<MenuItem> _menus = [
     MenuItem(icon: Icons.radio, text: '私人FM'),
     MenuItem(icon: Icons.date_range, text: '内容推荐'),
@@ -58,7 +59,10 @@ class _RecommendPageState extends State with AutomaticKeepAliveClientMixin {
       child: CustomScrollView(
         cacheExtent: 2000,
         slivers: <Widget>[
-          SwiperAndMenu(bannerData: _bannerData, menus: _menus,),
+          SwiperAndMenu(
+            bannerData: _bannerData,
+            menus: _menus,
+          ),
           BoxTitle(title: '推荐歌单', onTap: () {}),
           BoxContent(list: _songSheet, title: '歌单'),
           BoxTitle(title: '最新音乐', onTap: () {}),
@@ -80,7 +84,7 @@ class _RecommendPageState extends State with AutomaticKeepAliveClientMixin {
 class BoxContent extends StatelessWidget {
   final Function api;
   final String title;
-  List list = [];
+  final List list;
   BoxContent({this.api, this.title, this.list});
 
   @override
@@ -97,6 +101,7 @@ class BoxContent extends StatelessWidget {
         ),
         delegate: SliverChildBuilderDelegate(
           (BuildContext context, int index) {
+
             return InkWell(
               child: Column(
                 children: <Widget>[
@@ -123,7 +128,11 @@ class BoxContent extends StatelessWidget {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) {
-                      return SongDetailPage(title: title, id: list[index].id);
+                      return SongDetailPage(
+                          title: title,
+                          songSheetId: list[index].id,
+                          authorName: list[index].name,
+                          coverPic: list[index].picUrl);
                     },
                   ),
                 );

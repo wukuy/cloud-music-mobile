@@ -3,9 +3,10 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:cloud_music_mobile/assets/ConstDefine.dart';
 import 'package:cloud_music_mobile/assets/style/ColorDefine.dart';
 import 'package:cloud_music_mobile/widget/Img.dart';
+import 'package:cloud_music_mobile/models/FindBanner.dart';
 
 class SwiperAndMenu extends StatelessWidget {
-  final List bannerData;
+  final List<Banners> bannerData;
   final List menus;
   SwiperAndMenu({this.bannerData, this.menus});
 
@@ -23,7 +24,7 @@ class SwiperAndMenu extends StatelessWidget {
 
 // 轮播图
 class Banner extends StatelessWidget {
-  List data = [];
+  final List<Banners> data;
   Banner(this.data);
 
   @override
