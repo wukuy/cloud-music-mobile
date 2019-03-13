@@ -210,9 +210,9 @@ class BackgroundBlur extends StatelessWidget {
                 child: IgnorePointer(
                   ignoring: true,
                   child: BackdropFilter(
-                    filter: new ImageFilter.blur(sigmaX: 60, sigmaY: 60),
+                    filter: new ImageFilter.blur(sigmaX: 40, sigmaY: 40),
                     child: Container(
-                      color: Colors.black.withOpacity(0.1),
+                      color: Colors.black.withOpacity(0.4),
                     ),
                   ),
                 ),

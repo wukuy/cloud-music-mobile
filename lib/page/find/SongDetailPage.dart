@@ -61,7 +61,7 @@ class _SongDetailPage extends State<SongDetailPage> {
                     coverPic: widget.coverPic,
                     name: widget.authorName,
                     data: info);
-              } else {
+              }else {
                 Song item = list[idx-1];
                 SongListItem songListItem = SongListItem(
                     list: list,
@@ -119,11 +119,11 @@ class BackgroundBlur extends StatelessWidget {
               ),
               Positioned(
                 child: IgnorePointer(
-                  ignoring: true,
+                  // ignoring: true,
                   child: BackdropFilter(
-                    filter: new ImageFilter.blur(sigmaX: 100, sigmaY: 100),
+                    filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
                     child: Container(
-                      color: Colors.black.withOpacity(0.1),
+                      color: Colors.black.withOpacity(0.2),
                     ),
                   ),
                 ),

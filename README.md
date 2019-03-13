@@ -1,16 +1,20 @@
 # cloud_music_mobile
+高仿网易云音乐
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.io/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.io/docs/cookbook)
-
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.io/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+### 进度
+页面|完成|
+---|:--:|
+闪屏|√|
+发现 - 推荐|√|
+发现 - 推荐 - 歌单|√|
+歌曲播放页面|√|
+发现 - 朋友|✘|
+发现 - 电台|✘|
+发现 - 推荐|✘|
+...|-|
+> 没时间写，哎。
+### 截图
+![](Screenshots/01.jpg)
+![](Screenshots/02.jpg)
+![](Screenshots/03.jpg)
+![](Screenshots/04.jpg)
