@@ -14,7 +14,7 @@
 ...|-|
 > 没时间写，哎。
 ### 截图
-![](Screenshots/01.jpg)
-![](Screenshots/02.jpg)
-![](Screenshots/03.jpg)
-![](Screenshots/04.jpg)
+<img src="Screenshots/01.jpg" width = "500" alt="图片名称"/>
+<img src="Screenshots/02.jpg" width = "500" alt="图片名称"/>
+<img src="Screenshots/03.jpg" width = "500" alt="图片名称"/>
+<img src="Screenshots/04.jpg" width = "500" alt="图片名称"/>

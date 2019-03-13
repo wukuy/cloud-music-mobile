@@ -6,61 +6,89 @@ import 'package:cloud_music_mobile/models/Song.dart';
 import 'package:cloud_music_mobile/common/dao/FindDao.dart';
 import 'package:cloud_music_mobile/common/redux/PlayInfoState.dart';
 import 'package:cloud_music_mobile/common/redux/PlayerState.dart';
+import 'package:cloud_music_mobile/assets/ConstDefine.dart';
 
 class BottomSheetPlayList {
   static show(context) {
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
-        return StoreBuilder<AppState>(builder: (BuildContext context, Store<AppState> store) {
-          return Container(
-            height: 395,
-            decoration: BoxDecoration(
-                //color: Colors.white,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(8), topRight: Radius.circular(8))),
-            child: Flex(
-              direction: Axis.vertical,
-              children: <Widget>[
-                _title(),
-                Divider(
-                  height: 1,
-                ),
-                Expanded(
-                  child: _list(store),
-                )
-              ],
-            ),
-          );
-        });
+        return StoreBuilder<AppState>(
+          builder: (BuildContext context, Store<AppState> store) {
+            List<Song> list = store.state.playInfoState.songList;
+
+            return Container(
+              height: 395,
+              decoration: BoxDecoration(
+                  //color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(8),
+                      topRight: Radius.circular(8))),
+              child: Flex(
+                direction: Axis.vertical,
+                children: <Widget>[
+                  _title(list),
+                  Divider(
+                    height: 1,
+                  ),
+                  Expanded(
+                    child: list.length > 0 ? _list(store) : _nodata(),
+                  )
+                ],
+              ),
+            );
+          },
+        );
       },
     );
   }
 
-  static _title() {
+  static _nodata() {
+    return Center(
+      child: Text(
+        '暂无歌曲',
+        style: TextStyle(color: Color(0xff666666)),
+      ),
+    );
+  }
+
+  static _title(List<Song> list) {
+
     return Container(
       height: 48,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Icon(Icons.live_help),
-              Text('列表循环45'),
-            ],
-          ),
-          Row(
-            children: <Widget>[
-              FlatButton(
-                onPressed: () {},
-                child: Row(
-                  children: <Widget>[Icon(Icons.live_help), Text('收藏全部')],
+      child: Container(
+        padding: EdgeInsets.only(left: 14, right: 14),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                Icon(Icons.loop),
+                Text(
+                  '列表循环(${list.length})',
+                  style: TextStyle(color: Color(0xff333333)),
                 ),
-              ),
-              Icon(Icons.delete)
-            ],
-          ),
-        ],
+              ],
+            ),
+            Row(
+              children: <Widget>[
+                FlatButton(
+                  onPressed: () {},
+                  child: Row(
+                    children: <Widget>[
+                      Icon(Icons.live_help),
+                      Text(
+                        '收藏全部',
+                        style: TextStyle(color: Color(0xff333333)),
+                      )
+                    ],
+                  ),
+                ),
+                Icon(Icons.delete)
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -78,31 +106,41 @@ class BottomSheetPlayList {
             });
           },
           child: Container(
-          padding: EdgeInsets.only(left: 6, right: 6),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Container(
-                height: 44,
-                child: Flex(
-                  direction: Axis.horizontal,
-                  children: <Widget>[
-                    Expanded(
-                      child: Text(list[idx].songName),
-                    ),
-                    Wrap(
-                      children: <Widget>[
-                        Icon(Icons.code),
-                        Icon(Icons.close),
-                      ],
-                    )
-                  ],
+            padding: EdgeInsets.only(left: 6, right: 6),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Container(
+                  height: 44,
+                  child: Flex(
+                    direction: Axis.horizontal,
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          padding: EdgeInsets.only(right: 10),
+                          child: Text(
+                            list[idx].songName,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              color: Color(0xff333333),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Wrap(
+                        children: <Widget>[
+                          Icon(Icons.code),
+                          Icon(Icons.close),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
-              ),
-              Divider(height: 1)
-            ],
+                Divider(height: 1)
+              ],
+            ),
           ),
-        ),
         );
       },
     );
@@ -113,8 +151,7 @@ class BottomSheetPlayList {
     if (result != null) {
       store.dispatch(PlayInfoState(id, list, url: result["url"]));
       store.dispatch(PlayerState(PlayActions.play));
-      if(cb != null) cb();
+      if (cb != null) cb();
     }
   }
-
 }
