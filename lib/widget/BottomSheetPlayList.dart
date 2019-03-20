@@ -6,7 +6,6 @@ import 'package:cloud_music_mobile/models/Song.dart';
 import 'package:cloud_music_mobile/common/dao/FindDao.dart';
 import 'package:cloud_music_mobile/common/redux/PlayInfoState.dart';
 import 'package:cloud_music_mobile/common/redux/PlayerState.dart';
-import 'package:cloud_music_mobile/assets/ConstDefine.dart';
 
 class BottomSheetPlayList {
   static show(context) {
@@ -19,11 +18,6 @@ class BottomSheetPlayList {
 
             return Container(
               height: 395,
-              decoration: BoxDecoration(
-                  //color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(8),
-                      topRight: Radius.circular(8))),
               child: Flex(
                 direction: Axis.vertical,
                 children: <Widget>[
@@ -53,30 +47,40 @@ class BottomSheetPlayList {
   }
 
   static _title(List<Song> list) {
-
     return Container(
       height: 48,
       child: Container(
-        padding: EdgeInsets.only(left: 14, right: 14),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        padding: EdgeInsets.only(left: 8),
+        child: Flex(
+          direction: Axis.horizontal,
           children: <Widget>[
-            Row(
-              children: <Widget>[
-                Icon(Icons.loop),
-                Text(
-                  '列表循环(${list.length})',
-                  style: TextStyle(color: Color(0xff333333)),
-                ),
-              ],
+            Expanded(
+              child: Row(
+                children: <Widget>[
+                  Icon(
+                    Icons.loop,
+                    size: 18,
+                    color: Colors.black54,
+                  ),
+                  Text(
+                    '列表循环(${list.length})',
+                    style: TextStyle(color: Color(0xff333333)),
+                  ),
+                ],
+              ),
             ),
             Row(
               children: <Widget>[
                 FlatButton(
+                  padding: EdgeInsets.all(0),
                   onPressed: () {},
                   child: Row(
                     children: <Widget>[
-                      Icon(Icons.live_help),
+                      Icon(
+                        Icons.folder_open,
+                        color: Colors.black54,
+                        size: 18,
+                      ),
                       Text(
                         '收藏全部',
                         style: TextStyle(color: Color(0xff333333)),
@@ -84,7 +88,22 @@ class BottomSheetPlayList {
                     ],
                   ),
                 ),
-                Icon(Icons.delete)
+                Container(
+                  height: 20,
+                  margin: EdgeInsets.only(left: 8),
+                  decoration: BoxDecoration(
+                    border: Border(left: BorderSide(color: Color(0xffe7e7e7)))
+                  ),
+                  child: IconButton(
+                    padding: EdgeInsets.all(0),
+                    icon: Icon(
+                      Icons.delete_outline,
+                      color: Colors.black54,
+                      size: 20,
+                    ),
+                    onPressed: () {},
+                  ),
+                )
               ],
             ),
           ],
@@ -130,8 +149,7 @@ class BottomSheetPlayList {
                       ),
                       Wrap(
                         children: <Widget>[
-                          Icon(Icons.code),
-                          Icon(Icons.close),
+                          Icon(Icons.close, color: Color(0xffa7a7a7)),
                         ],
                       )
                     ],

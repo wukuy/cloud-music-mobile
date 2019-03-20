@@ -4,10 +4,10 @@ enum PlayActions { resume, play, pause }
 
 class PlayerState{
   AudioPlayer audioPlayer;
-  int state;
+  PlayActions state;
 
   PlayerState(PlayActions playActions) {
-    state = playActions.index;
+    state = playActions;
   }
 
   play(url) async {
@@ -38,7 +38,7 @@ class PlayerState{
 
 playerReducer(state, action) {
   if(action.runtimeType == PlayerState) {
-    PlayActions playActions = PlayActions.values[action.state];
+    PlayActions playActions = action.state;
     String url = state.playInfoState.url;
     PlayerState playerState = state.playerState;
     playerState.state = action.state;

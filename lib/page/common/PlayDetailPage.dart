@@ -8,6 +8,8 @@ import 'package:cloud_music_mobile/common/redux/PlayInfoState.dart';
 import 'package:cloud_music_mobile/common/redux/PlayerState.dart';
 import 'package:cloud_music_mobile/widget/Img.dart';
 import 'package:cloud_music_mobile/models/Song.dart';
+import 'dart:math';
+import 'package:cloud_music_mobile/widget/BottomSheetPlayList.dart';
 
 class PlayDetailPage extends StatelessWidget {
   @override
@@ -32,51 +34,19 @@ class PlayDetailPage extends StatelessWidget {
               height: 2,
             ),
             Expanded(
-              child: _content(info),
+              child: _content(),
             ),
-            _playCtrl(playerState, store)
+            _playCtrl(playerState, store, context)
           ],
         ),
       ));
     });
   }
 
-  _content(Song info) {
+  _content() {
     return Stack(
       children: <Widget>[
-        Positioned(
-          child: Container(
-            margin: EdgeInsets.only(top: 58),
-            height: 283,
-            width: 283,
-            child: Image.asset(ConstDefine.cdDecorate1),
-          ),
-        ),
-        Positioned(
-            child: Container(
-          margin: EdgeInsets.only(top: 62, left: 3),
-          height: 275,
-          width: 275,
-          child: Image.asset(ConstDefine.cdDecorate),
-        )),
-        Positioned(
-          child: Container(
-            margin: EdgeInsets.only(left: 50, top: 109),
-            width: 182,
-            height: 182,
-            child: ClipOval(
-              child: Img(info.coverPic),
-            ),
-          ),
-        ),
-        Positioned(
-          child: Container(
-            margin: EdgeInsets.only(left: 140),
-            height: 124,
-            width: 90,
-            child: Image.asset(ConstDefine.cdPlayCtrl),
-          ),
-        ),
+        Cd(),
         Positioned(
             height: 45,
             bottom: 0,
@@ -107,9 +77,9 @@ class PlayDetailPage extends StatelessWidget {
     );
   }
 
-  _playCtrl(playerState, Store<AppState> store) {
-    bool playState = (PlayActions.play.index == playerState.state ||
-        PlayActions.resume.index == playerState.state);
+  _playCtrl(playerState, Store<AppState> store, context) {
+    bool playState = (PlayActions.play == playerState.state ||
+        PlayActions.resume == playerState.state);
 
     return Container(
       height: 107,
@@ -158,7 +128,9 @@ class PlayDetailPage extends StatelessWidget {
                 },
               ),
               _ctrlItem(ConstDefine.playNext),
-              _ctrlItem(ConstDefine.playList),
+              _ctrlItem(ConstDefine.playList, onPressed: () {
+                BottomSheetPlayList.show(context);
+              }),
             ],
           ),
         ],
@@ -183,6 +155,7 @@ class PlayDetailPage extends StatelessWidget {
   }
 }
 
+// 背景模糊
 class BackgroundBlur extends StatelessWidget {
   final Widget child;
   BackgroundBlur(this.child);
@@ -226,12 +199,101 @@ class BackgroundBlur extends StatelessWidget {
   }
 }
 
-/* 
-ConstrainedBox(
-                      child: Image.asset(
-                        'lib/assets/image/head_pic.jpeg',
-                        fit: BoxFit.cover,
-                      ),
-                      constraints: new BoxConstraints.expand())
+// 歌带旋转
+class Cd extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _Cd();
+}
 
- */
+class _Cd extends State<Cd> with SingleTickerProviderStateMixin {
+  AnimationController animationController;
+  Animation animation;
+
+  @override
+  void initState() {
+    super.initState();
+
+    animationController = AnimationController(
+        duration: Duration(milliseconds: 20000), vsync: this);
+    animation = Tween(begin: 0.0, end: 360.0).animate(animationController);
+    animationController.addListener(() {
+      setState(() {});
+    });
+    animationController.addStatusListener((AnimationStatus state) {
+      if (AnimationStatus.completed == state) {
+        animationController.repeat();
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return StoreBuilder<AppState>(
+        builder: (BuildContext context, Store<AppState> store) {
+      PlayInfoState playInfoState = store.state.playInfoState;
+      Song info = playInfoState.getPlayInfo();
+
+      if (store.state.playerState.state == PlayActions.play || store.state.playerState.state == PlayActions.resume) {
+        animationController.forward();
+      } else {
+        animationController.stop();
+      }
+
+      return Container(
+        child: Stack(
+          children: <Widget>[
+            Positioned(
+              top: 58,
+              left: 60,
+              child: Transform.rotate(
+                angle: animation.value * pi / 180.0,
+                child: Stack(
+                  children: <Widget>[
+                    Container(
+                      height: 283,
+                      width: 283,
+                      child: Image.asset(ConstDefine.cdDecorate1),
+                    ),
+                    Positioned(
+                      child: Container(
+                        margin: EdgeInsets.only(top: 4, left: 4),
+                        height: 275,
+                        width: 275,
+                        child: Image.asset(ConstDefine.cdDecorate),
+                      ),
+                    ),
+                    Positioned(
+                      child: Container(
+                        margin: EdgeInsets.only(left: 50, top: 50),
+                        width: 182,
+                        height: 182,
+                        child: ClipOval(
+                          child: Img(info.coverPic),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Positioned(
+              left: 60,
+              child: Container(
+                margin: EdgeInsets.only(left: 140),
+                height: 124,
+                width: 90,
+                child: Image.asset(ConstDefine.cdPlayCtrl),
+              ),
+            ),
+          ],
+        ),
+      );
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    animationController.dispose();
+  }
+}

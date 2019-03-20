@@ -37,10 +37,9 @@ class CloudMusic extends StatelessWidget {
       child: MaterialApp(
           title: '云音乐',
           theme: ThemeData(
-            // primarySwatch: Colors.blue,
             primaryColor: Color(0xffdd4137),
-            // highlightColor: Colors.white70,
             splashColor: Color(0x22000000),
+            
           ),
           home: BusEventProvider(
               child: Flex(

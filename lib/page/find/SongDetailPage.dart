@@ -308,7 +308,7 @@ class _SongListItem extends State<SongListItem> {
                         widget.singer,
                         style: TextStyle(fontSize: 12, color: Colors.grey),
                       ),
-                      Divider()
+                      // Divider(height: 0,)
                     ],
                   ),
                 ),

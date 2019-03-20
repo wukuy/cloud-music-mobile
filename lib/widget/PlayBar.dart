@@ -18,8 +18,8 @@ class PlayBar extends StatelessWidget {
         PlayerState playerState = store.state.playerState;
         Song info = playInfoState.getPlayInfo();
 
-        bool playState = (PlayActions.play.index == playerState.state ||
-            PlayActions.resume.index == playerState.state);
+        bool playState = (PlayActions.play == playerState.state ||
+            PlayActions.resume == playerState.state);
 
         return Container(
           height: 46,
@@ -72,33 +72,32 @@ class PlayBar extends StatelessWidget {
                   ),
                   Wrap(
                     children: <Widget>[
-                      InkWell(
-                        onTap: () {
-                          store.dispatch(PlayerState(playState
-                              ? PlayActions.pause
-                              : PlayActions.resume));
-                        },
-                        child: Icon(
+                      IconButton(
+                        icon: Icon(
                           playState
                               ? Icons.pause_circle_outline
                               : Icons.play_circle_outline,
                           size: 32,
                           color: Colors.black54,
                         ),
+                        onPressed: () {
+                          store.dispatch(PlayerState(playState
+                              ? PlayActions.pause
+                              : PlayActions.resume));
+                        },
                       ),
                       Container(
-                        padding: EdgeInsets.only(left: 12, right: 4),
-                        child: InkWell(
-                          onTap: () {
-                            BottomSheetPlayList.show(context);
-                          },
-                          child: Icon(
-                            Icons.list,
-                            size: 32,
-                            color: Colors.black54,
-                          ),
-                        ),
-                      ),
+                          padding: EdgeInsets.only(left: 12, right: 4),
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.list,
+                              size: 32,
+                              color: Colors.black54,
+                            ),
+                            onPressed: () {
+                              BottomSheetPlayList.show(context);
+                            },
+                          )),
                     ],
                   ),
                 ],

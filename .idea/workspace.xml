@@ -7,24 +7,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6e3c652b-6bee-4b2d-a09d-e1c20f4268a3" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.metadata" beforeDir="false" afterPath="$PROJECT_DIR$/.metadata" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.packages" beforeDir="false" afterPath="$PROJECT_DIR$/.packages" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gradle/4.10.2/fileChanges/last-build.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/4.10.2/fileChanges/last-build.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gradle/4.10.2/fileContent/fileContent.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/4.10.2/fileContent/fileContent.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/.gradle/4.10.2/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/4.10.2/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/.gradle/4.10.2/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/4.10.2/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/.gradle/4.10.2/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/4.10.2/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gradle/4.10.2/gc.properties" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/4.10.2/gc.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/.gradle/4.10.2/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/4.10.2/javaCompile/classAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/.gradle/4.10.2/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/4.10.2/javaCompile/jarAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/.gradle/4.10.2/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/4.10.2/javaCompile/javaCompile.lock" afterDir="false" />
@@ -32,139 +19,11 @@
       <change beforePath="$PROJECT_DIR$/android/.gradle/4.10.2/taskHistory/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/4.10.2/taskHistory/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/.gradle/4.10.2/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/4.10.2/taskHistory/taskHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gradle/vcs-1/gc.properties" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/vcs-1/gc.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/java/com/example/cloudmusicmobile/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/java/com/example/cloudmusicmobile/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/drawable/launch_background.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/drawable/launch_background.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/mipmap-hdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/mipmap-mdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxhdpi/welcome.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxhdpi/welcome.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/values/styles.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/cloud_music_mobile_android.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/cloud_music_mobile_android.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/android/gradle.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" afterPath="$PROJECT_DIR$/android/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/android/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/android/gradlew.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/android/local.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/settings.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cloud_music_mobile.iml" beforeDir="false" afterPath="$PROJECT_DIR$/cloud_music_mobile.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Flutter/AppFrameworkInfo.plist" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Flutter/AppFrameworkInfo.plist" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Flutter/Debug.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Flutter/Debug.xcconfig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ios/Flutter/Generated.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Flutter/Generated.xcconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Flutter/Release.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Flutter/Release.xcconfig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.xcworkspace/contents.xcworkspacedata" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.xcworkspace/contents.xcworkspacedata" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner.xcworkspace/contents.xcworkspacedata" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner.xcworkspace/contents.xcworkspacedata" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/AppDelegate.h" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/AppDelegate.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/AppDelegate.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/AppDelegate.m" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Contents.json" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Contents.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-1024x1024@1x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-1024x1024@1x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@1x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@1x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@2x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@2x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@3x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@3x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@1x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@1x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@2x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@2x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@3x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@3x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@1x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@1x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@2x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@2x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@3x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@3x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@2x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@2x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@3x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@3x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@1x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@1x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@2x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@2x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-83.5x83.5@2x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-83.5x83.5@2x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/LaunchImage.imageset/Contents.json" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/LaunchImage.imageset/Contents.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage@2x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage@2x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage@3x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage@3x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/LaunchImage.imageset/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/LaunchImage.imageset/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Base.lproj/LaunchScreen.storyboard" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Base.lproj/LaunchScreen.storyboard" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Base.lproj/Main.storyboard" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Base.lproj/Main.storyboard" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/GeneratedPluginRegistrant.h" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/GeneratedPluginRegistrant.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/GeneratedPluginRegistrant.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/GeneratedPluginRegistrant.m" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Info.plist" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/main.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/main.m" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/assets/ConstDefine.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/assets/ConstDefine.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/assets/image/at2.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/assets/image/at2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/assets/image/at4.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/assets/image/at4.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/assets/image/at6.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/assets/image/at6.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/assets/image/at8.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/assets/image/at8.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/assets/image/bg.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/lib/assets/image/bg.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/assets/image/cd_decorate.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/assets/image/cd_decorate.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/assets/image/cd_decorate_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/assets/image/cd_decorate_1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/assets/image/cd_play_ctrl.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/assets/image/cd_play_ctrl.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/assets/image/download.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/assets/image/download.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/assets/image/download_selected.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/assets/image/download_selected.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/assets/image/head_pic.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/lib/assets/image/head_pic.jpeg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/assets/image/love.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/assets/image/love.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/assets/image/love_selected.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/assets/image/love_selected.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/assets/image/more.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/assets/image/more.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/assets/image/more_selected.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/assets/image/more_selected.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/assets/image/placeholder_pic.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/assets/image/placeholder_pic.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/assets/image/play.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/assets/image/play.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/assets/image/play_list.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/assets/image/play_list.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/assets/image/play_mode_loop.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/assets/image/play_mode_loop.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/assets/image/play_next.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/assets/image/play_next.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/assets/image/play_pause.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/assets/image/play_pause.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/assets/image/play_up.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/assets/image/play_up.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/assets/image/soun_ effects_selected.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/assets/image/soun_ effects_selected.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/assets/image/sound_effects.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/assets/image/sound_effects.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/assets/image/t_actionbar_discover_normal.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/assets/image/t_actionbar_discover_normal.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/assets/image/t_actionbar_discover_selected.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/assets/image/t_actionbar_discover_selected.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/assets/image/t_actionbar_music_normal.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/assets/image/t_actionbar_music_normal.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/assets/image/t_actionbar_music_selected.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/assets/image/t_actionbar_music_selected.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/assets/image/t_actionbar_video_normal.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/assets/image/t_actionbar_video_normal.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/assets/image/t_actionbar_video_selected.png" beforeDir="false" afterPath="$PROJECT_DIR$/lib/assets/image/t_actionbar_video_selected.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/assets/style/ColorDefine.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/assets/style/ColorDefine.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/common/Http.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/common/Http.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/common/dao/EventDao.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/common/dao/EventDao.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/common/dao/FindDao.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/common/dao/FindDao.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/common/event/LoadingEvent.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/common/event/LoadingEvent.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/common/redux/AppState.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/common/redux/AppState.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/common/redux/PlayInfoState.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/common/redux/PlayInfoState.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/common/redux/PlayerState.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/common/redux/PlayerState.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/FindBanner.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/FindBanner.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/FindBanner.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/FindBanner.g.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/Recommend.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/Recommend.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/Recommend.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/Recommend.g.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/Song.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/Song.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/SongDetail.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/SongDetail.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/SongDetail.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/SongDetail.g.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/models.js" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/models.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/page/HomePage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/page/HomePage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/page/common/PlayDetailPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/page/common/PlayDetailPage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/page/find/FindMusicPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/page/find/FindMusicPage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/page/find/FriendPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/page/find/FriendPage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/page/find/RadioPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/page/find/RadioPage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/page/find/RecommendPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/page/find/RecommendPage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/page/find/SongDetailPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/page/find/SongDetailPage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/page/mv/Mvpage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/page/mv/Mvpage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/page/my/MyMusicPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/page/my/MyMusicPage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/page/my/local_music/LocalMusicPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/page/my/local_music/LocalMusicPage.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/widget/BottomSheetPlayList.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widget/BottomSheetPlayList.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widget/HomeDrawer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widget/HomeDrawer.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widget/Img.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widget/Img.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widget/LoadingDialog.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widget/LoadingDialog.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widget/MyMusicListItem.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widget/MyMusicListItem.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widget/PlayBar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widget/PlayBar.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widget/SwiperAndMenu.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widget/SwiperAndMenu.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/test.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/test1.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/test1.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/testa.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/testa.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/user.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/user.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/user.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/user.g.dart" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
@@ -180,25 +39,25 @@
     <session id="-1906076620">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="5" />
+          <entry key="project.closed" value="6" />
           <entry key="project.open.time.11" value="1" />
           <entry key="project.open.time.210" value="1" />
           <entry key="project.open.time.3" value="1" />
           <entry key="project.open.time.6" value="1" />
           <entry key="project.open.time.67" value="1" />
           <entry key="project.open.time.68" value="1" />
-          <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="7" />
+          <entry key="project.open.time.9" value="2" />
+          <entry key="project.opened" value="8" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="dart" value="1" />
+          <entry key="dart" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Dart" value="1" />
+          <entry key="Dart" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
@@ -216,88 +75,22 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/main.dart">
+        <entry file="file://$PROJECT_DIR$/lib/widget/BottomSheetPlayList.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1311">
-              <caret line="80" column="3" selection-start-line="80" selection-start-column="3" selection-end-line="80" selection-end-column="3" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/widget/HomeDrawer.dart">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2033">
-              <caret line="108" column="16" selection-start-line="108" selection-start-column="16" selection-end-line="108" selection-end-column="16" />
+            <state relative-caret-position="227">
+              <caret line="18" column="29" lean-forward="true" selection-start-line="18" selection-start-column="29" selection-end-line="18" selection-end-column="29" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/lib/page/common/PlayDetailPage.dart">
+        <entry file="file://$PROJECT_DIR$/lib/page/find/FindMusicPage.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="445">
-              <caret line="218" column="16" selection-start-line="218" selection-start-column="16" selection-end-line="218" selection-end-column="16" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pubspec.yaml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="988">
-              <caret line="52" column="29" selection-start-line="52" selection-start-column="6" selection-end-line="52" selection-end-column="29" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/page/HomePage.dart">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1330">
-              <caret line="74" column="21" selection-start-line="74" selection-start-column="21" selection-end-line="74" selection-end-column="21" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/page/find/RecommendPage.dart">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3325">
-              <caret line="181" selection-start-line="181" selection-end-line="181" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/widget/PlayBar.dart">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="318">
-              <caret line="39" column="30" selection-start-line="39" selection-start-column="30" selection-end-line="39" selection-end-column="30" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/page/find/SongDetailPage.dart">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="313">
-              <caret line="75" column="31" selection-start-line="75" selection-start-column="31" selection-end-line="75" selection-end-column="31" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/android/app/src/main/java/com/example/cloudmusicmobile/MainActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="38">
-              <caret line="2" column="24" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="24" />
+            <state relative-caret-position="304">
+              <caret line="19" column="22" lean-forward="true" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -329,9 +122,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="473" />
-    <option name="y" value="25" />
-    <option name="width" value="1446" />
+    <option name="x" value="18" />
+    <option name="y" value="23" />
+    <option name="width" value="1901" />
     <option name="height" value="977" />
   </component>
   <component name="ProjectView">
@@ -339,8 +132,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
@@ -367,11 +158,19 @@
               <item name="page" type="462c0819:PsiDirectoryNode" />
               <item name="common" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="cloud-music-mobile" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cloud-music-mobile" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="widget" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
         <option name="show-excluded-files" value="false" />
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -431,10 +230,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="473" y="25" width="1446" height="977" extended-state="0" />
+    <frame x="18" y="23" width="1901" height="977" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20868947" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15761162" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Build Variants" order="3" side_tool="true" />
@@ -444,7 +243,7 @@
       <window_info id="Capture Tool" order="7" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.53846157" weight="0.25310734" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.53792363" weight="0.25310734" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -453,21 +252,21 @@
       <window_info anchor="bottom" id="Android Profiler" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Logcat" order="10" />
-      <window_info anchor="bottom" id="Flutter Performance" order="11" sideWeight="0.46153846" side_tool="true" visible="true" weight="0.25310734" />
+      <window_info anchor="bottom" id="Flutter Performance" order="11" sideWeight="0.4620764" side_tool="true" visible="true" weight="0.25310734" />
       <window_info anchor="bottom" id="Version Control" order="12" />
-      <window_info anchor="bottom" id="Terminal" order="13" />
+      <window_info anchor="bottom" id="Terminal" order="13" sideWeight="0.49973103" weight="0.3299435" />
       <window_info anchor="bottom" id="Messages" order="14" sideWeight="0.49821302" visible="true" weight="0.3295964" />
-      <window_info anchor="right" x="0" y="0" width="311" height="777" id="Documentation" sideWeight="0.50075644" side_tool="true" visible="true" weight="0.1488604" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Flutter Inspector" order="3" sideWeight="0.49924356" visible="true" weight="0.1488604" />
+      <window_info active="true" anchor="right" id="Flutter Inspector" order="3" sideWeight="0.49924356" visible="true" weight="0.28671327" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
       <window_info anchor="right" id="Device File Explorer" order="5" side_tool="true" />
       <window_info anchor="right" id="Flutter Outline" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info anchor="right" id="Theme Preview" order="8" />
       <window_info anchor="right" id="Assistant" order="9" />
+      <window_info anchor="right" x="0" y="0" width="311" height="777" id="Documentation" order="10" sideWeight="0.50075644" side_tool="true" visible="true" weight="0.1488604" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -528,16 +327,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/android/app/src/main/java/com/example/cloudmusicmobile/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="24" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/widget/PlayBar.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
+        <state relative-caret-position="570">
           <caret line="39" column="30" selection-start-line="39" selection-start-column="30" selection-end-line="39" selection-end-column="30" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
@@ -547,15 +339,39 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/page/find/SongDetailPage.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="313">
+        <state relative-caret-position="1235">
           <caret line="75" column="31" selection-start-line="75" selection-start-column="31" selection-end-line="75" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/android/app/src/main/java/com/example/cloudmusicmobile/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="2" column="24" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="24" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/page/common/PlayDetailPage.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="445">
-          <caret line="218" column="16" selection-start-line="218" selection-start-column="16" selection-end-line="218" selection-end-column="16" />
+        <state relative-caret-position="-174">
+          <caret line="189" column="11" lean-forward="true" selection-start-line="189" selection-start-column="11" selection-end-line="189" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/widget/BottomSheetPlayList.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="227">
+          <caret line="18" column="29" lean-forward="true" selection-start-line="18" selection-start-column="29" selection-end-line="18" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/page/find/FindMusicPage.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="19" column="22" lean-forward="true" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="22" />
         </state>
       </provider>
     </entry>

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_music_mobile/widget/MyMusicListItem.dart';
+import 'package:cloud_music_mobile/widget/ListItemCustom.dart';
 
 class MyMusicPage extends StatefulWidget {
   @override
@@ -11,13 +11,37 @@ class _MyMusicState extends State with AutomaticKeepAliveClientMixin {
   Widget build(BuildContext context) {
     return ListView(
       children: <Widget>[
-        InfoCard(),
-        MyMusicListItem(title: '本地音乐', icon: Icons.music_note, onTap: () {}),
-        MyMusicListItem(title: '最近播放', icon: Icons.music_note, onTap: () {}),
-        MyMusicListItem(title: '下载管理', icon: Icons.music_note, onTap: () {}),
-        MyMusicListItem(title: '我的电台', icon: Icons.music_note, onTap: () {}),
-        MyMusicListItem(title: '我的收藏', icon: Icons.music_note, onTap: () {}),
-        MyMusicListItem(title: 'Sati空间', icon: Icons.music_note, onTap: () {}),
+        // InfoCard(),
+        MyMusicListItem(
+            title: '本地音乐',
+            subTitle: ' (50)',
+            icon: Icons.music_note,
+            onTap: () {}),
+        MyMusicListItem(
+            title: '最近播放',
+            subTitle: ' (60)',
+            icon: Icons.play_arrow,
+            onTap: () {}),
+        MyMusicListItem(
+            title: '下载管理',
+            subTitle: ' (10)',
+            icon: Icons.file_download,
+            onTap: () {}),
+        MyMusicListItem(
+            title: '我的电台',
+            subTitle: ' (30)',
+            icon: Icons.movie_creation,
+            onTap: () {}),
+        MyMusicListItem(
+            title: '我的收藏',
+            subTitle: ' (18)',
+            icon: Icons.collections_bookmark,
+            onTap: () {}),
+        MyMusicListItem(
+            title: 'Sati空间',
+            subTitle: ' (5)',
+            icon: Icons.my_location,
+            onTap: () {}),
       ],
     );
   }
@@ -66,5 +90,35 @@ class _InfoCard extends State {
         ],
       ),
     );
+  }
+}
+
+class MyMusicListItem extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  final String subTitle;
+  final Function onTap;
+  MyMusicListItem({this.subTitle, this.icon, this.title, this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListItemCustom(children: <Widget>[
+      Icon(
+        icon,
+        color: Theme.of(context).primaryColor,
+        size: 24,
+      ),
+      Container(
+        margin: EdgeInsets.only(left: 10),
+        child: Text(
+          title,
+          style: TextStyle(color: Colors.black87, fontSize: 14),
+        ),
+      ),
+      Text(
+        subTitle,
+        style: TextStyle(color: Colors.black38, fontSize: 14),
+      ),
+    ], onTap: onTap);
   }
 }
