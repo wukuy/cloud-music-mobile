@@ -69,6 +69,7 @@ flutter:
     - lib/assets/image/more.png
     - lib/assets/image/download.png
     - lib/assets/image/sound_effects.png
+    - lib/assets/image/logo.png
 
     
 

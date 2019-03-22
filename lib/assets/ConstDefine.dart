@@ -15,5 +15,7 @@ class ConstDefine{
   static String more = 'lib/assets/image/more.png';
   static String download = 'lib/assets/image/download.png';
   static String soundEffects = 'lib/assets/image/sound_effects.png';
+
+  static String logo = 'lib/assets/image/logo.png';
   
 }

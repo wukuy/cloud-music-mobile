@@ -3,7 +3,8 @@ import 'package:cloud_music_mobile/common/dao/FindDao.dart';
 import 'package:cloud_music_mobile/page/find/SongDetailPage.dart';
 import 'package:cloud_music_mobile/widget/Img.dart';
 import 'package:cloud_music_mobile/widget/SwiperAndMenu.dart';
-
+import 'package:cloud_music_mobile/models/Recommend.dart';
+import 'package:cloud_music_mobile/models/FindBanner.dart';
 
 class RadioPage extends StatefulWidget {
   @override
@@ -11,15 +12,15 @@ class RadioPage extends StatefulWidget {
 }
 
 class _RadioPageState extends State with AutomaticKeepAliveClientMixin {
-  List _bannerData = [];
-  List _songSheet = [];
-  List _newsong = [];
-  List _djprogram = [];
+  List<Banners> _bannerData = [];
+  List<Result> _songSheet = [];
+  List<Result> _newsong = [];
+  List<Result> _djprogram = [];
   final List<MenuItem> _menus = [
-    MenuItem(icon: Icons.radio, text: '电台分类'),
-    MenuItem(icon: Icons.date_range, text: '电台排行'),
-    MenuItem(icon: Icons.queue_music, text: 'DJ电台'),
-    MenuItem(icon: Icons.donut_large, text: '小冰电台'),
+    MenuItem(icon: Icons.radio, text: '私人FM'),
+    MenuItem(icon: Icons.date_range, text: '内容推荐'),
+    MenuItem(icon: Icons.queue_music, text: '歌单'),
+    MenuItem(icon: Icons.donut_large, text: '排行榜'),
   ];
 
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
@@ -58,7 +59,10 @@ class _RadioPageState extends State with AutomaticKeepAliveClientMixin {
       child: CustomScrollView(
         cacheExtent: 2000,
         slivers: <Widget>[
-          SwiperAndMenu(bannerData: _bannerData, menus: _menus,),
+          SwiperAndMenu(
+            bannerData: _bannerData,
+            menus: _menus,
+          ),
           BoxTitle(title: '推荐歌单', onTap: () {}),
           BoxContent(list: _songSheet, title: '歌单'),
           BoxTitle(title: '最新音乐', onTap: () {}),
@@ -97,6 +101,7 @@ class BoxContent extends StatelessWidget {
         ),
         delegate: SliverChildBuilderDelegate(
           (BuildContext context, int index) {
+
             return InkWell(
               child: Column(
                 children: <Widget>[
@@ -123,7 +128,11 @@ class BoxContent extends StatelessWidget {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) {
-                      return SongDetailPage(title: title, songSheetId: list[index].id);
+                      return SongDetailPage(
+                          title: title,
+                          songSheetId: list[index].id,
+                          authorName: list[index].name,
+                          coverPic: list[index].picUrl);
                     },
                   ),
                 );

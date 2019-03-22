@@ -50,29 +50,27 @@ class HotSearch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left: 10, right: 10, bottom: 20, top: 20),
+      padding: EdgeInsets.only(left: 10, right: 10),
       child: Wrap(
         spacing: 8.0,
         children: <Widget>[
           Row(children: <Widget>[
-            Text('热门搜索',
-                style: TextStyle(
-                    fontWeight: FontWeight.w600, color: Colors.black87))
+            Container(
+              margin: EdgeInsets.only(top: 20, bottom: 6),
+              child: Text(
+              '热门搜索',
+              style:
+                  TextStyle(fontWeight: FontWeight.w600, color: Colors.black87),
+            ),)
           ]),
-          Chip(
-            label: Text('张艺兴远东韵律'),
-          ),
-          Chip(
-            label: Text('有一种悲伤'),
-          ),
-          Chip(
-            label: Text('起风了'),
-          ),
-          Chip(
-            label: Text('绿色'),
-          ),
-          Chip(
-            label: Text('只是太爱你'),
+          SongChip(text: '都是月亮惹的祸抖音', onPressed: () {}),
+          SongChip(text: '都是月亮惹的祸', onPressed: () {}),
+          SongChip(text: '求求你给我个机会', onPressed: () {}),
+          SongChip(text: '魔鬼中的天使', onPressed: () {}),
+          SongChip(text: '小新星', onPressed: () {}),
+          SongChip(
+            text: '因为傻逼',
+            onPressed: () {},
           )
         ],
       ),
@@ -85,36 +83,49 @@ class History extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left: 10, right: 10, bottom: 20, top: 20),
+      padding: EdgeInsets.only(left: 10, right: 10),
       child: Wrap(
         spacing: 8.0,
         children: <Widget>[
           Row(children: <Widget>[
-            Text('历史记录',
-                style: TextStyle(
-                    fontWeight: FontWeight.w600, color: Colors.black87))
+            Container(
+              margin: EdgeInsets.only(top: 20, bottom: 6),
+              child: Text(
+              '历史记录',
+              style:
+                  TextStyle(fontWeight: FontWeight.w600, color: Colors.black87),
+            ),)
           ]),
-          Chip(
-            label: Text('都是月亮惹的祸抖音'),
-          ),
-          Chip(
-            label: Text('都是月亮惹的祸'),
-          ),
-          Chip(
-            label: Text('求求你给我个机会'),
-          ),
-          Chip(
-            label: Text('魔鬼中的天使'),
-          ),
-          Chip(
-            label: Text('小新星'),
-            
-          ),
-          Chip(
-            label: Text('因为傻逼'),
+          SongChip(text: '都是月亮惹的祸抖音', onPressed: () {}),
+          SongChip(text: '都是月亮惹的祸', onPressed: () {}),
+          SongChip(text: '求求你给我个机会', onPressed: () {}),
+          SongChip(text: '魔鬼中的天使', onPressed: () {}),
+          SongChip(text: '小新星', onPressed: () {}),
+          SongChip(
+            text: '因为傻逼',
+            onPressed: () {},
           )
         ],
       ),
+    );
+  }
+}
+
+class SongChip extends StatelessWidget {
+  final String text;
+  final Function onPressed;
+  SongChip({this.text, this.onPressed});
+
+  @override
+  Widget build(BuildContext context) {
+    return FlatButton(
+      child: Text(
+        text,
+        style: TextStyle(color: Colors.black87),
+      ),
+      shape: StadiumBorder(),
+      color: Color(0xffefefef),
+      onPressed: onPressed,
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_music_mobile/common/dao/EventDao.dart';
+import 'package:cloud_music_mobile/page/login/LoginMainPage.dart';
 
 class HomeDrawer extends StatefulWidget {
   @override
@@ -81,9 +82,16 @@ class _UserHead extends State {
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          CircleAvatar(
+          InkWell(
+            child: CircleAvatar(
             radius: 30,
             backgroundImage: AssetImage('lib/assets/image/head_pic.jpeg'),
+          ),
+          onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
+              return LoginMainPage();
+            }));
+          },
           ),
           Container(
               padding: EdgeInsets.only(top: 14, bottom: 14),
