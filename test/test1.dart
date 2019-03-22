@@ -1,10 +1,9 @@
 void main() {
-  var list = [{"a": 1}, {"a":2}];
-  var cc = list.map((item) {
-    return {
-      "c": item["a"]
-    };
-  });
+  UserInfo();
+}
 
-  print(cc.toList());
+class UserInfo {
+  int userId;
+  String userName;
+  UserInfo({this.userId, this.userName});
 }

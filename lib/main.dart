@@ -18,7 +18,8 @@ void main() {
     mainReducer,
     initialState: AppState(
       playInfoState: PlayInfoState(null, []),
-      playerState: PlayerState.audioPlayer(audioPlayer)
+      playerState: PlayerState.audioPlayer(audioPlayer),
+      
     ),
   );
 

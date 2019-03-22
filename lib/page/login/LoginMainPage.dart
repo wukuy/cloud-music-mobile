@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_music_mobile/assets/ConstDefine.dart';
+import 'package:cloud_music_mobile/page/login/LoginPage.dart';
+import 'package:cloud_music_mobile/page/login/EmilLoginPage.dart';
+import 'package:cloud_music_mobile/page/login/RegisterPage.dart';
 
 class LoginMainPage extends StatelessWidget {
   @override
@@ -42,9 +45,18 @@ class LoginMain extends StatelessWidget {
       padding: EdgeInsets.only(left: 35, right: 35),
       child: Column(
         children: <Widget>[
-          _buttonStyle(context, '手机号登录', () {}),
+          _buttonStyle(context, '手机号登录', () {
+            Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
+              return LoginPage();
+            }));
+          }),
           Container(
-            child: _buttonStyle(context, '注册', () {}),
+            child: _buttonStyle(context, '注册', () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
+             return RegisterPage();
+            }));
+              
+            }),
             margin: EdgeInsets.only(top: 14),
           )
         ],
@@ -99,7 +111,9 @@ class OtherLogin extends StatelessWidget {
 
                   }, Theme.of(context).primaryColor),
                   _otherLoginItemStyle(context, "网易邮箱", () {
-
+                    Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
+                      return EmilLoginPage();
+                    }));
                   }, Theme.of(context).primaryColor)
                 ],
               ),
