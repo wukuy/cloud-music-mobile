@@ -9,7 +9,6 @@ class AppState {
 }
 
 AppState mainReducer(AppState state, action) {
-  
   return AppState(
     playInfoState: playInfoReducer(state.playInfoState, action),
     playerState: playerReducer(state, action)

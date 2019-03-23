@@ -10,7 +10,12 @@ class Img extends StatelessWidget {
   final Color color;
   final BoxFit fit;
 
-  Img(this.url, {this.width: 100, this.height: 100, this.radius: 4, this.color: Colors.transparent, this.fit: BoxFit.cover});
+  Img(this.url,
+      {this.width: 100,
+      this.height: 100,
+      this.radius: 4,
+      this.color: Colors.transparent,
+      this.fit: BoxFit.cover});
 
   @override
   Widget build(BuildContext context) {
@@ -20,15 +25,31 @@ class Img extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(radius)),
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.all(Radius.circular(radius)),
-        child: FadeInImage.assetNetwork(
-          width: width,
-          height: height,
-          placeholder: ConstDefine.placeholderPic,
-          image: url ?? '',
-          fit: fit,
-        ),
-      ),
+          borderRadius: BorderRadius.all(Radius.circular(radius)),
+          child: url == null ? _placeholderPic() : _fadeInImage()),
     );
+  }
+
+  _fadeInImage() {
+    return FadeInImage.assetNetwork(
+      width: width,
+      height: height,
+      placeholder: ConstDefine.placeholderPic,
+      image: _reqImgSizeSet(),
+      fit: fit,
+    );
+  }
+
+  _placeholderPic() {
+    return Image.asset(
+      ConstDefine.placeholderPic,
+      width: width,
+      height: height,
+      fit: fit,
+    );
+  }
+
+  _reqImgSizeSet() {
+    return "$url?imageView=1&thumbnail=${width.round()}z${height.round()}&type=webp&quality=100";
   }
 }

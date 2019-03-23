@@ -30,9 +30,13 @@ class PlayBar extends StatelessWidget {
           child: Material(
             child: InkWell(
               onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (BuildContext context) => PlayDetailPage()));
-              },
+                if (info != null) {
+                  return () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext context) => PlayDetailPage()));
+                  };
+                }
+              }(),
               child: Flex(
                 direction: Axis.horizontal,
                 children: <Widget>[
@@ -40,7 +44,7 @@ class PlayBar extends StatelessWidget {
                     width: 36,
                     height: 36,
                     margin: EdgeInsets.only(right: 10),
-                    child: Img(info?.coverPic ?? ''),
+                    child: Img(info?.coverPic),
                   ),
                   Expanded(
                     flex: 1,

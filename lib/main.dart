@@ -19,7 +19,6 @@ void main() {
     initialState: AppState(
       playInfoState: PlayInfoState(null, []),
       playerState: PlayerState.audioPlayer(audioPlayer),
-      
     ),
   );
 

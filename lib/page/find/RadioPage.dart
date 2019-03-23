@@ -106,7 +106,7 @@ class BoxContent extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   Img(
-                    list.length > 0 ? list[index].picUrl : '',
+                    list.length > 0 ? list[index].picUrl : null,
                     width: 126,
                     height: 120,
                   ),

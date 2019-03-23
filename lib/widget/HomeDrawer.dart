@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:cloud_music_mobile/common/dao/EventDao.dart';
 import 'package:cloud_music_mobile/page/login/LoginMainPage.dart';
 import 'package:cloud_music_mobile/widget/ListItemCustom.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:cloud_music_mobile/models/UserInfo.dart';
+import 'dart:convert';
+import 'package:cloud_music_mobile/widget/Img.dart';
 
 class HomeDrawer extends StatefulWidget {
   @override
@@ -17,7 +21,8 @@ class _HomeDrawerState extends State {
         children: <Widget>[
           UserHead(),
           DrawerListItem(text: "我的消息", iconData: Icons.email, onTap: () {}),
-          DrawerListItem(text: "会员中心", iconData: Icons.favorite_border, onTap: () {}),
+          DrawerListItem(
+              text: "会员中心", iconData: Icons.favorite_border, onTap: () {}),
           DrawerListItem(text: "商城", iconData: Icons.email, onTap: () {}),
           DrawerListItem(text: "在线听歌免流量", iconData: Icons.email, onTap: () {}),
           Container(color: Color(0xfff5f5f5), height: 8),
@@ -28,6 +33,7 @@ class _HomeDrawerState extends State {
           DrawerListItem(text: "听歌识曲", iconData: Icons.email, onTap: () {}),
           DrawerListItem(text: "定时停止播放", iconData: Icons.email, onTap: () {}),
           DrawerListItem(text: "扫一扫", iconData: Icons.email, onTap: () {}),
+          DrawerListItem(text: "退出登录", iconData: Icons.email, onTap: () {}),
         ],
       ),
     );
@@ -44,7 +50,10 @@ class DrawerListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListItemCustom(
       children: <Widget>[
-        Icon(iconData, color: Colors.black38,),
+        Icon(
+          iconData,
+          color: Colors.black38,
+        ),
         Container(
           margin: EdgeInsets.only(left: 10),
           child: Text(text),
@@ -63,56 +72,71 @@ class UserHead extends StatefulWidget {
 }
 
 class _UserHead extends State {
+  UserInfo userInfo;
+
+  @override
+  void initState() {
+    super.initState();
+    _getLocalUser();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 170,
-        padding: EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          image: DecorationImage(
-              fit: BoxFit.cover, image: AssetImage('lib/assets/image/bg.jpg')),
-        ),
-        child: _unlogin());
+      height: 170,
+      padding: EdgeInsets.all(8),
+      decoration: BoxDecoration(
+        image: DecorationImage(
+            fit: BoxFit.cover,
+            image: userInfo == null
+                ? AssetImage('lib/assets/image/bg.jpg')
+                : NetworkImage(userInfo.backgroundUrl)),
+      ),
+      child: userInfo != null ? _login() : _unlogin(),
+    );
+  }
+
+  _getLocalUser() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String userInfoStr = pref.getString('userInfo');
+
+    if (userInfoStr != null) {
+      setState(() {
+        userInfo = UserInfo.fromJson(jsonDecode(userInfoStr));
+      });
+    }
   }
 
   // 已登录
   _login() {
-    Column(
+    return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         InkWell(
-          child: CircleAvatar(
-            radius: 30,
-            backgroundImage: AssetImage('lib/assets/image/head_pic.jpeg'),
-          ),
-          onTap: () {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (BuildContext context) {
-              return LoginMainPage();
-            }));
-          },
+          child: Img(userInfo.avatarUrl, width: 60, height: 60, radius: 30),
+          onTap: () {},
         ),
         Container(
             padding: EdgeInsets.only(top: 14, bottom: 14),
             child: Row(
               children: <Widget>[
                 Text(
-                  '小玉玉',
+                  userInfo.nickname,
                   style: TextStyle(
                       fontSize: 16,
                       color: Colors.white,
                       fontWeight: FontWeight.bold),
                 ),
-                InkWell(
-                  child: Text(
-                    'Lv.5',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.white,
-                    ),
-                  ),
-                )
+                // InkWell(
+                //   child: Text(
+                //     'Lv.5',
+                //     style: TextStyle(
+                //       fontSize: 12,
+                //       color: Colors.white,
+                //     ),
+                //   ),
+                // )
               ],
             ))
       ],

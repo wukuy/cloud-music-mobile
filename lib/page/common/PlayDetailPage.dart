@@ -232,7 +232,6 @@ class _Cd extends State<Cd> with SingleTickerProviderStateMixin {
         builder: (BuildContext context, Store<AppState> store) {
       PlayInfoState playInfoState = store.state.playInfoState;
       Song info = playInfoState.getPlayInfo();
-
       if (store.state.playerState.state == PlayActions.play || store.state.playerState.state == PlayActions.resume) {
         animationController.forward();
       } else {
@@ -293,7 +292,7 @@ class _Cd extends State<Cd> with SingleTickerProviderStateMixin {
 
   @override
   void dispose() {
-    super.dispose();
     animationController.dispose();
+    super.dispose();
   }
 }

@@ -63,7 +63,7 @@ class Banner extends StatelessWidget {
             child: Img(
               data.length > 0
                   ? data[index].imageUrl
-                  : ConstDefine.placeholderPic,
+                  : null,
               height: 120,
               radius: 6,
               fit: BoxFit.fitHeight,

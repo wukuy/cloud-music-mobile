@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_music_mobile/common/dao/LoginDao.dart';
 import 'package:cloud_music_mobile/models/UserInfo.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:cloud_music_mobile/page/HomePage.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -46,16 +46,7 @@ class _LoginPage extends State<LoginPage> {
                   ],
                 ),
                 onPressed: () {
-                  UserInfo userInfo = _getUserInfo({"phone": phone, "password": password});
-                  Fluttertoast.showToast(
-                    msg: "This is Center Short Toast",
-                    // toastLength: Toast.LENGTH_SHORT,
-                    // gravity: ToastGravity.CENTER,
-                    // timeInSecForIos: 1,
-                    // backgroundColor: Colors.red,
-                    // textColor: Colors.white,
-                    fontSize: 16.0
-                );
+                  _getUserInfo({"phone": phone, "password": password});
                 },
                 shape: StadiumBorder(),
                 color: Theme.of(context).primaryColor,
@@ -89,6 +80,12 @@ class _LoginPage extends State<LoginPage> {
   }
 
   _getUserInfo(Map data) async {
-    return await LoginDao.logoin(data);
+    UserInfo userInfo = await LoginDao.logoin(data);
+    if (userInfo != null) {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (BuildContext context) {
+        return HomePage();
+      }), (route) => route == null);
+    }
   }
 }
