@@ -10,19 +10,40 @@ import 'package:cloud_music_mobile/common/redux/PlayInfoState.dart';
 import 'package:cloud_music_mobile/common/redux/PlayerState.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:cloud_music_mobile/widget/PlayBar.dart';
+// 读取playInfo缓存
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:cloud_music_mobile/common/dao/FindDao.dart';
+import 'package:cloud_music_mobile/models/Song.dart';
+import 'package:cloud_music_mobile/models/SongDetail.dart';
 
-void main() {
+void main() async {
   AudioPlayer audioPlayer = new AudioPlayer();
 
   Store<AppState> store = Store<AppState>(
     mainReducer,
     initialState: AppState(
-      playInfoState: PlayInfoState(null, []),
+      playInfoState: await getPlayState(),
       playerState: PlayerState.audioPlayer(audioPlayer),
     ),
   );
 
   runApp(CloudMusic(store));
+}
+
+ Future getPlayState() async {
+  SharedPreferences pref = await SharedPreferences.getInstance();
+  String playStr = pref.getString("play");
+  if(playStr != null) {
+    Map play = jsonDecode(playStr);
+    
+    List<Song> playList = play["playList"].map<Song>((item) => Song.formJson(json.decode(item))).toList();
+    int playSongId = play["playSongId"];
+    
+    print(playSongId);
+    return PlayInfoState(playSongId, playList); 
+  }
+  return PlayInfoState(null, []);
 }
 
 class CloudMusic extends StatelessWidget {

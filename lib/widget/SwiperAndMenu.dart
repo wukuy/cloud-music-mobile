@@ -4,6 +4,7 @@ import 'package:cloud_music_mobile/assets/ConstDefine.dart';
 import 'package:cloud_music_mobile/assets/style/ColorDefine.dart';
 import 'package:cloud_music_mobile/widget/Img.dart';
 import 'package:cloud_music_mobile/models/FindBanner.dart';
+import 'package:cloud_music_mobile/page/common/WebViewPage.dart';
 
 class SwiperAndMenu extends StatelessWidget {
   final List<Banners> bannerData;
@@ -58,7 +59,8 @@ class Banner extends StatelessWidget {
   _swiper() {
     return Swiper(
       itemBuilder: (BuildContext context, int index) {
-        return Container(
+        return InkWell(
+          child: Container(
             margin: EdgeInsets.only(left: 8, right: 8),
             child: Img(
               data.length > 0
@@ -68,7 +70,15 @@ class Banner extends StatelessWidget {
               radius: 6,
               fit: BoxFit.fitHeight,
               color: Color(ColorDefine.placeholder),
-            ));
+            )),
+            onTap: () {
+              if(data[index].url != null) {
+                Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
+                  return WebViewPage(data[index].url);
+                }));
+              }
+            },
+        );
       },
       itemCount: data.length == 0 ? 2 : data.length,
       pagination: SwiperPagination(),

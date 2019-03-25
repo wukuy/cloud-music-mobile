@@ -11,8 +11,8 @@ class Img extends StatelessWidget {
   final BoxFit fit;
 
   Img(this.url,
-      {this.width: 100,
-      this.height: 100,
+      {this.width: 600,
+      this.height: 600,
       this.radius: 4,
       this.color: Colors.transparent,
       this.fit: BoxFit.cover});
@@ -50,6 +50,9 @@ class Img extends StatelessWidget {
   }
 
   _reqImgSizeSet() {
-    return "$url?imageView=1&thumbnail=${width.round()}z${height.round()}&type=webp&quality=100";
+    int imgWidth = (width * 1.6).round();
+    int imgHeight = (height * 1.6).round();
+
+    return "$url?imageView=1&thumbnail=${imgWidth}z$imgHeight&type=webp&quality=90";
   }
 }

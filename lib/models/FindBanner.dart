@@ -9,10 +9,7 @@ part 'FindBanner.g.dart';
   @JsonKey(name: 'banners')
   List<Banners> banners;
 
-  @JsonKey(name: 'code')
-  int code;
-
-  FindBanner(this.banners,this.code,);
+  FindBanner(this.banners,);
 
   factory FindBanner.fromJson(Map<String, dynamic> srcJson) => _$FindBannerFromJson(srcJson);
 
@@ -39,13 +36,16 @@ part 'FindBanner.g.dart';
   @JsonKey(name: 'typeTitle')
   String typeTitle;
 
+  @JsonKey(name: 'url')
+  String url;
+
   @JsonKey(name: 'exclusive')
   bool exclusive;
 
   @JsonKey(name: 'encodeId')
   String encodeId;
 
-  Banners(this.imageUrl,this.targetId,this.targetType,this.titleColor,this.typeTitle,this.exclusive,this.encodeId,);
+  Banners(this.imageUrl,this.targetId,this.targetType,this.titleColor,this.typeTitle,this.url,this.exclusive,this.encodeId,);
 
   factory Banners.fromJson(Map<String, dynamic> srcJson) => _$BannersFromJson(srcJson);
 

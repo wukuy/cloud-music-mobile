@@ -2,12 +2,16 @@ import 'package:audioplayers/audioplayers.dart';
 
 enum PlayActions { resume, play, pause }
 
-class PlayerState{
+class PlayerState {
   AudioPlayer audioPlayer;
   PlayActions state;
 
   PlayerState(PlayActions playActions) {
     state = playActions;
+  }
+
+  PlayerState.audioPlayer(this.audioPlayer) {
+    addListen();
   }
 
   play(url) async {
@@ -32,12 +36,27 @@ class PlayerState{
       print('恢复播放');
     }
   }
+  // 添加player事件
+  addListen() {
+    onPlayerCompletion();
+  }
+  onPlayerCompletion() {
+    audioPlayer.onPlayerCompletion.listen((event) {
 
-  PlayerState.audioPlayer(this.audioPlayer);
+    });
+  }
+  // 播放上一曲
+  playLastSong() {
+
+  }
+  // 播放下一曲
+  playNextSong() {
+
+  }
 }
 
 playerReducer(state, action) {
-  if(action.runtimeType == PlayerState) {
+  if (action.runtimeType == PlayerState) {
     PlayActions playActions = action.state;
     String url = state.playInfoState.url;
     PlayerState playerState = state.playerState;
@@ -55,6 +74,6 @@ playerReducer(state, action) {
         break;
     }
   }
-  
+
   return state.playerState;
 }

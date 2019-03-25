@@ -37,14 +37,7 @@ class FindDao {
     var result = await Http().get('/playlist/detail', data: data);
     if(result != null && result.data["code"] == 200) {
       Map data = result.data["playlist"];
-      List<Song> playlist = data["tracks"].map<Song>((item) {
-          return Song(
-            songName: item["name"],
-            songId: item["id"],
-            singer: item["ar"][0]["name"],
-            coverPic: item["al"]["picUrl"],
-          );
-      }).toList();
+      List<Song> playlist = getPlayList(data["tracks"]);
 
       var info = {
         "title": data["name"],
@@ -59,6 +52,17 @@ class FindDao {
         "playlist": playlist,
       };
     }
+  }
+
+  static List<Song> getPlayList(List list) {
+    return list.map((item) {
+          return Song(
+            songName: item["name"],
+            songId: item["id"],
+            singer: item["ar"][0]["name"],
+            coverPic: item["al"]["picUrl"],
+          );
+      }).toList();
   }
 
   /// 获取歌曲

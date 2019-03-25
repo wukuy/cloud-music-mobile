@@ -20,7 +20,9 @@ class _HomeDrawerState extends State {
         padding: EdgeInsets.zero,
         children: <Widget>[
           UserHead(),
-          DrawerListItem(text: "我的消息", iconData: Icons.email, onTap: () {}),
+          DrawerListItem(text: "我的消息", iconData: Icons.email, onTap: () {
+            
+          }),
           DrawerListItem(
               text: "会员中心", iconData: Icons.favorite_border, onTap: () {}),
           DrawerListItem(text: "商城", iconData: Icons.email, onTap: () {}),

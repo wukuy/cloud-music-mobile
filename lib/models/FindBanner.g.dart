@@ -7,16 +7,14 @@ part of 'FindBanner.dart';
 // **************************************************************************
 
 FindBanner _$FindBannerFromJson(Map<String, dynamic> json) {
-  return FindBanner(
-      (json['banners'] as List)
-          ?.map((e) =>
-              e == null ? null : Banners.fromJson(e as Map<String, dynamic>))
-          ?.toList(),
-      json['code'] as int);
+  return FindBanner((json['banners'] as List)
+      ?.map(
+          (e) => e == null ? null : Banners.fromJson(e as Map<String, dynamic>))
+      ?.toList());
 }
 
 Map<String, dynamic> _$FindBannerToJson(FindBanner instance) =>
-    <String, dynamic>{'banners': instance.banners, 'code': instance.code};
+    <String, dynamic>{'banners': instance.banners};
 
 Banners _$BannersFromJson(Map<String, dynamic> json) {
   return Banners(
@@ -25,6 +23,7 @@ Banners _$BannersFromJson(Map<String, dynamic> json) {
       json['targetType'] as int,
       json['titleColor'] as String,
       json['typeTitle'] as String,
+      json['url'] as String,
       json['exclusive'] as bool,
       json['encodeId'] as String);
 }
@@ -35,6 +34,7 @@ Map<String, dynamic> _$BannersToJson(Banners instance) => <String, dynamic>{
       'targetType': instance.targetType,
       'titleColor': instance.titleColor,
       'typeTitle': instance.typeTitle,
+      'url': instance.url,
       'exclusive': instance.exclusive,
       'encodeId': instance.encodeId
     };

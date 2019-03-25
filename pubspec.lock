@@ -221,6 +221,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_webview_plugin:
+    dependency: "direct main"
+    description:
+      name: flutter_webview_plugin
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.3.1"
   front_end:
     dependency: transitive
     description:
@@ -348,7 +355,7 @@ packages:
     source: hosted
     version: "1.6.2"
   path_provider:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: path_provider
       url: "https://pub.flutter-io.cn"
