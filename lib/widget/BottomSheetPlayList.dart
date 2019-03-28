@@ -3,8 +3,6 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:cloud_music_mobile/common/redux/AppState.dart';
 import 'package:cloud_music_mobile/models/Song.dart';
-import 'package:cloud_music_mobile/common/dao/FindDao.dart';
-import 'package:cloud_music_mobile/common/redux/PlayInfoState.dart';
 import 'package:cloud_music_mobile/common/redux/PlayerState.dart';
 
 class BottomSheetPlayList {
@@ -14,7 +12,7 @@ class BottomSheetPlayList {
       builder: (BuildContext context) {
         return StoreBuilder<AppState>(
           builder: (BuildContext context, Store<AppState> store) {
-            List<Song> list = store.state.playInfoState.songList;
+            List<Song> list = store.state.playerState.playList;
 
             return Container(
               height: 395,
@@ -113,16 +111,16 @@ class BottomSheetPlayList {
   }
 
   static _list(Store<AppState> store) {
-    List<Song> list = store.state.playInfoState.songList;
+    List<Song> list = store.state.playerState.playList;
 
     return ListView.builder(
       itemCount: list.length,
       itemBuilder: (BuildContext context, int idx) {
         return InkWell(
           onTap: () {
-            _getSongUrl(store, list[idx].songId, list, () {
-              Navigator.of(context).pop();
-            });
+            store.state.playerState.playIdx = idx;
+            store.dispatch(PlayActions.play);
+            Navigator.of(context).pop();
           },
           child: Container(
             padding: EdgeInsets.only(left: 6, right: 6),
@@ -162,14 +160,5 @@ class BottomSheetPlayList {
         );
       },
     );
-  }
-
-  static _getSongUrl(Store store, id, list, cb) async {
-    Map result = await FindDao.getSongUrl({'id': id});
-    if (result != null) {
-      store.dispatch(PlayInfoState(id, list, url: result["url"]));
-      store.dispatch(PlayerState(PlayActions.play));
-      if (cb != null) cb();
-    }
   }
 }

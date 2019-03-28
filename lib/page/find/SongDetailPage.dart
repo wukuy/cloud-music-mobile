@@ -3,12 +3,12 @@ import 'package:cloud_music_mobile/common/dao/FindDao.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:cloud_music_mobile/common/redux/AppState.dart';
-import 'package:cloud_music_mobile/common/redux/PlayInfoState.dart';
 import 'package:cloud_music_mobile/common/redux/PlayerState.dart';
 import 'package:cloud_music_mobile/widget/Img.dart';
 import 'dart:ui';
 import 'package:cloud_music_mobile/models/SongDetail.dart';
 import 'package:cloud_music_mobile/models/Song.dart';
+import 'package:cloud_music_mobile/widget/NetworkMiddleware.dart';
 
 class SongDetailPage extends StatefulWidget {
   final String title;
@@ -26,73 +26,79 @@ class _SongDetailPage extends State<SongDetailPage> {
   List<Song> list;
   SongDetail info;
   Map describe;
-  int count = 0;
+  int count = 1;
 
   @override
   void initState() {
     super.initState();
-    _getSongDetail();
   }
 
   _getSongDetail() async {
     Map data = await FindDao.getSongDetail({"id": widget.songSheetId});
-    setState(() {
-      list = data["playlist"];
-      info = data["info"];
-      count = list.length + 1;
-    });
+    if (data != null) {
+      setState(() {
+        list = data["playlist"];
+        info = data["info"];
+        count = list.length + 1;
+      });
+
+      return data;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return BackgroundBlur(
         Scaffold(
-          backgroundColor: Colors.transparent,
-          appBar: AppBar(
-            title: Text(widget.title),
             backgroundColor: Colors.transparent,
-            elevation: 0,
-          ),
-          body: ListView.builder(
-            itemCount: count,
-            itemBuilder: (context, idx) {
-              if (idx == 0) {
-                return SongDescribe(
-                    coverPic: widget.coverPic,
-                    name: widget.authorName,
-                    data: info);
-              }else {
-                Song item = list[idx-1];
-                SongListItem songListItem = SongListItem(
-                    list: list,
-                    songName: item.songName,
-                    songId: item.songId,
-                    singer: item.singer,
-                    coverPic: item.coverPic,
-                    index: idx);
-
-                if (idx == 1) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(8),
-                        topRight: Radius.circular(8),
-                      ),
-                    ),
-                    child: songListItem,
-                  );
-                } else {
-                  return Container(
-                    color: Colors.white,
-                    child: songListItem,
-                  );
-                }
-              }
-            },
-          ),
-        ),
+            appBar: AppBar(
+              title: Text(widget.title),
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+            ),
+            body: CustomScrollView(
+              slivers: _listWidget(),
+            )),
         coverPic: widget.coverPic);
+  }
+
+  _listWidget() {
+    List<Widget> listWidget = [
+      SliverList(
+        delegate: SliverChildListDelegate([
+          SongDescribe(
+              coverPic: widget.coverPic, name: widget.authorName, data: info),
+        ]),
+      )
+    ];
+
+    if (list != null && list.length > 0) {
+      listWidget.add(
+        SliverList(
+          delegate: SliverChildBuilderDelegate((BuildContext context, int idx) {
+            Song item = list[idx];
+            SongListItem songListItem = SongListItem(
+                list: list,
+                songName: item.songName,
+                songId: item.songId,
+                singer: item.singer,
+                coverPic: item.coverPic,
+                index: idx);
+
+            return Container(
+              color: Colors.white,
+              child: songListItem,
+            );
+          }, childCount: list.length),
+        ),
+      );
+    } else {
+      listWidget.add(SliverList(
+          delegate: SliverChildListDelegate(
+              [NetworkMiddleware(req: _getSongDetail)])));
+    }
+
+    return listWidget;
   }
 }
 
@@ -110,12 +116,12 @@ class BackgroundBlur extends StatelessWidget {
             children: <Widget>[
               Positioned(
                 child: ConstrainedBox(
-                  constraints: BoxConstraints.expand(),
-                  child: Img(
-                    coverPic,
-                    fit: BoxFit.cover,
-                  ),
-                ),
+                    constraints: BoxConstraints.expand(),
+                    child: Img(
+                      coverPic,
+                      fit: BoxFit.cover,
+                      noSetReqImgSize: false,
+                    )),
               ),
               Positioned(
                 child: IgnorePointer(
@@ -128,9 +134,7 @@ class BackgroundBlur extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
-                child: child,
-              )
+              child
             ],
           ),
         );
@@ -163,8 +167,8 @@ class SongDescribe extends StatelessWidget {
                   width: 120,
                   child: Img(
                     coverPic,
-                    fit: BoxFit.fill,
                     radius: 4,
+                    noSetReqImgSize: false,
                   ),
                 ),
                 Expanded(
@@ -189,15 +193,13 @@ class SongDescribe extends StatelessWidget {
                                 width: 26,
                                 height: 26,
                                 margin: EdgeInsets.only(right: 5),
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  image: DecorationImage(
-                                    image: NetworkImage(data.avatarUrl ?? ''),
-                                  ),
+                                child: Img(
+                                  data?.avatarUrl ?? null,
+                                  radius: 13,
                                 ),
                               ),
                               Text(
-                                data.nickname ?? '',
+                                data?.nickname ?? '',
                                 style: TextStyle(
                                     fontSize: 12, color: Colors.white),
                               ),
@@ -218,14 +220,14 @@ class SongDescribe extends StatelessWidget {
   }
 
   _menu(SongDetail data) {
-    int commentCount = data.commentCount;
-    int shareCount = data.shareCount;
+    int commentCount = data?.commentCount;
+    int shareCount = data?.shareCount;
     return Container(
       child: Flex(
         direction: Axis.horizontal,
         children: <Widget>[
-          _menuItem("$commentCount", Icons.comment),
-          _menuItem("$shareCount", Icons.share),
+          _menuItem("${commentCount ?? '评论'}", Icons.comment),
+          _menuItem("${shareCount ?? '分享'}", Icons.share),
           _menuItem("下载", Icons.arrow_downward),
           _menuItem("多选", Icons.check_box)
         ],
@@ -281,10 +283,17 @@ class _SongListItem extends State<SongListItem> {
       builder: (BuildContext context, Store<AppState> store) {
         return InkWell(
           onTap: () {
-            _getSongUrl(store);
+            PlayerState playerState = store.state.playerState;
+            playerState.playList = widget.list;
+            playerState.playIdx = widget.index - 1;
+
+            store.dispatch(PlayActions.play);
           },
           child: Container(
             padding: EdgeInsets.only(top: 10, bottom: 10),
+            decoration: BoxDecoration(
+                border: Border(
+                    bottom: BorderSide(color: Color(0xffefefef), width: 1))),
             child: Row(
               children: <Widget>[
                 Container(
@@ -317,21 +326,12 @@ class _SongListItem extends State<SongListItem> {
                     Icon(Icons.play_circle_outline),
                     Icon(Icons.more_vert),
                   ],
-                )
+                ),
               ],
             ),
           ),
         );
       },
     );
-  }
-
-  _getSongUrl(Store store) async {
-    Map result = await FindDao.getSongUrl({'id': widget.songId});
-    if (result != null) {
-      store.dispatch(PlayInfoState(widget.songId, widget.list, url: result["url"]));
-
-      store.dispatch(PlayerState(PlayActions.play));
-    }
   }
 }

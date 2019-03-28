@@ -6,44 +6,60 @@ import 'package:cloud_music_mobile/widget/LoadingDialog.dart';
 import 'package:redux/redux.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:cloud_music_mobile/common/redux/AppState.dart';
-import 'package:cloud_music_mobile/common/redux/PlayInfoState.dart';
 import 'package:cloud_music_mobile/common/redux/PlayerState.dart';
-import 'package:audioplayers/audioplayers.dart';
+
 import 'package:cloud_music_mobile/widget/PlayBar.dart';
-// 读取playInfo缓存
+
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:cloud_music_mobile/common/dao/FindDao.dart';
-import 'package:cloud_music_mobile/models/Song.dart';
-import 'package:cloud_music_mobile/models/SongDetail.dart';
 
 void main() async {
-  AudioPlayer audioPlayer = new AudioPlayer();
-
+  PlayerState playerState = PlayerState(playList: []);
   Store<AppState> store = Store<AppState>(
     mainReducer,
     initialState: AppState(
-      playInfoState: await getPlayState(),
-      playerState: PlayerState.audioPlayer(audioPlayer),
+      playerState: playerState,
     ),
   );
+
+  playerState.audioPlayer.onPlayerCompletion.listen((event) {
+    if(playerState.mode == PlayModeActions.loop) {
+      if(playerState.playIdx >= playerState.playList.length - 1) {
+        playerState.playIdx = 0;
+      }else {
+        playerState.playIdx++;
+      }
+    }
+
+    if(playerState.mode ==PlayModeActions.order) {
+      if(playerState.playIdx >= playerState.playList.length - 1) {
+        print("歌曲列表播放完毕");
+      }else {
+        playerState.playIdx++;
+      }
+    }
+      
+    store.dispatch(PlayActions.play);
+  });
+
+  
 
   runApp(CloudMusic(store));
 }
 
- Future getPlayState() async {
-  SharedPreferences pref = await SharedPreferences.getInstance();
-  String playStr = pref.getString("play");
-  if(playStr != null) {
-    Map play = jsonDecode(playStr);
-    
-    List<Song> playList = play["playList"].map<Song>((item) => Song.formJson(json.decode(item))).toList();
-    int playSongId = play["playSongId"];
-    
-    print(playSongId);
-    return PlayInfoState(playSongId, playList); 
-  }
-  return PlayInfoState(null, []);
+Future getPlayState() async {
+  // SharedPreferences pref = await SharedPreferences.getInstance();
+  // String playStr = pref.getString("play");
+  // if(playStr != null) {
+  //   Map play = jsonDecode(playStr);
+
+  //   List<Song> playList = play["playList"].map<Song>((item) => Song.formJson(json.decode(item))).toList();
+  //   int playSongId = play["playSongId"];
+
+  //   print(playSongId);
+  //   return PlayInfoState(playSongId, playList);
+  // }
+  // return PlayInfoState(playSongId: );
 }
 
 class CloudMusic extends StatelessWidget {
@@ -61,17 +77,29 @@ class CloudMusic extends StatelessWidget {
             primaryColor: Color(0xffdd4137),
             splashColor: Color(0x22000000),
           ),
-          home: BusEventProvider(
-              child: Flex(
-            direction: Axis.vertical,
-            children: <Widget>[
-              Expanded(
-                flex: 1,
-                child: HomePage(),
-              ),
-              PlayBar()
-            ],
+          home: BusEventProvider(child: StoreBuilder(
+            builder: (BuildContext context, Store<AppState> store) {
+              return _homeWidgets(store);
+            },
           ))),
+    );
+  }
+
+  _homeWidgets(Store<AppState> store) {
+    List<Widget> childrens = [];
+    childrens.add(Expanded(
+      flex: 1,
+      child: HomePage(),
+    ));
+
+    // add play bar
+    if (store.state.playerState.playList.length > 0) {
+      childrens.add(PlayBar());
+    }
+
+    return Flex(
+      direction: Axis.vertical,
+      children: childrens,
     );
   }
 }

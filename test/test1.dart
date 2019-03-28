@@ -1,9 +1,13 @@
-void main() {
-  UserInfo();
-}
+import 'package:flutter/material.dart';
 
-class UserInfo {
-  int userId;
-  String userName;
-  UserInfo({this.userId, this.userName});
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: "my app",
+      home: Scaffold(
+        appBar: AppBar(title: Text('app'),),
+      ),
+    );
+  }
 }

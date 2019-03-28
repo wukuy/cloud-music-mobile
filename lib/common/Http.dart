@@ -1,54 +1,68 @@
+import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:cloud_music_mobile/common/dao/EventDao.dart';
 
 class Http {
   Dio dio;
-  
+
   Http({bool loading: true}) {
     dio = Dio();
     setConfig();
     setInterceptor(loading: loading);
   }
 
-  request(String path, { Map data, Options options}) {
-    return dio.request(path, data: data, options: options);
+  request(String path, {Map data, Options options}) async {
+    Response request;
+    try {
+      request = await dio.request(path, data: data, options: options);
+    } catch (e) {
+      return e;
+    }
+    return request;
   }
 
-  Future<Response> get(String path, {Map data, Options options}) {
-    return dio.get(path, data: data, options: options);
+  get(String path, {Map data, Options options}) async {
+    dio.clear();
+    Response request;
+    try {
+      request = await dio.get(path, data: data, options: options);
+    } catch (e) {
+      rethrow;
+    }
+    return request;
   }
 
-  static all(list, {loading = false}) async{
-    var results;
-    if(loading) Loading.show();
+  static all(List<Future> list, {bool loading = false}) async {
+    List results;
+    if (loading) Loading.show();
 
     try {
       results = await Future.wait(list);
     } catch (e) {
-      results = null;
+      rethrow;
     }
 
-    if(loading) Loading.hide();
+    if (loading) Loading.hide();
     return results;
   }
 
   setConfig() {
-    dio.options.baseUrl="http://106.13.32.37:3000";
-    dio.options.connectTimeout = 5000;
-    dio.options.receiveTimeout = 3000;
+    dio.options.baseUrl = "http://106.13.32.37:3000";
+    dio.options.connectTimeout = 3000;
+    dio.options.receiveTimeout = 5000;
   }
 
   setInterceptor({bool loading}) {
     dio.interceptor.request.onSend = (Options options) {
-      if(loading) Loading.show();
+      if (loading) Loading.show();
       return options;
     };
     dio.interceptor.response.onSuccess = (Response response) {
-      if(loading) Loading.hide();
+      if (loading) Loading.hide();
       return response;
     };
     dio.interceptor.response.onError = (DioError e) {
-      if(loading) Loading.hide();
+      if (loading) Loading.hide();
       return e;
     };
   }

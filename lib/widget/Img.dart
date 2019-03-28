@@ -9,11 +9,13 @@ class Img extends StatelessWidget {
   final double radius;
   final Color color;
   final BoxFit fit;
+  final bool noSetReqImgSize;
 
   Img(this.url,
       {this.width: 600,
       this.height: 600,
       this.radius: 4,
+      this.noSetReqImgSize: true,
       this.color: Colors.transparent,
       this.fit: BoxFit.cover});
 
@@ -31,11 +33,12 @@ class Img extends StatelessWidget {
   }
 
   _fadeInImage() {
-    return FadeInImage.assetNetwork(
+    return FadeInImage(
       width: width,
       height: height,
-      placeholder: ConstDefine.placeholderPic,
-      image: _reqImgSizeSet(),
+      placeholder: AssetImage(ConstDefine.placeholderPic),
+      image:
+          CachedNetworkImageProvider(noSetReqImgSize ? _setReqImgSize() : url),
       fit: fit,
     );
   }
@@ -49,10 +52,12 @@ class Img extends StatelessWidget {
     );
   }
 
-  _reqImgSizeSet() {
+  _setReqImgSize() {
     int imgWidth = (width * 1.6).round();
     int imgHeight = (height * 1.6).round();
 
-    return "$url?imageView=1&thumbnail=${imgWidth}z$imgHeight&type=webp&quality=90";
+    return "$url?imageView=1&thumbnail=${imgWidth}z$imgHeight&type=webp&quality=80";
   }
+
+  getReqImgSize() => _setReqImgSize();
 }

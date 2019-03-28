@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:cloud_music_mobile/common/redux/AppState.dart';
-import 'package:cloud_music_mobile/common/redux/PlayInfoState.dart';
 import 'package:cloud_music_mobile/page/common/PlayDetailPage.dart';
 import 'package:cloud_music_mobile/widget/Img.dart';
 import 'package:cloud_music_mobile/common/redux/PlayerState.dart';
@@ -14,12 +13,9 @@ class PlayBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreBuilder<AppState>(
       builder: (BuildContext context, Store<AppState> store) {
-        PlayInfoState playInfoState = store.state.playInfoState;
         PlayerState playerState = store.state.playerState;
-        Song info = playInfoState.getPlayInfo();
-
-        bool playState = (PlayActions.play == playerState.state ||
-            PlayActions.resume == playerState.state);
+        Song info = playerState.getPlayInfo();
+        bool playState = PlayActions.play == playerState.state;
 
         return Container(
           height: 46,
@@ -30,13 +26,9 @@ class PlayBar extends StatelessWidget {
           child: Material(
             child: InkWell(
               onTap: () {
-                if (info != null) {
-                  return () {
-                    Navigator.of(context).push(MaterialPageRoute(
+                Navigator.of(context).push(MaterialPageRoute(
                         builder: (BuildContext context) => PlayDetailPage()));
-                  };
-                }
-              }(),
+              },
               child: Flex(
                 direction: Axis.horizontal,
                 children: <Widget>[
@@ -85,9 +77,9 @@ class PlayBar extends StatelessWidget {
                           color: Colors.black54,
                         ),
                         onPressed: () {
-                          store.dispatch(PlayerState(playState
+                          store.dispatch(playState
                               ? PlayActions.pause
-                              : PlayActions.resume));
+                              : PlayActions.play);
                         },
                       ),
                       Container(

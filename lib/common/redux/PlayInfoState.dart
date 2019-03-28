@@ -22,7 +22,7 @@ class PlayInfoState {
 
   saveLocal(int playSongId, List<Song> list) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-      List songList = list.map((Song song) => Song.toJson(song)).toList();
+      List songList = getSongList(list);
       pref.setString("play", json.encode({
         "playSongId": playSongId,
         "playList": songList

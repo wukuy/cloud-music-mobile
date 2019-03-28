@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:cloud_music_mobile/common/dao/FindDao.dart';
 import 'package:cloud_music_mobile/page/find/SongDetailPage.dart';
@@ -5,6 +6,7 @@ import 'package:cloud_music_mobile/widget/Img.dart';
 import 'package:cloud_music_mobile/widget/SwiperAndMenu.dart';
 import 'package:cloud_music_mobile/models/Recommend.dart';
 import 'package:cloud_music_mobile/models/FindBanner.dart';
+import 'package:cloud_music_mobile/widget/NetworkMiddleware.dart';
 
 class RecommendPage extends StatefulWidget {
   @override
@@ -33,7 +35,7 @@ class _RecommendPageState extends State with AutomaticKeepAliveClientMixin {
   }
 
   getData() async {
-    Map data = await FindDao.getFindPageData();
+    var data = await FindDao.getFindPageData();
     if (data != null && mounted) {
       setState(() {
         _bannerData = data['banner'];
@@ -42,6 +44,7 @@ class _RecommendPageState extends State with AutomaticKeepAliveClientMixin {
         _djprogram = data['djprogram'];
       });
     }
+    return data;
   }
 
   ///显示刷新
@@ -56,25 +59,43 @@ class _RecommendPageState extends State with AutomaticKeepAliveClientMixin {
     return RefreshIndicator(
       key: _refreshIndicatorKey,
       color: Colors.red,
-      child: CustomScrollView(
-        cacheExtent: 2000,
-        slivers: <Widget>[
-          SwiperAndMenu(
-            bannerData: _bannerData,
-            menus: _menus,
-          ),
-          BoxTitle(title: '推荐歌单', onTap: () {}),
-          BoxContent(list: _songSheet, title: '歌单'),
-          BoxTitle(title: '最新音乐', onTap: () {}),
-          BoxContent(list: _newsong, title: '最新音乐'),
-          BoxTitle(title: '主播电台', onTap: () {}),
-          BoxContent(list: _djprogram, title: '主播电台')
-        ],
-      ),
+      child: CustomScrollView(cacheExtent: 2000, slivers: _listWidget()),
       onRefresh: () async {
         await getData();
       },
     );
+  }
+
+  _listWidget() {
+    List<Widget> list = <Widget>[
+      SwiperAndMenu(
+        bannerData: _bannerData,
+        menus: _menus,
+      ),
+    ];
+
+    if (_songSheet.length != 0 &&
+        _newsong.length != 0 &&
+        _djprogram.length != 0) {
+      list.addAll([
+        BoxTitle(title: '推荐歌单', onTap: () {}),
+        BoxContent(list: _songSheet, title: '歌单'),
+        BoxTitle(title: '最新音乐', onTap: () {}),
+        BoxContent(list: _newsong, title: '最新音乐'),
+        BoxTitle(title: '主播电台', onTap: () {}),
+        BoxContent(list: _djprogram, title: '主播电台')
+      ]);
+    } else {
+      list.add(SliverList(
+        delegate: SliverChildListDelegate([
+          NetworkMiddleware(
+            req: getData,
+          )
+        ]),
+      ));
+    }
+
+    return list;
   }
 
   @override
@@ -101,15 +122,15 @@ class BoxContent extends StatelessWidget {
         ),
         delegate: SliverChildBuilderDelegate(
           (BuildContext context, int index) {
-
+            Img img = Img(
+              list.length > 0 ? list[index].picUrl : null,
+              width: 126,
+              height: 120,
+            );
             return InkWell(
               child: Column(
                 children: <Widget>[
-                  Img(
-                    list.length > 0 ? list[index].picUrl : null,
-                    width: 126,
-                    height: 120,
-                  ),
+                  img,
                   Container(
                     padding: EdgeInsets.only(top: 4),
                     child: Text(
@@ -132,14 +153,14 @@ class BoxContent extends StatelessWidget {
                           title: title,
                           songSheetId: list[index].id,
                           authorName: list[index].name,
-                          coverPic: list[index].picUrl);
+                          coverPic: img.getReqImgSize());
                     },
                   ),
                 );
               },
             );
           },
-          childCount: 6,
+          childCount: list.length == 0 ? 0 : 6,
         ),
       ),
     );

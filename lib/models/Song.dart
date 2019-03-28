@@ -1,33 +1,39 @@
-import 'dart:convert';
+import 'package:json_annotation/json_annotation.dart'; 
+  
+part 'Song.g.dart';
 
-class Song {
-  // 歌曲id
+
+List<Song> getSongList(List<dynamic> list){
+    List<Song> result = [];
+    list.forEach((item){
+      result.add(Song.fromJson(item));
+    });
+    return result;
+  }
+@JsonSerializable()
+  class Song extends Object {
+
+  @JsonKey(name: 'songId')
   int songId;
-  // 歌手
+
+  @JsonKey(name: 'singer')
   String singer;
-  // 封面
+
+  @JsonKey(name: 'coverPic')
   String coverPic;
-  // 歌曲url
+
+  @JsonKey(name: 'url')
   String url;
-  // 歌曲名称
+
+  @JsonKey(name: 'songName')
   String songName;
 
-  Song({this.songId, this.singer, this.coverPic, this.url, this.songName});
+  Song(this.songId,this.singer,this.coverPic,this.url,this.songName,);
 
-  static toJson(Song song) {
-    return jsonEncode({
-      "songId": song.songId,
-      "singer": song.singer,
-      "coverPic": song.coverPic,
-      "url": song.url,
-      "songName": song.songName
-    });
-  }
-  Song.formJson(Map map) {
-    songId = map["songId"];
-    singer = map["singer"];
-    coverPic = map["coverPic"];
-    url = map["url"];
-    songName = map["songName"];
-  }
+  factory Song.fromJson(Map<String, dynamic> srcJson) => _$SongFromJson(srcJson);
+
+  Map<String, dynamic> toJson() => _$SongToJson(this);
+
 }
+
+  

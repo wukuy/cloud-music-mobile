@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_music_mobile/widget/HomeDrawer.dart';
 import 'package:cloud_music_mobile/page/find/FindMusicPage.dart';
 import 'package:cloud_music_mobile/page/my/MyMusicPage.dart';
-import 'package:cloud_music_mobile/page/mv/Mvpage.dart';
+import 'package:cloud_music_mobile/page/mv/MvPage.dart';
 import 'package:cloud_music_mobile/page/common/SearchSongPage.dart';
 
 class HomePage extends StatefulWidget {
@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage>
     TabItem(
       selected: Image.asset('lib/assets/image/t_actionbar_video_selected.png'),
       normal: Image.asset('lib/assets/image/t_actionbar_video_normal.png'),
-      page: Mvpage(),
+      page: MvPage(),
     ),
   ];
 

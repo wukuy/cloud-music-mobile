@@ -16,9 +16,8 @@ class PlayDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreBuilder<AppState>(
         builder: (BuildContext context, Store<AppState> store) {
-      PlayInfoState playInfoState = store.state.playInfoState;
       PlayerState playerState = store.state.playerState;
-      Song info = playInfoState.getPlayInfo();
+      Song info = playerState.getPlayInfo();
 
       return BackgroundBlur(Scaffold(
         backgroundColor: Colors.transparent,
@@ -78,8 +77,7 @@ class PlayDetailPage extends StatelessWidget {
   }
 
   _playCtrl(playerState, Store<AppState> store, context) {
-    bool playState = (PlayActions.play == playerState.state ||
-        PlayActions.resume == playerState.state);
+    bool playState = (PlayActions.play == playerState.state);
 
     return Container(
       height: 107,
@@ -123,8 +121,8 @@ class PlayDetailPage extends StatelessWidget {
               _ctrlItem(
                 playState ? ConstDefine.play : ConstDefine.playPause,
                 onPressed: () {
-                  store.dispatch(PlayerState(
-                      playState ? PlayActions.pause : PlayActions.resume));
+                  store.dispatch(
+                      playState ? PlayActions.pause : PlayActions.play);
                 },
               ),
               _ctrlItem(ConstDefine.playNext),
@@ -164,8 +162,7 @@ class BackgroundBlur extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreBuilder<AppState>(
       builder: (BuildContext context, Store<AppState> store) {
-        PlayInfoState playInfoState = store.state.playInfoState;
-        Song info = playInfoState.getPlayInfo();
+        Song info = store.state.playerState.getPlayInfo();
 
         return Container(
           child: Stack(
@@ -230,9 +227,8 @@ class _Cd extends State<Cd> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return StoreBuilder<AppState>(
         builder: (BuildContext context, Store<AppState> store) {
-      PlayInfoState playInfoState = store.state.playInfoState;
-      Song info = playInfoState.getPlayInfo();
-      if (store.state.playerState.state == PlayActions.play || store.state.playerState.state == PlayActions.resume) {
+      Song info = store.state.playerState.getPlayInfo();
+      if (store.state.playerState.state == PlayActions.play) {
         animationController.forward();
       } else {
         animationController.stop();
