@@ -27,7 +27,6 @@ class FindDao {
           .data["result"]
           .map((item) => item["song"]["album"])
           .toList();
-
       Map map = {
         'banner': FindBanner.fromJson(result[0].data).banners,
         'songSheet': Recommend.fromJson(result[1].data).result,
@@ -41,7 +40,7 @@ class FindDao {
   /// 获取歌单详情
   static getSongDetail(data) async {
     var result = await Http(loading: false).get('/playlist/detail', data: data);  
-
+    
     if (result != null && result.data["code"] == 200) {
       Map data = result.data["playlist"];
       List<Song> playlist = [];

@@ -35,7 +35,8 @@ class _RecommendPageState extends State with AutomaticKeepAliveClientMixin {
   }
 
   getData() async {
-    var data = await FindDao.getFindPageData();
+    var data = await FindDao.getFindPageData();  
+
     if (data != null && mounted) {
       setState(() {
         _bannerData = data['banner'];
@@ -61,7 +62,7 @@ class _RecommendPageState extends State with AutomaticKeepAliveClientMixin {
       color: Colors.red,
       child: CustomScrollView(cacheExtent: 2000, slivers: _listWidget()),
       onRefresh: () async {
-        await getData();
+        // await getData();
       },
     );
   }
@@ -89,7 +90,7 @@ class _RecommendPageState extends State with AutomaticKeepAliveClientMixin {
       list.add(SliverList(
         delegate: SliverChildListDelegate([
           NetworkMiddleware(
-            req: getData,
+            req: getData
           )
         ]),
       ));

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:cloud_music_mobile/page/HomePage.dart';
 import 'package:cloud_music_mobile/common/dao/EventDao.dart';
@@ -7,14 +8,14 @@ import 'package:redux/redux.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:cloud_music_mobile/common/redux/AppState.dart';
 import 'package:cloud_music_mobile/common/redux/PlayerState.dart';
-
 import 'package:cloud_music_mobile/widget/PlayBar.dart';
-
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:cloud_music_mobile/models/Song.dart';
 
 void main() async {
-  PlayerState playerState = PlayerState(playList: []);
+  PlayerState playerState = await playerStateInit();
+   
   Store<AppState> store = Store<AppState>(
     mainReducer,
     initialState: AppState(
@@ -22,44 +23,24 @@ void main() async {
     ),
   );
 
-  playerState.audioPlayer.onPlayerCompletion.listen((event) {
-    if(playerState.mode == PlayModeActions.loop) {
-      if(playerState.playIdx >= playerState.playList.length - 1) {
-        playerState.playIdx = 0;
-      }else {
-        playerState.playIdx++;
-      }
-    }
-
-    if(playerState.mode ==PlayModeActions.order) {
-      if(playerState.playIdx >= playerState.playList.length - 1) {
-        print("歌曲列表播放完毕");
-      }else {
-        playerState.playIdx++;
-      }
-    }
-      
-    store.dispatch(PlayActions.play);
-  });
-
   
-
   runApp(CloudMusic(store));
 }
 
-Future getPlayState() async {
-  // SharedPreferences pref = await SharedPreferences.getInstance();
-  // String playStr = pref.getString("play");
-  // if(playStr != null) {
-  //   Map play = jsonDecode(playStr);
+// 播放器状态初始化
+Future playerStateInit() async {
+  SharedPreferences pref = await SharedPreferences.getInstance();
+  String playerStr = pref.getString("playerState");
 
-  //   List<Song> playList = play["playList"].map<Song>((item) => Song.formJson(json.decode(item))).toList();
-  //   int playSongId = play["playSongId"];
-
-  //   print(playSongId);
-  //   return PlayInfoState(playSongId, playList);
-  // }
-  // return PlayInfoState(playSongId: );
+  if(playerStr != null) {
+    Map playerMap = jsonDecode(playerStr);
+    return PlayerState(
+      mode: PlayModeActions.values[playerMap['mode']],
+      playList: getSongList(playerMap['playList']),
+      playIdx: playerMap['playIdx']
+    );
+  }
+  return PlayerState(playList: []);
 }
 
 class CloudMusic extends StatelessWidget {

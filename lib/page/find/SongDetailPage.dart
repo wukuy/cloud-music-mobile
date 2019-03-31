@@ -35,6 +35,7 @@ class _SongDetailPage extends State<SongDetailPage> {
 
   _getSongDetail() async {
     Map data = await FindDao.getSongDetail({"id": widget.songSheetId});
+
     if (data != null) {
       setState(() {
         list = data["playlist"];

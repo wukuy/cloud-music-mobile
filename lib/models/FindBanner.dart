@@ -45,7 +45,13 @@ part 'FindBanner.g.dart';
   @JsonKey(name: 'encodeId')
   String encodeId;
 
-  Banners(this.imageUrl,this.targetId,this.targetType,this.titleColor,this.typeTitle,this.url,this.exclusive,this.encodeId,);
+  @JsonKey(name: 'video')
+  String video;
+
+  @JsonKey(name: 'song')
+  String song;
+
+  Banners(this.imageUrl,this.targetId,this.targetType,this.titleColor,this.typeTitle,this.url,this.exclusive,this.encodeId,this.video,this.song,);
 
   factory Banners.fromJson(Map<String, dynamic> srcJson) => _$BannersFromJson(srcJson);
 

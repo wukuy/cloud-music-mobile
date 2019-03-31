@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:cloud_music_mobile/assets/ConstDefine.dart';
 import 'package:cloud_music_mobile/assets/style/ColorDefine.dart';
 import 'package:cloud_music_mobile/widget/Img.dart';
 import 'package:cloud_music_mobile/models/FindBanner.dart';
@@ -57,35 +56,102 @@ class Banner extends StatelessWidget {
   }
 
   _swiper() {
-    return Swiper(
-      itemBuilder: (BuildContext context, int index) {
-        return InkWell(
-          child: Container(
-            margin: EdgeInsets.only(left: 8, right: 8),
-            child: Img(
-              data.length > 0
-                  ? data[index].imageUrl
-                  : null,
-              height: 120,
-              radius: 6,
-              fit: BoxFit.fitHeight,
-              color: Color(ColorDefine.placeholder),
-            )),
+    Widget widget;
+    if (data != null && data.length > 0) {
+      widget = Swiper(
+        itemBuilder: (BuildContext context, int index) {
+          Banners banner = data[index];
+          return InkWell(
+            child: Container(
+                margin: EdgeInsets.only(left: 8, right: 8),
+                child: Stack(
+                  children: <Widget>[
+                    Positioned(
+                      left: 0,
+                      top: 0,
+                      bottom: 0,
+                      right: 0,
+                      child: Img(
+                        banner.imageUrl,
+                        height: 120,
+                        radius: 6,
+                        fit: BoxFit.fitHeight,
+                        color: Color(ColorDefine.placeholder),
+                      ),
+                    ),
+                    Positioned(
+                      right: 0,
+                      bottom: 0,
+                      child: Container(
+                        padding: EdgeInsets.only(
+                            left: 8, right: 8, top: 4, bottom: 4),
+                        decoration: BoxDecoration(
+                            color: _getTitileColor(banner.titleColor),
+                            borderRadius: BorderRadius.only(
+                              bottomRight: Radius.circular(4),
+                              topLeft: Radius.circular(4),
+                            )),
+                        child: Text(
+                          banner.typeTitle,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 10
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                )),
             onTap: () {
-              if(data[index].url != null) {
-                Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
-                  return WebViewPage(data[index].url);
+              if (banner.url != null) {
+                
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (BuildContext context) {
+                  return WebViewPage(banner.url);
                 }));
               }
             },
-        );
-      },
-      itemCount: data.length == 0 ? 2 : data.length,
-      pagination: SwiperPagination(),
-      // control: SwiperControl(),
-      scale: 0.99,
-      autoplay: true,
-    );
+          );
+        },
+        itemCount: data.length,
+        pagination: SwiperPagination(),
+        scale: 0.99,
+        autoplay: true,
+      );
+    } else {
+      widget = Container(
+        margin: EdgeInsets.only(left: 8, right: 8),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(8)),
+          color: Color(ColorDefine.placeholder),
+        ),
+        child: Center(
+          child: Img(
+            null,
+            fit: BoxFit.fitHeight,
+          ),
+        ),
+      );
+    }
+
+    return widget;
+  }
+
+  _getTitileColor(String colorStr) {
+    Color color;
+    switch (colorStr) {
+      case 'red':
+        color = Colors.red.withOpacity(0.8);
+        break;
+      case 'green':
+        color = Colors.green.withOpacity((0.8));
+        break;
+      case 'blue':
+        color = Colors.blue.withOpacity((0.8));
+        break;
+    }
+
+    return color;
   }
 }
 

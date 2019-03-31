@@ -25,7 +25,9 @@ Banners _$BannersFromJson(Map<String, dynamic> json) {
       json['typeTitle'] as String,
       json['url'] as String,
       json['exclusive'] as bool,
-      json['encodeId'] as String);
+      json['encodeId'] as String,
+      json['video'] as String,
+      json['song'] as String);
 }
 
 Map<String, dynamic> _$BannersToJson(Banners instance) => <String, dynamic>{
@@ -36,5 +38,7 @@ Map<String, dynamic> _$BannersToJson(Banners instance) => <String, dynamic>{
       'typeTitle': instance.typeTitle,
       'url': instance.url,
       'exclusive': instance.exclusive,
-      'encodeId': instance.encodeId
+      'encodeId': instance.encodeId,
+      'video': instance.video,
+      'song': instance.song
     };

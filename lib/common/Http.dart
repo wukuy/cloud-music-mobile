@@ -12,36 +12,19 @@ class Http {
   }
 
   request(String path, {Map data, Options options}) async {
-    Response request;
-    try {
-      request = await dio.request(path, data: data, options: options);
-    } catch (e) {
-      return e;
-    }
+    Response request = await dio.request(path, data: data, options: options);
+    
     return request;
   }
 
   get(String path, {Map data, Options options}) async {
-    dio.clear();
-    Response request;
-    try {
-      request = await dio.get(path, data: data, options: options);
-    } catch (e) {
-      rethrow;
-    }
+    Response request = await dio.get(path, data: data, options: options);
     return request;
   }
 
   static all(List<Future> list, {bool loading = false}) async {
-    List results;
     if (loading) Loading.show();
-
-    try {
-      results = await Future.wait(list);
-    } catch (e) {
-      rethrow;
-    }
-
+    List results = await Future.wait(list);
     if (loading) Loading.hide();
     return results;
   }

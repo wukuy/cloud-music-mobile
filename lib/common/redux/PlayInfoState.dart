@@ -9,17 +9,6 @@ class PlayInfoState {
 
   PlayInfoState(this.playSongId, this.songList, {this.url});
 
-  getPlayInfo() {
-    Song song;
-    for(int idx = 0; idx < songList.length; idx++){
-      if(songList[idx].songId == playSongId) {
-        song = songList[idx];
-        saveLocal(playSongId, songList);
-        return song;
-      }
-    }
-  }
-
   saveLocal(int playSongId, List<Song> list) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
       List songList = getSongList(list);

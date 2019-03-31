@@ -1,33 +1,19 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:cloud_music_mobile/common/Http.dart';
 import 'package:dio/dio.dart';
-import 'package:cloud_music_mobile/common/dao/FindDao.dart';
+import 'package:connectivity/connectivity.dart';
 
 enum SpinkitType { Wave }
 enum NetworkState { success, fail, loading }
 
 class NetworkMiddleware extends StatefulWidget {
   final String loadText;
-  final SpinkitType spinkitType;
-  final Widget placeholder;
-  final EdgeInsets margin;
-  final Colors color;
-  final Colors background;
   final Widget child;
   final Function req;
+  final double margin;
 
   NetworkMiddleware(
-      {this.loadText: '努力加载中...',
-      this.color,
-      this.background,
-      this.spinkitType,
-      this.placeholder,
-      this.child,
-      this.margin,
-      @required this.req});
+      {this.loadText: '努力加载中...', this.child, this.margin, @required this.req});
 
   @override
   State<StatefulWidget> createState() {
@@ -42,7 +28,7 @@ class _NetworkMiddleware extends State<NetworkMiddleware> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: widget.background ?? Colors.white,
+      color: Colors.white,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -57,20 +43,28 @@ class _NetworkMiddleware extends State<NetworkMiddleware> {
   @override
   void initState() {
     super.initState();
-    if(mounted) {
+    if (mounted) {
       _req();
+      _networkConnectStateListen();
     }
   }
 
+  _networkConnectStateListen() {
+    // 网络连接状态监听
+    Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
+      // 无网络状态，且当前请求失败时，重新请求接口
+      if (ConnectivityResult.none != result && NetworkState.fail == state) {
+        _req();
+      }
+    });
+  }
+
   _setPlaceholder() {
-    return widget.placeholder ??
-        Container(
-            margin: widget.margin ?? EdgeInsets.only(top: 28, bottom: 28),
-            child: Column(
-              children: <Widget>[
-                _setContent()
-              ],
-            ));
+    return Container(
+        margin: widget.margin ?? EdgeInsets.only(top: 28, bottom: 28),
+        child: Column(
+          children: <Widget>[_setContent()],
+        ));
   }
 
   _setContent() {
@@ -93,14 +87,13 @@ class _NetworkMiddleware extends State<NetworkMiddleware> {
   _loading() {
     return Row(children: <Widget>[
       SpinKitWave(
-        color: widget.color ?? Colors.black26,
+        color: Theme.of(context).primaryColor,
         type: SpinKitWaveType.start,
         size: 14,
       ),
       Container(
         margin: EdgeInsets.only(left: 6),
-        child: Text(widget.loadText,
-            style: TextStyle(color: widget.color ?? Colors.black45)),
+        child: Text(widget.loadText, style: TextStyle(color: Colors.black45)),
       )
     ]);
   }
@@ -113,7 +106,7 @@ class _NetworkMiddleware extends State<NetworkMiddleware> {
     String text = '';
 
     switch (errorType) {
-      // 网络错误，Default error type, usually occurs before connecting the server.
+      // 网络未连接，发生在连接之前，Default error type, usually occurs before connecting the server.
       case DioErrorType.DEFAULT:
         text = '请连接网络后点击屏幕';
         break;
@@ -127,35 +120,35 @@ class _NetworkMiddleware extends State<NetworkMiddleware> {
       onTap: () {
         _req();
       },
-      child: Text(text),
+      child: Text(text, style: TextStyle(color: Colors.black38),),
     );
   }
 
   _req() async {
     var result;
-
-    if (mounted) {
-      setState(() {
-        state = NetworkState.loading;
-      });
-    }
-
+    _setNetworkState(NetworkState.loading);
+    
     try {
       result = await widget.req();
     } catch (e) {
-      errorType = e.type;
-      setState(() {
-        state = NetworkState.fail;
-      });
-      rethrow;
+      if(e != null) {
+        errorType = e.type;
+      }
+      _setNetworkState(NetworkState.fail);
     }
 
-    
     if (result != null) {
-      setState(() {
-        state = NetworkState.success;
-      });
-      return result;
+      _setNetworkState(NetworkState.success);
     }
+  }
+
+  _setNetworkState(NetworkState networkState) {
+      if(mounted) {
+        setState(() {
+          state = networkState;
+        });
+      }else {
+        state = networkState;
+      }
   }
 }

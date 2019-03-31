@@ -2,6 +2,8 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:cloud_music_mobile/models/Song.dart';
 import 'package:meta/meta.dart';
 import 'package:cloud_music_mobile/common/dao/FindDao.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
 enum PlayActions { play, pause }
 enum PlayModeActions { loop, random, order, singleLoop }
@@ -30,13 +32,14 @@ class PlayerState {
       resume();
     } else {
       String url = playList[playIdx].url = await _getSongUrl();
-      print(url);
       if (url != null) {
         int result = await audioPlayer.play(url);
         if (result == 1) {
           print("播放");
         }
       }
+
+      _savePlayerState();
     }
   }
 
@@ -54,12 +57,77 @@ class PlayerState {
     }
   }
 
+  _savePlayerState() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setString('playerState', toJson());
+  }
+
+  // 跳转播放
+  seek(int milliseconds) {
+    audioPlayer.seek(new Duration(milliseconds: milliseconds));
+  }
+
   // 播放上一曲
   playLastSong() {}
   // 播放下一曲
   playNextSong() {}
   // 跳转播放
   seekPlay() {}
+
+  _getSongUrl() async {
+    Map result = await FindDao.getSongUrl({'id': playList[playIdx].songId});
+    if (result != null) {
+      return result['url'];
+    }
+  }
+
+  setListen(store) {
+    _onPlayerCompletion(store);
+    _onPlayerStateChanged(store);
+    _onAudioPositionChanged(store);
+  }
+
+  // 播放完成监听
+  _onPlayerCompletion(store) {
+    audioPlayer.onPlayerCompletion.listen((event) {
+      if (mode == PlayModeActions.loop) {
+        if (playIdx >= playList.length - 1) {
+          playIdx = 0;
+        } else {
+          playIdx++;
+        }
+      }
+
+      if (mode == PlayModeActions.order) {
+        if (playIdx >= playList.length - 1) {
+          print("歌曲列表播放完毕");
+        } else {
+          playIdx++;
+        }
+      }
+      store.dispatch(PlayActions.play);
+    });
+  }
+
+  // 播放状态监听
+  _onPlayerStateChanged(store) {
+    audioPlayer.onPlayerStateChanged.listen((AudioPlayerState s) => {});
+  }
+
+  // 播放进度监听
+  _onAudioPositionChanged(store) {
+    audioPlayer.onAudioPositionChanged.listen((Duration p) => {});
+  }
+
+  toJson() {
+    return jsonEncode({
+      "mode": mode.index,
+      "playList": songListToJson(playList),
+      "playIdx": playIdx,
+      "progressBarPosition": progressBarPosition,
+      "countDuration": countDuration,
+    });
+  }
 
   PlayerState.fromJson(Map map) {
     mode = map['mode'];
@@ -70,20 +138,6 @@ class PlayerState {
     countDuration = map['countDuration'];
   }
 
-  _getSongUrl() async {
-    Map result = await FindDao.getSongUrl({'id': playList[playIdx].songId});
-    if (result != null) {
-      return result['url'];
-    }
-  }
-
-  toJson() => {
-        "mode": mode,
-        "playList": playList,
-        "playIdx": playIdx,
-        "progressBarPosition": progressBarPosition,
-        "countDuration": countDuration,
-      };
   getPlayInfo() => playList[playIdx];
 }
 

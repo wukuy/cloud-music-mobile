@@ -10,6 +10,14 @@ List<Song> getSongList(List<dynamic> list){
     });
     return result;
   }
+
+  List<Map> songListToJson(List<Song> list){
+    List<Map> result = [];
+    list.forEach((Song item){
+      result.add(item.toJson());
+    });
+    return result;
+  }
 @JsonSerializable()
   class Song extends Object {
 

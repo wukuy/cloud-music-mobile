@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_music_mobile/common/dao/EventDao.dart';
 import 'package:cloud_music_mobile/page/login/LoginMainPage.dart';
 import 'package:cloud_music_mobile/widget/ListItemCustom.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,9 +19,7 @@ class _HomeDrawerState extends State {
         padding: EdgeInsets.zero,
         children: <Widget>[
           UserHead(),
-          DrawerListItem(text: "我的消息", iconData: Icons.email, onTap: () {
-            
-          }),
+          DrawerListItem(text: "我的消息", iconData: Icons.email, onTap: () {}),
           DrawerListItem(
               text: "会员中心", iconData: Icons.favorite_border, onTap: () {}),
           DrawerListItem(text: "商城", iconData: Icons.email, onTap: () {}),
@@ -35,7 +32,17 @@ class _HomeDrawerState extends State {
           DrawerListItem(text: "听歌识曲", iconData: Icons.email, onTap: () {}),
           DrawerListItem(text: "定时停止播放", iconData: Icons.email, onTap: () {}),
           DrawerListItem(text: "扫一扫", iconData: Icons.email, onTap: () {}),
-          DrawerListItem(text: "退出登录", iconData: Icons.email, onTap: () {}),
+          DrawerListItem(
+            text: "退出登录",
+            iconData: Icons.exit_to_app,
+            onTap: () async {
+              SharedPreferences pref = await SharedPreferences.getInstance();
+              pref.remove(('userInfo'));
+              Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
+                return LoginMainPage();
+              }));
+            },
+          ),
         ],
       ),
     );
