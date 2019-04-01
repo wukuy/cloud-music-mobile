@@ -28,11 +28,11 @@ class _LoginPage extends State<LoginPage> {
               padding: EdgeInsets.only(bottom: 20),
               child: _inputStyle("+86 请输入手机号码", Icons.phone_iphone, (val) {
                 phone = val;
-              }),
+              }, false),
             ),
             _inputStyle("请输入密码", Icons.lock_outline, (val) {
               password = val;
-            }),
+            }, true),
             Container(
               margin: EdgeInsets.only(top: 32),
               child: FlatButton(
@@ -60,7 +60,7 @@ class _LoginPage extends State<LoginPage> {
     );
   }
 
-  _inputStyle(hintText, iconData, onChanged) {
+  _inputStyle(hintText, iconData, onChanged, obscureText) {
     return TextField(
       decoration: InputDecoration(
         prefixIcon: Icon(
@@ -72,6 +72,7 @@ class _LoginPage extends State<LoginPage> {
         enabledBorder:
             UnderlineInputBorder(borderSide: BorderSide(color: Colors.black26)),
       ),
+      obscureText: obscureText,
       cursorColor: Theme.of(context).primaryColor,
       autofocus: true,
       style: TextStyle(color: Colors.black87),

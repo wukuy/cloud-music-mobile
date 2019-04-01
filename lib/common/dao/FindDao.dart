@@ -3,6 +3,7 @@ import 'package:cloud_music_mobile/models/FindBanner.dart';
 import 'package:cloud_music_mobile/models/Recommend.dart';
 import 'package:cloud_music_mobile/models/SongDetail.dart';
 import 'package:cloud_music_mobile/models/Song.dart';
+import 'dart:math';
 
 class FindDao {
   // 获取发现页面接口数据获取
@@ -10,13 +11,10 @@ class FindDao {
     var result = await Http.all([
       /// 获取轮播图
       Http(loading: false).get('/banner'),
-
       /// 获取推荐歌单
       Http(loading: false).get('/personalized'),
-
       /// 获取最新音乐
       Http(loading: false).get('/personalized/newsong'),
-
       /// 获取主播电台
       Http(loading: false).get('/personalized/djprogram')
     ]);
@@ -27,11 +25,20 @@ class FindDao {
           .data["result"]
           .map((item) => item["song"]["album"])
           .toList();
+      List banners = FindBanner.fromJson(result[0].data).banners;
+      List songSheet = Recommend.fromJson(result[1].data).result;
+      List newsong = Recommend.fromJson(result[2].data).result;
+      List djprogram = Recommend.fromJson(result[3].data).result;
+
+      songSheet.shuffle(Random());
+      newsong.shuffle(Random());
+      djprogram.shuffle(Random());
+
       Map map = {
-        'banner': FindBanner.fromJson(result[0].data).banners,
-        'songSheet': Recommend.fromJson(result[1].data).result,
-        'newsong': Recommend.fromJson(result[2].data).result,
-        'djprogram': Recommend.fromJson(result[3].data).result
+        'banner': banners,
+        'songSheet': songSheet,
+        'newsong': newsong,
+        'djprogram': djprogram
       };
       return map;
     }
@@ -70,7 +77,7 @@ class FindDao {
 
   /// 获取歌曲
   static getSongUrl(data) async {
-    var result = await Http().get('/song/url', data: data);
+    var result = await Http(loading: false).get('/song/url', data: data);
     if (result != null) {
       return result.data["data"][0];
     }

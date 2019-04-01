@@ -14,7 +14,7 @@ class _MvpageState extends State<MvPage>{
   @override
   void initState() {
     super.initState();
-    networkMiddleware = NetworkMiddleware(req: getSongDetail,);
+    networkMiddleware = NetworkMiddleware(reqfun: getSongDetail,);
      
     if(mounted) {
       // getSongDetail();

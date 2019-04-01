@@ -24,6 +24,7 @@ class _RecommendPageState extends State with AutomaticKeepAliveClientMixin {
     MenuItem(icon: Icons.queue_music, text: '歌单'),
     MenuItem(icon: Icons.donut_large, text: '排行榜'),
   ];
+  NetworkMiddleware networkMiddleware;
 
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
       new GlobalKey<RefreshIndicatorState>();
@@ -31,6 +32,7 @@ class _RecommendPageState extends State with AutomaticKeepAliveClientMixin {
   @override
   void initState() {
     super.initState();
+    networkMiddleware = NetworkMiddleware(reqfun: getData);
     showRefresh();
   }
 
@@ -62,7 +64,7 @@ class _RecommendPageState extends State with AutomaticKeepAliveClientMixin {
       color: Colors.red,
       child: CustomScrollView(cacheExtent: 2000, slivers: _listWidget()),
       onRefresh: () async {
-        // await getData();
+        await networkMiddleware.require();
       },
     );
   }
@@ -89,9 +91,7 @@ class _RecommendPageState extends State with AutomaticKeepAliveClientMixin {
     } else {
       list.add(SliverList(
         delegate: SliverChildListDelegate([
-          NetworkMiddleware(
-            req: getData
-          )
+          networkMiddleware
         ]),
       ));
     }

@@ -4,7 +4,6 @@ import 'package:cloud_music_mobile/assets/ConstDefine.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:cloud_music_mobile/common/redux/AppState.dart';
-import 'package:cloud_music_mobile/common/redux/PlayInfoState.dart';
 import 'package:cloud_music_mobile/common/redux/PlayerState.dart';
 import 'package:cloud_music_mobile/widget/Img.dart';
 import 'package:cloud_music_mobile/models/Song.dart';
@@ -76,7 +75,7 @@ class PlayDetailPage extends StatelessWidget {
     );
   }
 
-  _playCtrl(playerState, Store<AppState> store, context) {
+  _playCtrl(PlayerState playerState, Store<AppState> store, context) {
     bool playState = (PlayActions.play == playerState.state);
 
     return Container(
@@ -116,8 +115,11 @@ class PlayDetailPage extends StatelessWidget {
           Flex(
             direction: Axis.horizontal,
             children: <Widget>[
-              _ctrlItem(ConstDefine.playModeLoop),
-              _ctrlItem(ConstDefine.playUp),
+              _ctrlItem(ConstDefine.playModeLoop, ),
+              _ctrlItem(ConstDefine.playUp, onPressed: () {
+                playerState.playLastSong();
+                store.dispatch(PlayActions.play);
+              }),
               _ctrlItem(
                 playState ? ConstDefine.play : ConstDefine.playPause,
                 onPressed: () {
@@ -125,7 +127,10 @@ class PlayDetailPage extends StatelessWidget {
                       playState ? PlayActions.pause : PlayActions.play);
                 },
               ),
-              _ctrlItem(ConstDefine.playNext),
+              _ctrlItem(ConstDefine.playNext, onPressed: () {
+                playerState.playNextSong();
+                store.dispatch(PlayActions.play);
+              }),
               _ctrlItem(ConstDefine.playList, onPressed: () {
                 BottomSheetPlayList.show(context);
               }),

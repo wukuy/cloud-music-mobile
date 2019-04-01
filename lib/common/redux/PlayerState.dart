@@ -68,9 +68,21 @@ class PlayerState {
   }
 
   // 播放上一曲
-  playLastSong() {}
+  playLastSong() {
+    if(playIdx - 1 < 0) {
+      playIdx = playList.length - 1;
+    }else {
+      playIdx--;
+    }
+  }
   // 播放下一曲
-  playNextSong() {}
+  playNextSong() {
+    if(playIdx + 1 >= playList.length) {
+      playIdx = 0;
+    }else {
+      playIdx++;
+    }
+  }
   // 跳转播放
   seekPlay() {}
 
@@ -91,15 +103,11 @@ class PlayerState {
   _onPlayerCompletion(store) {
     audioPlayer.onPlayerCompletion.listen((event) {
       if (mode == PlayModeActions.loop) {
-        if (playIdx >= playList.length - 1) {
-          playIdx = 0;
-        } else {
-          playIdx++;
-        }
+        playNextSong();
       }
 
       if (mode == PlayModeActions.order) {
-        if (playIdx >= playList.length - 1) {
+        if (playIdx + 1 >= playList.length) {
           print("歌曲列表播放完毕");
         } else {
           playIdx++;
@@ -154,8 +162,6 @@ playerReducer(PlayerState state, action) {
       break;
     // 播放模式
     case PlayModeActions:
-      break;
-    case PlayerState:
       break;
   }
 

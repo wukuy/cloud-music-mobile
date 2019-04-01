@@ -96,7 +96,7 @@ class _SongDetailPage extends State<SongDetailPage> {
     } else {
       listWidget.add(SliverList(
           delegate: SliverChildListDelegate(
-              [NetworkMiddleware(req: _getSongDetail)])));
+              [NetworkMiddleware(reqfun: _getSongDetail)])));
     }
 
     return listWidget;
@@ -286,7 +286,7 @@ class _SongListItem extends State<SongListItem> {
           onTap: () {
             PlayerState playerState = store.state.playerState;
             playerState.playList = widget.list;
-            playerState.playIdx = widget.index - 1;
+            playerState.playIdx = widget.index;
 
             store.dispatch(PlayActions.play);
           },
@@ -301,7 +301,7 @@ class _SongListItem extends State<SongListItem> {
                   width: 50,
                   alignment: Alignment.center,
                   child: Text(
-                    "${widget.index}",
+                    "${widget.index + 1}",
                     style: TextStyle(fontSize: 12, color: Color(0xff666666)),
                   ),
                 ),

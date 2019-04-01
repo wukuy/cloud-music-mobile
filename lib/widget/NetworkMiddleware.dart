@@ -9,15 +9,18 @@ enum NetworkState { success, fail, loading }
 class NetworkMiddleware extends StatefulWidget {
   final String loadText;
   final Widget child;
-  final Function req;
+  final Function reqfun;
   final double margin;
+  final _NetworkMiddleware _networkMiddleware = _NetworkMiddleware();
 
   NetworkMiddleware(
-      {this.loadText: '努力加载中...', this.child, this.margin, @required this.req});
+      {this.loadText: '努力加载中...', this.child, this.margin, @required this.reqfun});
 
+  require() => _networkMiddleware._req();
+  
   @override
   State<StatefulWidget> createState() {
-    return _NetworkMiddleware();
+    return _networkMiddleware;
   }
 }
 
@@ -129,7 +132,7 @@ class _NetworkMiddleware extends State<NetworkMiddleware> {
     _setNetworkState(NetworkState.loading);
     
     try {
-      result = await widget.req();
+      result = await widget.reqfun();
     } catch (e) {
       if(e != null) {
         errorType = e.type;

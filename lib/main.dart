@@ -23,7 +23,7 @@ void main() async {
     ),
   );
 
-  
+  playerState.setListen(store);
   runApp(CloudMusic(store));
 }
 
