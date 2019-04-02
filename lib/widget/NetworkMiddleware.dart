@@ -6,6 +6,7 @@ import 'package:connectivity/connectivity.dart';
 enum SpinkitType { Wave }
 enum NetworkState { success, fail, loading }
 
+// 晕，原来有对应的组件封装 FutureBuilder，已哭晕在厕所。
 class NetworkMiddleware extends StatefulWidget {
   final String loadText;
   final Widget child;

@@ -37,7 +37,9 @@ Future playerStateInit() async {
     return PlayerState(
       mode: PlayModeActions.values[playerMap['mode']],
       playList: getSongList(playerMap['playList']),
-      playIdx: playerMap['playIdx']
+      playIdx: playerMap['playIdx'],
+      playPosition: Duration(seconds: playerMap['playPosition'] ?? 0),
+      duration: Duration(seconds: playerMap['duration'] ?? 0),
     );
   }
   return PlayerState(playList: []);

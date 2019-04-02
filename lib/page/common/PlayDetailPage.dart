@@ -89,24 +89,26 @@ class PlayDetailPage extends StatelessWidget {
               direction: Axis.horizontal,
               children: <Widget>[
                 Text(
-                  '00:24',
+                  playerState.playPositionText,
                   style: TextStyle(color: Colors.white),
                 ),
                 Expanded(
                   child: Container(
-                      height: 2,
-                      padding: EdgeInsets.only(left: 10, right: 10),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(4)),
-                        child: LinearProgressIndicator(
-                          backgroundColor: Colors.grey,
-                          value: .4,
-                          valueColor: AlwaysStoppedAnimation(Colors.red),
-                        ),
-                      )),
+                    height: 2,
+                    padding: EdgeInsets.only(left: 10, right: 10),
+                    child: Slider(
+                      min: 0,
+                      max: playerState.duration?.inSeconds?.roundToDouble() ?? 0,
+                      value: playerState.playPosition?.inSeconds?.roundToDouble() ?? 0,
+                      onChanged: (double val) {
+                        playerState.playPosition = Duration(seconds: val.toInt());
+                        store.dispatch(PlayActions.seekPlay);
+                      },
+                    )
+                  ),
                 ),
                 Text(
-                  '04:24',
+                  playerState.durationText,
                   style: TextStyle(color: Colors.white),
                 ),
               ],
@@ -115,7 +117,9 @@ class PlayDetailPage extends StatelessWidget {
           Flex(
             direction: Axis.horizontal,
             children: <Widget>[
-              _ctrlItem(ConstDefine.playModeLoop, ),
+              _ctrlItem(
+                ConstDefine.playModeLoop,
+              ),
               _ctrlItem(ConstDefine.playUp, onPressed: () {
                 playerState.playLastSong();
                 store.dispatch(PlayActions.play);

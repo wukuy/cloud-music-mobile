@@ -5,7 +5,7 @@ import 'package:cloud_music_mobile/common/dao/FindDao.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
-enum PlayActions { play, pause }
+enum PlayActions { play, pause, seekPlay }
 enum PlayModeActions { loop, random, order, singleLoop }
 
 class PlayerState {
@@ -15,15 +15,18 @@ class PlayerState {
   List<Song> playList;
   // 当前播放歌曲
   int playIdx;
-  int progressBarPosition;
-  int countDuration;
+  Duration playPosition;
+  Duration duration;
+
+  get playPositionText => playPosition?.toString()?.split('.')?.first ?? '00:00';
+  get durationText => duration?.toString()?.split('.')?.first ?? '00:00';
 
   PlayerState(
       {this.mode = PlayModeActions.loop,
       @required this.playList,
       this.playIdx,
-      this.progressBarPosition,
-      this.countDuration}) {
+      this.playPosition,
+      this.duration}) {
     audioPlayer = AudioPlayer();
   }
 
@@ -35,11 +38,10 @@ class PlayerState {
       if (url != null) {
         int result = await audioPlayer.play(url);
         if (result == 1) {
-          print("播放");
+          print("开始播放");
+          _savePlayerState();
         }
       }
-
-      _savePlayerState();
     }
   }
 
@@ -63,28 +65,27 @@ class PlayerState {
   }
 
   // 跳转播放
-  seek(int milliseconds) {
-    audioPlayer.seek(new Duration(milliseconds: milliseconds));
+  seekPlay(Duration s) {
+    audioPlayer.seek(s);
   }
 
   // 播放上一曲
   playLastSong() {
-    if(playIdx - 1 < 0) {
+    if (playIdx - 1 < 0) {
       playIdx = playList.length - 1;
-    }else {
+    } else {
       playIdx--;
     }
   }
+
   // 播放下一曲
   playNextSong() {
-    if(playIdx + 1 >= playList.length) {
+    if (playIdx + 1 >= playList.length) {
       playIdx = 0;
-    }else {
+    } else {
       playIdx++;
     }
   }
-  // 跳转播放
-  seekPlay() {}
 
   _getSongUrl() async {
     Map result = await FindDao.getSongUrl({'id': playList[playIdx].songId});
@@ -94,9 +95,16 @@ class PlayerState {
   }
 
   setListen(store) {
+    _onDurationChanged(store);
     _onPlayerCompletion(store);
     _onPlayerStateChanged(store);
     _onAudioPositionChanged(store);
+  }
+
+  _onDurationChanged(store) {
+    audioPlayer.onDurationChanged.listen((Duration d) {
+      duration = d;
+    });
   }
 
   // 播放完成监听
@@ -119,12 +127,19 @@ class PlayerState {
 
   // 播放状态监听
   _onPlayerStateChanged(store) {
-    audioPlayer.onPlayerStateChanged.listen((AudioPlayerState s) => {});
+    audioPlayer.onPlayerStateChanged.listen((AudioPlayerState s) {
+      if(AudioPlayerState.PLAYING == s) {
+        // store.dispatch(PlayActions.play);
+      }
+    });
   }
 
   // 播放进度监听
   _onAudioPositionChanged(store) {
-    audioPlayer.onAudioPositionChanged.listen((Duration p) => {});
+    audioPlayer.onAudioPositionChanged.listen((Duration p) {
+      playPosition = p;
+      store.dispatch(this);
+    });
   }
 
   toJson() {
@@ -132,8 +147,8 @@ class PlayerState {
       "mode": mode.index,
       "playList": songListToJson(playList),
       "playIdx": playIdx,
-      "progressBarPosition": progressBarPosition,
-      "countDuration": countDuration,
+      "playPosition": playPosition?.inSeconds ?? 0,
+      "duration": duration?.inSeconds ?? 0,
     });
   }
 
@@ -142,8 +157,8 @@ class PlayerState {
     playList = map['playList'];
     // 当前播放歌曲
     playIdx = map['playIdx'];
-    progressBarPosition = map['progressBarPosition'];
-    countDuration = map['countDuration'];
+    playPosition = map['playPosition'];
+    duration = map['duration'];
   }
 
   getPlayInfo() => playList[playIdx];
@@ -153,15 +168,21 @@ playerReducer(PlayerState state, action) {
   switch (action.runtimeType) {
     // 播放状态改变
     case PlayActions:
-      state.state = action;
       if (PlayActions.play == action) {
+        state.state = action;
         state.play();
-      } else {
+      } else if (PlayActions.pause == action) {
+        state.state = action;
         state.pause();
+      } else if (PlayActions.seekPlay == action) {
+        state.seekPlay(state.playPosition);
       }
       break;
     // 播放模式
     case PlayModeActions:
+      break;
+    case PlayerState:
+
       break;
   }
 
