@@ -56,7 +56,7 @@ class Img extends StatelessWidget {
     int imgWidth = (width * 1.6).round();
     int imgHeight = (height * 1.6).round();
 
-    return "$url?imageView=1&thumbnail=${imgWidth}z$imgHeight&type=webp&quality=80";
+    return "$url?imageView=1&thumbnail=${imgWidth}z$imgHeight&type=webp&quality=90";
   }
 
   getReqImgSize() => _setReqImgSize();

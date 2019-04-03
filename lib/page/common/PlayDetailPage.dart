@@ -94,7 +94,6 @@ class PlayDetailPage extends StatelessWidget {
                 ),
                 Expanded(
                   child: Container(
-                    height: 2,
                     padding: EdgeInsets.only(left: 10, right: 10),
                     child: Slider(
                       min: 0,
