@@ -15,10 +15,13 @@ class NetworkMiddleware extends StatefulWidget {
   final _NetworkMiddleware _networkMiddleware = _NetworkMiddleware();
 
   NetworkMiddleware(
-      {this.loadText: '努力加载中...', this.child, this.margin, @required this.reqfun});
+      {this.loadText: '努力加载中...',
+      this.child,
+      this.margin,
+      @required this.reqfun});
 
   require() => _networkMiddleware._req();
-  
+
   @override
   State<StatefulWidget> createState() {
     return _networkMiddleware;
@@ -31,17 +34,21 @@ class _NetworkMiddleware extends State<NetworkMiddleware> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Column(
-            children: <Widget>[_setPlaceholder()],
-          )
-        ],
-      ),
-    );
+    if (widget?.child != null) {
+      return widget.child;
+    } else {
+      return Container(
+        color: Colors.white,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Column(
+              children: <Widget>[_setPlaceholder()],
+            )
+          ],
+        ),
+      );
+    }
   }
 
   @override
@@ -65,10 +72,11 @@ class _NetworkMiddleware extends State<NetworkMiddleware> {
 
   _setPlaceholder() {
     return Container(
-        margin: widget.margin ?? EdgeInsets.only(top: 28, bottom: 28),
-        child: Column(
-          children: <Widget>[_setContent()],
-        ));
+      margin: widget.margin ?? EdgeInsets.only(top: 28, bottom: 28),
+      child: Column(
+        children: <Widget>[_setContent()],
+      ),
+    );
   }
 
   _setContent() {
@@ -124,18 +132,21 @@ class _NetworkMiddleware extends State<NetworkMiddleware> {
       onTap: () {
         _req();
       },
-      child: Text(text, style: TextStyle(color: Colors.black38),),
+      child: Text(
+        text,
+        style: TextStyle(color: Colors.black38),
+      ),
     );
   }
 
   _req() async {
     var result;
     _setNetworkState(NetworkState.loading);
-    
+
     try {
       result = await widget.reqfun();
     } catch (e) {
-      if(e != null) {
+      if (e?.type != null) {
         errorType = e.type;
       }
       _setNetworkState(NetworkState.fail);
@@ -147,12 +158,12 @@ class _NetworkMiddleware extends State<NetworkMiddleware> {
   }
 
   _setNetworkState(NetworkState networkState) {
-      if(mounted) {
-        setState(() {
-          state = networkState;
-        });
-      }else {
+    if (mounted) {
+      setState(() {
         state = networkState;
-      }
+      });
+    } else {
+      state = networkState;
+    }
   }
 }

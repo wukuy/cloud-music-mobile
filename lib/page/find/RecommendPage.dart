@@ -7,6 +7,8 @@ import 'package:cloud_music_mobile/widget/SwiperAndMenu.dart';
 import 'package:cloud_music_mobile/models/Recommend.dart';
 import 'package:cloud_music_mobile/models/FindBanner.dart';
 import 'package:cloud_music_mobile/widget/NetworkMiddleware.dart';
+import 'package:cloud_music_mobile/page/find/ChoiceSongSheetPage.dart';
+import 'package:cloud_music_mobile/page/find/NewTopAlbumPage.dart';
 
 class RecommendPage extends StatefulWidget {
   @override
@@ -81,9 +83,17 @@ class _RecommendPageState extends State with AutomaticKeepAliveClientMixin {
         _newsong.length != 0 &&
         _djprogram.length != 0) {
       list.addAll([
-        BoxTitle(title: '推荐歌单', onTap: () {}),
+        BoxTitle(title: '推荐歌单', onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
+            return ChoiceSongSheetPage();
+          }));
+        }),
         BoxContent(list: _songSheet, title: '歌单'),
-        BoxTitle(title: '最新音乐', onTap: () {}),
+        BoxTitle(title: '最新音乐', onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
+            return NewTopAlbumPage();
+          }));
+        }),
         BoxContent(list: _newsong, title: '最新音乐'),
         BoxTitle(title: '主播电台', onTap: () {}),
         BoxContent(list: _djprogram, title: '主播电台')

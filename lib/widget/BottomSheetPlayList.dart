@@ -15,6 +15,10 @@ class BottomSheetPlayList {
             List<Song> list = store.state.playerState.playList;
 
             return Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(16), topRight: Radius.circular(16))
+              ),
               height: 395,
               child: Flex(
                 direction: Axis.vertical,
