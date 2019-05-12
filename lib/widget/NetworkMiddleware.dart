@@ -145,7 +145,7 @@ class _NetworkMiddleware extends State<NetworkMiddleware> {
 
     try {
       result = await widget.reqfun();
-    } catch (e) {
+    }on DioError catch ( e) {
       if (e?.type != null) {
         errorType = e.type;
       }

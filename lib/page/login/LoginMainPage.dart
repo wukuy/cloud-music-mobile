@@ -76,9 +76,7 @@ class LoginMain extends StatelessWidget {
             highlightColor: Colors.transparent,
             splashColor: Colors.transparent,
             onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
-                return HomePage();
-              }));
+              Navigator.of(context).pop();
             },
           )
         ],

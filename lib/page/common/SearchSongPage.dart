@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_music_mobile/widget/PlayBar.dart';
+import 'package:cloud_music_mobile/common/dao/CommonDao.dart';
+import 'package:cloud_music_mobile/models/SearchSong.dart';
+import 'package:cloud_music_mobile/models/HotSearch.dart';
 
 class SearchSongPage extends StatelessWidget {
   @override
@@ -10,9 +13,13 @@ class SearchSongPage extends StatelessWidget {
         direction: Axis.vertical,
         children: <Widget>[
           Expanded(
-              child: ListView(
-            children: <Widget>[HotSearch(), History()],
-          )),
+            child: ListView(
+              children: <Widget>[
+                History(),
+                HotSearchList(),
+              ],
+            ),
+          ),
           PlayBar()
         ],
       ),
@@ -20,15 +27,53 @@ class SearchSongPage extends StatelessWidget {
   }
 }
 
+class SearchInput extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _SearchInput();
+  }
+}
+
 /// 搜索框
-class SearchInput extends StatelessWidget {
+class _SearchInput extends State<SearchInput> {
+  String hotWork;
+  String searchWork = "";
+  List<Hots> hotWorks;
+
+  @override
+  void initState() {
+    super.initState();
+    _getHotSearch();
+  }
+
+  _getHotSearch() async {
+    var data = await CommonDao.hotSearch();
+    if (data != null) {
+      setState(() {
+        if (data.hots.length > 0) {
+          hotWork = data.hots[0].first;
+          hotWorks = data.hots;
+        }
+      });
+    }
+  }
+
+  _searchSong() async {
+    var data =
+        await CommonDao.searchSong({"keywords": searchWork, "type": "mobile"});
+    if (data != null) {
+      print(data);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return TextField(
       textInputAction: TextInputAction.search,
       autofocus: true,
+      controller: TextEditingController(text: searchWork),
       decoration: InputDecoration(
-        hintText: "出山 最近很火哦",
+        hintText: hotWork != null ? "$hotWork 最近很火哦" : "",
         hintStyle:
             TextStyle(color: Colors.white.withOpacity(0.3), fontSize: 16),
         contentPadding: EdgeInsets.only(bottom: 8),
@@ -41,12 +86,20 @@ class SearchInput extends StatelessWidget {
       ),
       cursorColor: Colors.white,
       style: TextStyle(color: Colors.white, fontSize: 16),
+      onSubmitted: (val) {
+        searchWork = val == '' ? hotWork : val;
+        _searchSong();
+      },
+      onChanged: (val) {
+        searchWork = val;
+        _searchSong();
+      },
     );
   }
 }
 
 /// 热门搜索
-class HotSearch extends StatelessWidget {
+class HotSearchList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -58,10 +111,11 @@ class HotSearch extends StatelessWidget {
             Container(
               margin: EdgeInsets.only(top: 20, bottom: 6),
               child: Text(
-              '热门搜索',
-              style:
-                  TextStyle(fontWeight: FontWeight.w600, color: Colors.black87),
-            ),)
+                '热门搜索',
+                style: TextStyle(
+                    fontWeight: FontWeight.w600, color: Colors.black87),
+              ),
+            )
           ]),
           SongChip(text: '都是月亮惹的祸抖音', onPressed: () {}),
           SongChip(text: '都是月亮惹的祸', onPressed: () {}),
@@ -91,10 +145,11 @@ class History extends StatelessWidget {
             Container(
               margin: EdgeInsets.only(top: 20, bottom: 6),
               child: Text(
-              '历史记录',
-              style:
-                  TextStyle(fontWeight: FontWeight.w600, color: Colors.black87),
-            ),)
+                '历史记录',
+                style: TextStyle(
+                    fontWeight: FontWeight.w600, color: Colors.black87),
+              ),
+            )
           ]),
           SongChip(text: '都是月亮惹的祸抖音', onPressed: () {}),
           SongChip(text: '都是月亮惹的祸', onPressed: () {}),

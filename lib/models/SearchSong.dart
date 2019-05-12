@@ -1,10 +1,10 @@
-class SearchSongEntity {
+class SearchSong {
 	SearchSongResult result;
 	int code;
 
-	SearchSongEntity({this.result, this.code});
+	SearchSong({this.result, this.code});
 
-	SearchSongEntity.fromJson(Map<String, dynamic> json) {
+	SearchSong.fromJson(Map<String, dynamic> json) {
 		result = json['result'] != null ? new SearchSongResult.fromJson(json['result']) : null;
 		code = json['code'];
 	}
@@ -21,22 +21,17 @@ class SearchSongEntity {
 
 class SearchSongResult {
 	List<SearchSongResultAlbum> albums;
-	List<SearchSongResultArtist> artists;
 	List<SearchSongResultSong> songs;
 	List<SearchSongResultPlaylist> playlists;
 	List<SearchSongResultMv> mvs;
 	List<String> order;
 
-	SearchSongResult({this.albums, this.artists, this.songs, this.playlists, this.mvs, this.order});
+	SearchSongResult({this.albums, this.songs, this.playlists, this.mvs, this.order});
 
 	SearchSongResult.fromJson(Map<String, dynamic> json) {
 		if (json['albums'] != null) {
 			albums = new List<SearchSongResultAlbum>();
 			(json['albums'] as List).forEach((v) { albums.add(new SearchSongResultAlbum.fromJson(v)); });
-		}
-		if (json['artists'] != null) {
-			artists = new List<SearchSongResultArtist>();
-			(json['artists'] as List).forEach((v) { artists.add(new SearchSongResultArtist.fromJson(v)); });
 		}
 		if (json['songs'] != null) {
 			songs = new List<SearchSongResultSong>();
@@ -57,9 +52,6 @@ class SearchSongResult {
 		final Map<String, dynamic> data = new Map<String, dynamic>();
 		if (this.albums != null) {
       data['albums'] = this.albums.map((v) => v.toJson()).toList();
-    }
-		if (this.artists != null) {
-      data['artists'] = this.artists.map((v) => v.toJson()).toList();
     }
 		if (this.songs != null) {
       data['songs'] = this.songs.map((v) => v.toJson()).toList();
@@ -119,23 +111,18 @@ class SearchSongResultAlbumsArtist {
 	String img1v1Url;
 	int img1v1;
 	String name;
-	List<Null> alias;
 	int id;
 	int albumSize;
 	int picId;
 	dynamic trans;
 
-	SearchSongResultAlbumsArtist({this.picUrl, this.img1v1Url, this.img1v1, this.name, this.alias, this.id, this.albumSize, this.picId, this.trans});
+	SearchSongResultAlbumsArtist({this.picUrl, this.img1v1Url, this.img1v1, this.name, this.id, this.albumSize, this.picId, this.trans});
 
 	SearchSongResultAlbumsArtist.fromJson(Map<String, dynamic> json) {
 		picUrl = json['picUrl'];
 		img1v1Url = json['img1v1Url'];
 		img1v1 = json['img1v1'];
 		name = json['name'];
-		if (json['alias'] != null) {
-			alias = new List<Null>();
-			(json['alias'] as List).forEach((v) { alias.add(new Null.fromJson(v)); });
-		}
 		id = json['id'];
 		albumSize = json['albumSize'];
 		picId = json['picId'];
@@ -148,212 +135,37 @@ class SearchSongResultAlbumsArtist {
 		data['img1v1Url'] = this.img1v1Url;
 		data['img1v1'] = this.img1v1;
 		data['name'] = this.name;
-		if (this.alias != null) {
-      data['alias'] = this.alias.map((v) => v.toJson()).toList();
-    }
 		data['id'] = this.id;
 		data['albumSize'] = this.albumSize;
 		data['picId'] = this.picId;
-		data['trans'] = this.trans;
-		return data;
-	}
-}
-
-class SearchSongResultArtist {
-	String picUrl;
-	String img1v1Url;
-	int accountId;
-	int img1v1;
-	String name;
-	List<Null> alias;
-	int id;
-	int albumSize;
-	int picId;
-	List<String> alia;
-	dynamic trans;
-
-	SearchSongResultArtist({this.picUrl, this.img1v1Url, this.accountId, this.img1v1, this.name, this.alias, this.id, this.albumSize, this.picId, this.alia, this.trans});
-
-	SearchSongResultArtist.fromJson(Map<String, dynamic> json) {
-		picUrl = json['picUrl'];
-		img1v1Url = json['img1v1Url'];
-		accountId = json['accountId'];
-		img1v1 = json['img1v1'];
-		name = json['name'];
-		if (json['alias'] != null) {
-			alias = new List<Null>();
-			(json['alias'] as List).forEach((v) { alias.add(new Null.fromJson(v)); });
-		}
-		id = json['id'];
-		albumSize = json['albumSize'];
-		picId = json['picId'];
-		alia = json['alia'].cast<String>();
-		trans = json['trans'];
-	}
-
-	Map<String, dynamic> toJson() {
-		final Map<String, dynamic> data = new Map<String, dynamic>();
-		data['picUrl'] = this.picUrl;
-		data['img1v1Url'] = this.img1v1Url;
-		data['accountId'] = this.accountId;
-		data['img1v1'] = this.img1v1;
-		data['name'] = this.name;
-		if (this.alias != null) {
-      data['alias'] = this.alias.map((v) => v.toJson()).toList();
-    }
-		data['id'] = this.id;
-		data['albumSize'] = this.albumSize;
-		data['picId'] = this.picId;
-		data['alia'] = this.alia;
 		data['trans'] = this.trans;
 		return data;
 	}
 }
 
 class SearchSongResultSong {
-	SearchSongResultSongsAlbum album;
-	int fee;
-	dynamic rUrl;
-	int duration;
-	int rtype;
-	int ftype;
 	List<SearchSongResultSongsArtist> artists;
-	int copyrightId;
-	int mvid;
 	String name;
-	List<Null> alias;
 	int id;
-	int status;
 
-	SearchSongResultSong({this.album, this.fee, this.rUrl, this.duration, this.rtype, this.ftype, this.artists, this.copyrightId, this.mvid, this.name, this.alias, this.id, this.status});
+	SearchSongResultSong({this.artists, this.name, this.id});
 
 	SearchSongResultSong.fromJson(Map<String, dynamic> json) {
-		album = json['album'] != null ? new SearchSongResultSongsAlbum.fromJson(json['album']) : null;
-		fee = json['fee'];
-		rUrl = json['rUrl'];
-		duration = json['duration'];
-		rtype = json['rtype'];
-		ftype = json['ftype'];
 		if (json['artists'] != null) {
 			artists = new List<SearchSongResultSongsArtist>();
 			(json['artists'] as List).forEach((v) { artists.add(new SearchSongResultSongsArtist.fromJson(v)); });
 		}
-		copyrightId = json['copyrightId'];
-		mvid = json['mvid'];
 		name = json['name'];
-		if (json['alias'] != null) {
-			alias = new List<Null>();
-			(json['alias'] as List).forEach((v) { alias.add(new Null.fromJson(v)); });
-		}
 		id = json['id'];
-		status = json['status'];
 	}
 
 	Map<String, dynamic> toJson() {
 		final Map<String, dynamic> data = new Map<String, dynamic>();
-		if (this.album != null) {
-      data['album'] = this.album.toJson();
-    }
-		data['fee'] = this.fee;
-		data['rUrl'] = this.rUrl;
-		data['duration'] = this.duration;
-		data['rtype'] = this.rtype;
-		data['ftype'] = this.ftype;
 		if (this.artists != null) {
       data['artists'] = this.artists.map((v) => v.toJson()).toList();
     }
-		data['copyrightId'] = this.copyrightId;
-		data['mvid'] = this.mvid;
-		data['name'] = this.name;
-		if (this.alias != null) {
-      data['alias'] = this.alias.map((v) => v.toJson()).toList();
-    }
-		data['id'] = this.id;
-		data['status'] = this.status;
-		return data;
-	}
-}
-
-class SearchSongResultSongsAlbum {
-	int publishTime;
-	int size;
-	SearchSongResultSongsAlbumArtist artist;
-	int copyrightId;
-	String name;
-	int id;
-	int picId;
-	int status;
-
-	SearchSongResultSongsAlbum({this.publishTime, this.size, this.artist, this.copyrightId, this.name, this.id, this.picId, this.status});
-
-	SearchSongResultSongsAlbum.fromJson(Map<String, dynamic> json) {
-		publishTime = json['publishTime'];
-		size = json['size'];
-		artist = json['artist'] != null ? new SearchSongResultSongsAlbumArtist.fromJson(json['artist']) : null;
-		copyrightId = json['copyrightId'];
-		name = json['name'];
-		id = json['id'];
-		picId = json['picId'];
-		status = json['status'];
-	}
-
-	Map<String, dynamic> toJson() {
-		final Map<String, dynamic> data = new Map<String, dynamic>();
-		data['publishTime'] = this.publishTime;
-		data['size'] = this.size;
-		if (this.artist != null) {
-      data['artist'] = this.artist.toJson();
-    }
-		data['copyrightId'] = this.copyrightId;
 		data['name'] = this.name;
 		data['id'] = this.id;
-		data['picId'] = this.picId;
-		data['status'] = this.status;
-		return data;
-	}
-}
-
-class SearchSongResultSongsAlbumArtist {
-	dynamic picUrl;
-	String img1v1Url;
-	int img1v1;
-	String name;
-	List<Null> alias;
-	int id;
-	int albumSize;
-	int picId;
-	dynamic trans;
-
-	SearchSongResultSongsAlbumArtist({this.picUrl, this.img1v1Url, this.img1v1, this.name, this.alias, this.id, this.albumSize, this.picId, this.trans});
-
-	SearchSongResultSongsAlbumArtist.fromJson(Map<String, dynamic> json) {
-		picUrl = json['picUrl'];
-		img1v1Url = json['img1v1Url'];
-		img1v1 = json['img1v1'];
-		name = json['name'];
-		if (json['alias'] != null) {
-			alias = new List<Null>();
-			(json['alias'] as List).forEach((v) { alias.add(new Null.fromJson(v)); });
-		}
-		id = json['id'];
-		albumSize = json['albumSize'];
-		picId = json['picId'];
-		trans = json['trans'];
-	}
-
-	Map<String, dynamic> toJson() {
-		final Map<String, dynamic> data = new Map<String, dynamic>();
-		data['picUrl'] = this.picUrl;
-		data['img1v1Url'] = this.img1v1Url;
-		data['img1v1'] = this.img1v1;
-		data['name'] = this.name;
-		if (this.alias != null) {
-      data['alias'] = this.alias.map((v) => v.toJson()).toList();
-    }
-		data['id'] = this.id;
-		data['albumSize'] = this.albumSize;
-		data['picId'] = this.picId;
-		data['trans'] = this.trans;
 		return data;
 	}
 }
@@ -363,23 +175,18 @@ class SearchSongResultSongsArtist {
 	String img1v1Url;
 	int img1v1;
 	String name;
-	List<Null> alias;
 	int id;
 	int albumSize;
 	int picId;
 	dynamic trans;
 
-	SearchSongResultSongsArtist({this.picUrl, this.img1v1Url, this.img1v1, this.name, this.alias, this.id, this.albumSize, this.picId, this.trans});
+	SearchSongResultSongsArtist({this.picUrl, this.img1v1Url, this.img1v1, this.name, this.id, this.albumSize, this.picId, this.trans});
 
 	SearchSongResultSongsArtist.fromJson(Map<String, dynamic> json) {
 		picUrl = json['picUrl'];
 		img1v1Url = json['img1v1Url'];
 		img1v1 = json['img1v1'];
 		name = json['name'];
-		if (json['alias'] != null) {
-			alias = new List<Null>();
-			(json['alias'] as List).forEach((v) { alias.add(new Null.fromJson(v)); });
-		}
 		id = json['id'];
 		albumSize = json['albumSize'];
 		picId = json['picId'];
@@ -392,9 +199,6 @@ class SearchSongResultSongsArtist {
 		data['img1v1Url'] = this.img1v1Url;
 		data['img1v1'] = this.img1v1;
 		data['name'] = this.name;
-		if (this.alias != null) {
-      data['alias'] = this.alias.map((v) => v.toJson()).toList();
-    }
 		data['id'] = this.id;
 		data['albumSize'] = this.albumSize;
 		data['picId'] = this.picId;
@@ -460,13 +264,12 @@ class SearchSongResultMv {
 	List<SearchSongResultMvsArtist> artists;
 	dynamic transNames;
 	String name;
-	dynamic alias;
 	String artistName;
 	int id;
 	int mark;
 	dynamic desc;
 
-	SearchSongResultMv({this.mv, this.artistId, this.cover, this.duration, this.playCount, this.subed, this.briefDesc, this.artists, this.transNames, this.name, this.alias, this.artistName, this.id, this.mark, this.desc});
+	SearchSongResultMv({this.mv, this.artistId, this.cover, this.duration, this.playCount, this.subed, this.briefDesc, this.artists, this.transNames, this.name, this.artistName, this.id, this.mark, this.desc});
 
 	SearchSongResultMv.fromJson(Map<String, dynamic> json) {
 		mv = json['mv'] != null ? new SearchSongResultMvsMv.fromJson(json['mv']) : null;
@@ -482,7 +285,6 @@ class SearchSongResultMv {
 		}
 		transNames = json['transNames'];
 		name = json['name'];
-		alias = json['alias'];
 		artistName = json['artistName'];
 		id = json['id'];
 		mark = json['mark'];
@@ -505,7 +307,6 @@ class SearchSongResultMv {
     }
 		data['transNames'] = this.transNames;
 		data['name'] = this.name;
-		data['alias'] = this.alias;
 		data['artistName'] = this.artistName;
 		data['id'] = this.id;
 		data['mark'] = this.mark;

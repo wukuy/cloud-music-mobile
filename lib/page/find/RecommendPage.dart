@@ -9,6 +9,7 @@ import 'package:cloud_music_mobile/models/FindBanner.dart';
 import 'package:cloud_music_mobile/widget/NetworkMiddleware.dart';
 import 'package:cloud_music_mobile/page/find/ChoiceSongSheetPage.dart';
 import 'package:cloud_music_mobile/page/find/NewTopAlbumPage.dart';
+import 'package:cloud_music_mobile/common/Utils.dart';
 
 class RecommendPage extends StatefulWidget {
   @override
@@ -39,7 +40,7 @@ class _RecommendPageState extends State with AutomaticKeepAliveClientMixin {
   }
 
   getData() async {
-    var data = await FindDao.getFindPageData();  
+    var data = await FindDao.getFindPageData();
 
     if (data != null && mounted) {
       setState(() {
@@ -83,26 +84,30 @@ class _RecommendPageState extends State with AutomaticKeepAliveClientMixin {
         _newsong.length != 0 &&
         _djprogram.length != 0) {
       list.addAll([
-        BoxTitle(title: '推荐歌单', onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
-            return ChoiceSongSheetPage();
-          }));
-        }),
+        BoxTitle(
+            title: '推荐歌单',
+            onTap: () {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (BuildContext context) {
+                return ChoiceSongSheetPage();
+              }));
+            }),
         BoxContent(list: _songSheet, title: '歌单'),
-        BoxTitle(title: '最新音乐', onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
-            return NewTopAlbumPage();
-          }));
-        }),
+        BoxTitle(
+            title: '最新音乐',
+            onTap: () {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (BuildContext context) {
+                return NewTopAlbumPage();
+              }));
+            }),
         BoxContent(list: _newsong, title: '最新音乐'),
         BoxTitle(title: '主播电台', onTap: () {}),
         BoxContent(list: _djprogram, title: '主播电台')
       ]);
     } else {
       list.add(SliverList(
-        delegate: SliverChildListDelegate([
-          networkMiddleware
-        ]),
+        delegate: SliverChildListDelegate([networkMiddleware]),
       ));
     }
 
@@ -139,21 +144,53 @@ class BoxContent extends StatelessWidget {
               height: 120,
             );
             return InkWell(
-              child: Column(
+              child: Stack(
                 children: <Widget>[
-                  img,
-                  Container(
-                    padding: EdgeInsets.only(top: 4),
-                    child: Text(
-                      list.length > 0 ? list[index].name : "",
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Color(0xff333333),
+                  Column(
+                    children: <Widget>[
+                      img,
+                      Container(
+                        padding: EdgeInsets.only(top: 4),
+                        child: Text(
+                          list.length > 0 ? list[index].name : "",
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Color(0xff333333),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                  list[index].playCount != null ?
+                  Positioned(
+                    left: 3,
+                    top: 0,
+                    right: 3,
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(topLeft: Radius.circular(4), topRight: Radius.circular(4)),
+                          gradient: LinearGradient(
+                            colors: [Colors.black.withOpacity(0.5), Colors.black.withOpacity(0.01)],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter
+                          )),
+                      padding: EdgeInsets.all(4),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          Text(
+                            "${Utils.toTenThousand(list[index].playCount)}",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 12
+                            ),
+                          )
+                        ],
                       ),
                     ),
-                  )
+                  ) : Container(height: 0,width: 0,),
                 ],
               ),
               onTap: () {

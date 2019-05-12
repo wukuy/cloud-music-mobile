@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_music_mobile/common/dao/LoginDao.dart';
 import 'package:cloud_music_mobile/models/UserInfo.dart';
-import 'package:cloud_music_mobile/page/HomePage.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -83,10 +82,7 @@ class _LoginPage extends State<LoginPage> {
   _getUserInfo(Map data) async {
     UserInfo userInfo = await LoginDao.logoin(data);
     if (userInfo != null) {
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (BuildContext context) {
-        return HomePage();
-      }), (route) => route == null);
+      Navigator.of(context).pop();
     }
   }
 }

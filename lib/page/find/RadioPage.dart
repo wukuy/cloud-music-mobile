@@ -101,7 +101,6 @@ class BoxContent extends StatelessWidget {
         ),
         delegate: SliverChildBuilderDelegate(
           (BuildContext context, int index) {
-
             return InkWell(
               child: Column(
                 children: <Widget>[
