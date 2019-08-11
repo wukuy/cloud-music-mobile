@@ -4,7 +4,7 @@
  * @Author: 웃□宇♂
  * @Date: 2019-08-11 20:52:39
  * @LastEditors: 웃□宇♂
- * @LastEditTime: 2019-08-11 20:52:54
+ * @LastEditTime: 2019-08-11 21:10:55
  -->
 # cloud_music_mobile
 高仿网易云音乐
@@ -35,6 +35,9 @@ i18n|✘|
 
 ### 截图
 <img src="Screenshots/01.png" width = "400" alt="图片名称"/>
-<img src="Screenshots/02.png" width = "400" alt="图片名称"/>
 <img src="Screenshots/03.png" width = "400" alt="图片名称"/>
+<img src="Screenshots/02.png" width = "400" alt="图片名称"/>
+
+<img src="Screenshots/06.png" width = "400" alt="图片名称"/>
+<img src="Screenshots/05.png" width = "400" alt="图片名称"/>
 <img src="Screenshots/04.png" width = "400" alt="图片名称"/>
