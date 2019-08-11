@@ -13,12 +13,13 @@ class Http {
 
   request(String path, {Map data, Options options}) async {
     Response request = await dio.request(path, data: data, options: options);
-    
+
     return request;
   }
 
   get(String path, {Map data, Options options}) async {
-    Response request = await dio.get(path, data: data, options: options);
+    Response request =
+        await dio.get(path, queryParameters: data, options: options);
     return request;
   }
 
@@ -36,17 +37,15 @@ class Http {
   }
 
   setInterceptor({bool loading}) {
-    dio.interceptor.request.onSend = (Options options) {
+    dio.interceptors.add(InterceptorsWrapper(onRequest: (Options options) {
       if (loading) Loading.show();
       return options;
-    };
-    dio.interceptor.response.onSuccess = (Response response) {
+    }, onResponse: (Response response) {
       if (loading) Loading.hide();
       return response;
-    };
-    dio.interceptor.response.onError = (DioError e) {
+    }, onError: (DioError e) {
       if (loading) Loading.hide();
-      return e;
-    };
+      // return e;
+    }));
   }
 }

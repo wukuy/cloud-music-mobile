@@ -15,7 +15,7 @@ import 'package:cloud_music_mobile/models/Song.dart';
 
 void main() async {
   PlayerState playerState = await playerStateInit();
-   
+
   Store<AppState> store = Store<AppState>(
     mainReducer,
     initialState: AppState(
@@ -32,7 +32,7 @@ Future playerStateInit() async {
   SharedPreferences pref = await SharedPreferences.getInstance();
   String playerStr = pref.getString("playerState");
 
-  if(playerStr != null) {
+  if (playerStr != null) {
     Map playerMap = jsonDecode(playerStr);
     return PlayerState(
       mode: PlayModeActions.values[playerMap['mode']],
@@ -58,8 +58,7 @@ class CloudMusic extends StatelessWidget {
           title: '云音乐',
           theme: ThemeData(
             primaryColor: Color(0xffdd4137),
-            splashColor: Color(0x22000000),
-            
+            splashColor: Color(0xffdd4137),
           ),
           home: BusEventProvider(child: StoreBuilder(
             builder: (BuildContext context, Store<AppState> store) {

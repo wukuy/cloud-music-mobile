@@ -7,15 +7,20 @@ class LoginDao {
   /// 获取歌曲
   static logoin(params) async {
     var result = await Http().get('/login/cellphone', data: params);
-    
-    if(result != null) {
+
+    if (result != null) {
       var data = result.data;
       int uid = data['account']['id'];
       String backgroundUrl = data['profile']['backgroundUrl'];
       String avatarUrl = data['profile']['avatarUrl'];
       String nickname = data['profile']['nickname'];
-      
-      Map<String, dynamic> userInfoMap = {"nickname": nickname, "uid": uid, "backgroundUrl": backgroundUrl, "avatarUrl": avatarUrl};
+
+      Map<String, dynamic> userInfoMap = {
+        "nickname": nickname,
+        "uid": uid,
+        "backgroundUrl": backgroundUrl,
+        "avatarUrl": avatarUrl
+      };
       UserInfo userInfo = UserInfo.fromJson(userInfoMap);
 
       SharedPreferences prefs = await SharedPreferences.getInstance();

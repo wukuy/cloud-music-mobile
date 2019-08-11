@@ -4,6 +4,7 @@ import 'package:cloud_music_mobile/page/find/FindMusicPage.dart';
 import 'package:cloud_music_mobile/page/my/MyMusicPage.dart';
 import 'package:cloud_music_mobile/page/mv/MvPage.dart';
 import 'package:cloud_music_mobile/page/common/SearchSongPage.dart';
+import 'package:cloud_music_mobile/page/friend/FriendPage.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -14,19 +15,19 @@ class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   final List<TabItem> _tabs = <TabItem>[
     TabItem(
-      selected: Image.asset('lib/assets/image/t_actionbar_music_selected.png'),
-      normal: Image.asset('lib/assets/image/t_actionbar_music_normal.png'),
+      text: '我的',
       page: MyMusicPage(),
     ),
     TabItem(
-      selected:
-          Image.asset('lib/assets/image/t_actionbar_discover_selected.png'),
-      normal: Image.asset('lib/assets/image/t_actionbar_discover_normal.png'),
+      text: '发现',
       page: FindMusicPage(),
     ),
     TabItem(
-      selected: Image.asset('lib/assets/image/t_actionbar_video_selected.png'),
-      normal: Image.asset('lib/assets/image/t_actionbar_video_normal.png'),
+      text: '朋友',
+      page: FriendPage(),
+    ),
+    TabItem(
+      text: '视频',
       page: MvPage(),
     ),
   ];
@@ -56,22 +57,17 @@ class _HomePageState extends State<HomePage>
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: Container(
-          padding: EdgeInsets.only(left: 30, right: 30),
-          child: TabBar(
-            controller: _tabController,
-            tabs: _tabs.map((item) {
-              if (_tabs.indexOf(item) == _tabControllerIndex) {
-                return Tab(child: item.selected);
-              }
-              return Tab(child: item.normal);
-            }).toList(),
-            indicatorWeight: 0.1,
-            indicatorColor: Colors.transparent,
-            labelPadding: EdgeInsets.only(left: 5, right: 5),
-            // isScrollable: true,
-            // labelPadding: EdgeInsets.only(left: 5, right: 5),
-          ),
+        title: TabBar(
+          controller: _tabController,
+          tabs: _tabs.map((item) {
+            return Tab(text: item.text);
+          }).toList(),
+          indicatorWeight: 0.1,
+          indicatorColor: Colors.transparent,
+          labelPadding: EdgeInsets.only(left: 5, right: 5),
+          labelStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+          unselectedLabelStyle: TextStyle(fontSize: 16),
+          // isScrollable: true,
         ),
         actions: <Widget>[
           IconButton(
@@ -95,9 +91,8 @@ class _HomePageState extends State<HomePage>
 }
 
 class TabItem {
-  Image selected;
-  Image normal;
+  String text;
   Widget page;
 
-  TabItem({this.selected, this.normal, this.page});
+  TabItem({@required this.text, @required this.page});
 }
