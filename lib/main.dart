@@ -58,7 +58,7 @@ class CloudMusic extends StatelessWidget {
           title: '云音乐',
           theme: ThemeData(
             primaryColor: Color(0xffdd4137),
-            splashColor: Color(0xffdd4137),
+            splashColor: Color(0x22000000),
           ),
           home: BusEventProvider(child: StoreBuilder(
             builder: (BuildContext context, Store<AppState> store) {

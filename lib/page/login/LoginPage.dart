@@ -79,7 +79,7 @@ class _LoginPage extends State<LoginPage> {
     );
   }
 
-  _getUserInfo(Map data) async {
+  _getUserInfo(data) async {
     UserInfo userInfo = await LoginDao.logoin(data);
     if (userInfo != null) {
       Navigator.of(context).pop();

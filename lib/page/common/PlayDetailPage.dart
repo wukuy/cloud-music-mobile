@@ -79,7 +79,7 @@ class PlayDetailPage extends StatelessWidget {
     bool playState = (PlayActions.play == playerState.state);
 
     return Container(
-      height: 107,
+      height: 110,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
@@ -94,17 +94,21 @@ class PlayDetailPage extends StatelessWidget {
                 ),
                 Expanded(
                   child: Container(
-                    padding: EdgeInsets.only(left: 10, right: 10),
-                    child: Slider(
-                      min: 0,
-                      max: playerState.duration?.inSeconds?.roundToDouble() ?? 0,
-                      value: playerState.playPosition?.inSeconds?.roundToDouble() ?? 0,
-                      onChanged: (double val) {
-                        playerState.playPosition = Duration(seconds: val.toInt());
-                        store.dispatch(PlayActions.seekPlay);
-                      },
-                    )
-                  ),
+                      padding: EdgeInsets.only(left: 10, right: 10),
+                      child: Slider(
+                        activeColor: Theme.of(context).primaryColor,
+                        min: 0,
+                        max: playerState.duration?.inSeconds?.roundToDouble() ??
+                            0,
+                        value: playerState.playPosition?.inSeconds
+                                ?.roundToDouble() ??
+                            0,
+                        onChanged: (double val) {
+                          playerState.playPosition =
+                              Duration(seconds: val.toInt());
+                          store.dispatch(PlayActions.seekPlay);
+                        },
+                      )),
                 ),
                 Text(
                   playerState.durationText,

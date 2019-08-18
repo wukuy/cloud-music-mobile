@@ -35,7 +35,7 @@ class _RecommendPageState extends State with AutomaticKeepAliveClientMixin {
   @override
   void initState() {
     super.initState();
-    networkMiddleware = NetworkMiddleware(reqfun: getData);
+    networkMiddleware = NetworkMiddleware(future: getData);
     showRefresh();
   }
 
@@ -67,7 +67,7 @@ class _RecommendPageState extends State with AutomaticKeepAliveClientMixin {
       color: Colors.red,
       child: CustomScrollView(cacheExtent: 2000, slivers: _listWidget()),
       onRefresh: () async {
-        await networkMiddleware.require();
+        await networkMiddleware.request();
       },
     );
   }
@@ -163,34 +163,40 @@ class BoxContent extends StatelessWidget {
                       )
                     ],
                   ),
-                  list[index].playCount != null ?
-                  Positioned(
-                    left: 3,
-                    top: 0,
-                    right: 3,
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(topLeft: Radius.circular(4), topRight: Radius.circular(4)),
-                          gradient: LinearGradient(
-                            colors: [Colors.black.withOpacity(0.5), Colors.black.withOpacity(0.01)],
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter
-                          )),
-                      padding: EdgeInsets.all(4),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
-                          Text(
-                            "${Utils.toTenThousand(list[index].playCount)}",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 12
+                  list[index].playCount != null
+                      ? Positioned(
+                          left: 3,
+                          top: 0,
+                          right: 3,
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(4),
+                                    topRight: Radius.circular(4)),
+                                gradient: LinearGradient(
+                                    colors: [
+                                      Colors.black.withOpacity(0.5),
+                                      Colors.black.withOpacity(0.01)
+                                    ],
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter)),
+                            padding: EdgeInsets.all(4),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: <Widget>[
+                                Text(
+                                  "${Utils.toTenThousand(list[index].playCount)}",
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 12),
+                                )
+                              ],
                             ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ) : Container(height: 0,width: 0,),
+                          ),
+                        )
+                      : Container(
+                          height: 0,
+                          width: 0,
+                        ),
                 ],
               ),
               onTap: () {
@@ -201,7 +207,7 @@ class BoxContent extends StatelessWidget {
                           title: title,
                           songSheetId: list[index].id,
                           authorName: list[index].name,
-                          coverPic: img.getReqImgSize());
+                          coverPic: list[index].picUrl);
                     },
                   ),
                 );

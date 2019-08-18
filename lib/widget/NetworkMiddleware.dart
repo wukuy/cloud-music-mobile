@@ -1,26 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:dio/dio.dart';
 import 'package:connectivity/connectivity.dart';
+import 'package:cloud_music_mobile/widget/Loading.dart';
 
 enum SpinkitType { Wave }
 enum NetworkState { success, fail, loading }
 
-// 晕，原来有对应的组件封装 FutureBuilder，已哭晕在厕所。
 class NetworkMiddleware extends StatefulWidget {
   final String loadText;
   final Widget child;
-  final Function reqfun;
+  final Function future;
   final double margin;
   final _NetworkMiddleware _networkMiddleware = _NetworkMiddleware();
 
   NetworkMiddleware(
-      {this.loadText: '努力加载中...',
+      {this.loadText = '努力加载中...',
       this.child,
       this.margin,
-      @required this.reqfun});
+      @required this.future});
 
-  require() => _networkMiddleware._req();
+  request() => _networkMiddleware._req();
 
   @override
   State<StatefulWidget> createState() {
@@ -34,7 +33,7 @@ class _NetworkMiddleware extends State<NetworkMiddleware> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget?.child != null) {
+    if (widget?.child != null && state == NetworkState.success) {
       return widget.child;
     } else {
       return Container(
@@ -86,7 +85,7 @@ class _NetworkMiddleware extends State<NetworkMiddleware> {
         widget = _fail(errorType);
         break;
       case NetworkState.loading:
-        widget = _loading();
+        widget = Loading();
         break;
       case NetworkState.success:
         widget = _success();
@@ -96,19 +95,19 @@ class _NetworkMiddleware extends State<NetworkMiddleware> {
     return widget;
   }
 
-  _loading() {
-    return Row(children: <Widget>[
-      SpinKitWave(
-        color: Theme.of(context).primaryColor,
-        type: SpinKitWaveType.start,
-        size: 14,
-      ),
-      Container(
-        margin: EdgeInsets.only(left: 6),
-        child: Text(widget.loadText, style: TextStyle(color: Colors.black45)),
-      )
-    ]);
-  }
+  // _loading() {
+  //   return Row(children: <Widget>[
+  //     SpinKitWave(
+  //       color: Theme.of(context).primaryColor,
+  //       type: SpinKitWaveType.start,
+  //       size: 14,
+  //     ),
+  //     Container(
+  //       margin: EdgeInsets.only(left: 6),
+  //       child: Text(widget.loadText, style: TextStyle(color: Colors.black45)),
+  //     )
+  //   ]);
+  // }
 
   _success() {
     return widget.child ?? Text("请求成功");
@@ -140,21 +139,18 @@ class _NetworkMiddleware extends State<NetworkMiddleware> {
   }
 
   _req() async {
-    var result;
     _setNetworkState(NetworkState.loading);
 
     try {
-      result = await widget.reqfun();
-    }on DioError catch ( e) {
+      await widget.future();
+    } on DioError catch (e) {
       if (e?.type != null) {
         errorType = e.type;
       }
       _setNetworkState(NetworkState.fail);
     }
 
-    if (result != null) {
-      _setNetworkState(NetworkState.success);
-    }
+    _setNetworkState(NetworkState.success);
   }
 
   _setNetworkState(NetworkState networkState) {

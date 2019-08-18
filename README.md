@@ -4,7 +4,7 @@
  * @Author: 웃□宇♂
  * @Date: 2019-08-11 20:52:39
  * @LastEditors: 웃□宇♂
- * @LastEditTime: 2019-08-11 21:10:55
+ * @LastEditTime: 2019-08-18 19:12:34
  -->
 # cloud_music_mobile
 高仿网易云音乐
@@ -12,9 +12,8 @@
 ### 下载地址
 平台|二维码|
 ---|:--:|
-android|<img src="Screenshots/下载.png" width = "100" alt="图片名称"/>|
+android| [下载]()|
 ios|无|
-> 下载需要登录码云
 
 ### 进度
 页面|完成|

@@ -35,7 +35,7 @@ class _FindMusicPageState extends State with AutomaticKeepAliveClientMixin {
   @override
   void initState() {
     super.initState();
-    networkMiddleware = NetworkMiddleware(reqfun: getData);
+    networkMiddleware = NetworkMiddleware(future: getData);
     showRefresh();
   }
 
@@ -62,12 +62,13 @@ class _FindMusicPageState extends State with AutomaticKeepAliveClientMixin {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return RefreshIndicator(
       key: _refreshIndicatorKey,
       color: Colors.red,
       child: CustomScrollView(cacheExtent: 2000, slivers: _listWidget()),
       onRefresh: () async {
-        await networkMiddleware.require();
+        await networkMiddleware.request();
       },
     );
   }
@@ -207,7 +208,7 @@ class BoxContent extends StatelessWidget {
                           title: title,
                           songSheetId: list[index].id,
                           authorName: list[index].name,
-                          coverPic: img.getReqImgSize());
+                          coverPic: list[index].picUrl);
                     },
                   ),
                 );

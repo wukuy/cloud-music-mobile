@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:cloud_music_mobile/common/Utils.dart';
 
 class PlayCount extends StatelessWidget {
+  final double count;
+  PlayCount(this.count);
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -12,7 +14,7 @@ class PlayCount extends StatelessWidget {
           size: 14,
         ),
         Text(
-          '${Utils.toTenThousand(100000)}',
+          '${Utils.toTenThousand(count)}',
           style: TextStyle(color: Colors.white, fontSize: 12),
         ),
       ],

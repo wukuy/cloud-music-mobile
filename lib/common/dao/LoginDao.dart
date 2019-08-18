@@ -5,11 +5,10 @@ import 'dart:convert';
 
 class LoginDao {
   /// 获取歌曲
-  static logoin(params) async {
-    var result = await Http().get('/login/cellphone', data: params);
+  static logoin(Map<String, dynamic> params) async {
+    var data = await Http().get('/login/cellphone', data: params);
 
-    if (result != null) {
-      var data = result.data;
+    if (data != null) {
       int uid = data['account']['id'];
       String backgroundUrl = data['profile']['backgroundUrl'];
       String avatarUrl = data['profile']['avatarUrl'];

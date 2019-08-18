@@ -8,33 +8,35 @@ part of 'Recommend.dart';
 
 Recommend _$RecommendFromJson(Map<String, dynamic> json) {
   return Recommend(
-      json['hasTaste'] as bool,
-      json['code'] as int,
-      json['category'] as int,
-      (json['result'] as List)
-          ?.map((e) =>
-              e == null ? null : Result.fromJson(e as Map<String, dynamic>))
-          ?.toList());
+    json['hasTaste'] as bool,
+    json['code'] as int,
+    json['category'] as int,
+    (json['result'] as List)
+        ?.map((e) =>
+            e == null ? null : Result.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+  );
 }
 
 Map<String, dynamic> _$RecommendToJson(Recommend instance) => <String, dynamic>{
       'hasTaste': instance.hasTaste,
       'code': instance.code,
       'category': instance.category,
-      'result': instance.result
+      'result': instance.result,
     };
 
 Result _$ResultFromJson(Map<String, dynamic> json) {
   return Result(
-      json['id'] as int,
-      json['name'] as String,
-      json['copywriter'] as String,
-      json['picUrl'] as String,
-      json['canDislike'] as bool,
-      (json['playCount'] as num)?.toDouble(),
-      json['trackCount'] as int,
-      json['highQuality'] as bool,
-      json['alg'] as String);
+    json['id'] as int,
+    json['name'] as String,
+    json['copywriter'] as String,
+    json['picUrl'] as String,
+    json['canDislike'] as bool,
+    (json['playCount'] as num)?.toDouble(),
+    json['trackCount'] as int,
+    json['highQuality'] as bool,
+    json['alg'] as String,
+  );
 }
 
 Map<String, dynamic> _$ResultToJson(Result instance) => <String, dynamic>{
@@ -46,5 +48,5 @@ Map<String, dynamic> _$ResultToJson(Result instance) => <String, dynamic>{
       'playCount': instance.playCount,
       'trackCount': instance.trackCount,
       'highQuality': instance.highQuality,
-      'alg': instance.alg
+      'alg': instance.alg,
     };

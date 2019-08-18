@@ -8,12 +8,13 @@ part of 'SongDetail.dart';
 
 SongDetail _$SongDetailFromJson(Map<String, dynamic> json) {
   return SongDetail(
-      json['title'] as String,
-      json['coverPic'] as String,
-      json['avatarUrl'] as String,
-      json['nickname'] as String,
-      json['commentCount'] as int,
-      json['shareCount'] as int);
+    json['title'] as String,
+    json['coverPic'] as String,
+    json['avatarUrl'] as String,
+    json['nickname'] as String,
+    json['commentCount'] as int,
+    json['shareCount'] as int,
+  );
 }
 
 Map<String, dynamic> _$SongDetailToJson(SongDetail instance) =>
@@ -23,5 +24,5 @@ Map<String, dynamic> _$SongDetailToJson(SongDetail instance) =>
       'avatarUrl': instance.avatarUrl,
       'nickname': instance.nickname,
       'commentCount': instance.commentCount,
-      'shareCount': instance.shareCount
+      'shareCount': instance.shareCount,
     };

@@ -3,6 +3,9 @@ import 'package:cloud_music_mobile/models/FindBanner.dart';
 import 'package:cloud_music_mobile/models/Recommend.dart';
 import 'package:cloud_music_mobile/models/SongDetail.dart';
 import 'package:cloud_music_mobile/models/Song.dart';
+import 'package:cloud_music_mobile/models/SongSheetCategorys.dart';
+import 'package:cloud_music_mobile/models/ExcellentSheetSong.dart';
+import 'package:cloud_music_mobile/models/HotSongSheetCategorys.dart';
 import 'dart:math';
 
 class FindDao {
@@ -11,24 +14,25 @@ class FindDao {
     var result = await Http.all([
       /// 获取轮播图
       Http(loading: false).get('/banner'),
+
       /// 获取推荐歌单
       Http(loading: false).get('/personalized'),
+
       /// 获取最新音乐
       Http(loading: false).get('/personalized/newsong'),
+
       /// 获取主播电台
       Http(loading: false).get('/personalized/djprogram')
     ]);
 
     if (result != null) {
       // 数据提取
-      result[2].data["result"] = result[2]
-          .data["result"]
-          .map((item) => item["song"]["album"])
-          .toList();
-      List banners = FindBanner.fromJson(result[0].data).banners;
-      List songSheet = Recommend.fromJson(result[1].data).result;
-      List newsong = Recommend.fromJson(result[2].data).result;
-      List djprogram = Recommend.fromJson(result[3].data).result;
+      result[2]["result"] =
+          result[2]["result"].map((item) => item["song"]["album"]).toList();
+      List banners = FindBanner.fromJson(result[0]).banners;
+      List songSheet = Recommend.fromJson(result[1]).result;
+      List newsong = Recommend.fromJson(result[2]).result;
+      List djprogram = Recommend.fromJson(result[3]).result;
 
       songSheet.shuffle(Random());
       newsong.shuffle(Random());
@@ -44,12 +48,20 @@ class FindDao {
     }
   }
 
+  /// 获取推荐歌单
+  static getPersonalized() async {
+    var result = await Http(loading: false).get('/personalized');
+    if (result != null) {
+      return Recommend.fromJson(result);
+    }
+  }
+
   /// 获取歌单详情
   static getSongDetail(data) async {
-    var result = await Http(loading: false).get('/playlist/detail', data: data);  
-    
-    if (result != null && result.data["code"] == 200) {
-      Map data = result.data["playlist"];
+    var result = await Http(loading: false).get('/playlist/detail', data: data);
+
+    if (result != null) {
+      Map data = result["playlist"];
       List<Song> playlist = [];
       data["tracks"].forEach((item) {
         playlist.add(Song.fromJson({
@@ -79,7 +91,40 @@ class FindDao {
   static getSongUrl(data) async {
     var result = await Http(loading: false).get('/song/url', data: data);
     if (result != null) {
-      return result.data["data"][0];
+      return result["data"][0];
+    }
+  }
+
+  // 获取歌单分类
+  static getSongSheetCategorys() async {
+    var result = await Http(loading: false).get('/playlist/catlist');
+    if (result != null) {
+      return SongSheetCategorys.fromJson(result);
+    }
+  }
+
+  // 获取热门歌单分类
+  static getHotSongSheetCategorys() async {
+    var result = await Http(loading: false).get('/playlist/hot');
+    if (result != null) {
+      return HotSongSheetCategorys.fromJson(result);
+    }
+  }
+
+  // 获取精品歌单
+  static getExcellentSheetSong(Map<String, dynamic> data) async {
+    var result =
+        await Http(loading: false).get('/top/playlist/highquality', data: data);
+    if (result != null) {
+      return ExcellentSheetSong.fromJson(result);
+    }
+  }
+
+  // 获取歌单
+  static getSheetSong(Map<String, dynamic> data) async {
+    var result = await Http(loading: false).get('/top/playlist', data: data);
+    if (result != null) {
+      return ExcellentSheetSong.fromJson(result);
     }
   }
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_music_mobile/widget/HomeDrawer.dart';
 import 'package:cloud_music_mobile/page/find/FindMusicPage.dart';
 import 'package:cloud_music_mobile/page/my/MyMusicPage.dart';
-import 'package:cloud_music_mobile/page/mv/MvPage.dart';
+import 'package:cloud_music_mobile/page/video/VideoPage.dart';
 import 'package:cloud_music_mobile/page/common/SearchSongPage.dart';
 import 'package:cloud_music_mobile/page/friend/FriendPage.dart';
 
@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage>
     ),
     TabItem(
       text: '视频',
-      page: MvPage(),
+      page: VideoPage(),
     ),
   ];
 

@@ -9,6 +9,7 @@ import 'dart:ui';
 import 'package:cloud_music_mobile/models/SongDetail.dart';
 import 'package:cloud_music_mobile/models/Song.dart';
 import 'package:cloud_music_mobile/widget/NetworkMiddleware.dart';
+import 'package:cloud_music_mobile/widget/BackgroundBlur.dart';
 
 class SongDetailPage extends StatefulWidget {
   final String title;
@@ -50,7 +51,8 @@ class _SongDetailPage extends State<SongDetailPage> {
   @override
   Widget build(BuildContext context) {
     return BackgroundBlur(
-        Scaffold(
+        maskColor: Colors.white.withOpacity(0.2),
+        child: Scaffold(
             backgroundColor: Colors.transparent,
             appBar: AppBar(
               title: Text(widget.title),
@@ -94,55 +96,61 @@ class _SongDetailPage extends State<SongDetailPage> {
         ),
       );
     } else {
-      listWidget.add(SliverList(
+      listWidget.add(
+        SliverList(
           delegate: SliverChildListDelegate(
-              [NetworkMiddleware(reqfun: _getSongDetail)])));
+            [
+              NetworkMiddleware(future: _getSongDetail),
+            ],
+          ),
+        ),
+      );
     }
 
     return listWidget;
   }
 }
 
-class BackgroundBlur extends StatelessWidget {
-  final Widget child;
-  final String coverPic;
-  BackgroundBlur(this.child, {this.coverPic});
+// class BackgroundBlur extends StatelessWidget {
+//   final Widget child;
+//   final String coverPic;
+//   BackgroundBlur(this.child, {this.coverPic});
 
-  @override
-  Widget build(BuildContext context) {
-    return StoreBuilder<AppState>(
-      builder: (BuildContext context, Store<AppState> store) {
-        return Container(
-          child: Stack(
-            children: <Widget>[
-              Positioned(
-                child: ConstrainedBox(
-                    constraints: BoxConstraints.expand(),
-                    child: Img(
-                      coverPic,
-                      fit: BoxFit.cover,
-                      noSetReqImgSize: false,
-                    )),
-              ),
-              Positioned(
-                child: IgnorePointer(
-                  // ignoring: true,
-                  child: BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
-                    child: Container(
-                      color: Colors.black.withOpacity(0.2),
-                    ),
-                  ),
-                ),
-              ),
-              child
-            ],
-          ),
-        );
-      },
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return StoreBuilder<AppState>(
+//       builder: (BuildContext context, Store<AppState> store) {
+//         return Container(
+//           child: Stack(
+//             children: <Widget>[
+//               Positioned(
+//                 child: ConstrainedBox(
+//                     constraints: BoxConstraints.expand(),
+//                     child: Img(
+//                       coverPic,
+//                       fit: BoxFit.cover,
+//                       noSetReqImgSize: false,
+//                     )),
+//               ),
+//               Positioned(
+//                 child: IgnorePointer(
+//                   // ignoring: true,
+//                   child: BackdropFilter(
+//                     filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+//                     child: Container(
+//                       color: Colors.black.withOpacity(0.2),
+//                     ),
+//                   ),
+//                 ),
+//               ),
+//               child
+//             ],
+//           ),
+//         );
+//       },
+//     );
+//   }
+// }
 
 class SongDescribe extends StatelessWidget {
   final String coverPic;
@@ -169,7 +177,6 @@ class SongDescribe extends StatelessWidget {
                   child: Img(
                     coverPic,
                     radius: 4,
-                    noSetReqImgSize: false,
                   ),
                 ),
                 Expanded(

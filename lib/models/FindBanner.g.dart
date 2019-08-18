@@ -7,27 +7,32 @@ part of 'FindBanner.dart';
 // **************************************************************************
 
 FindBanner _$FindBannerFromJson(Map<String, dynamic> json) {
-  return FindBanner((json['banners'] as List)
-      ?.map(
-          (e) => e == null ? null : Banners.fromJson(e as Map<String, dynamic>))
-      ?.toList());
+  return FindBanner(
+    (json['banners'] as List)
+        ?.map((e) =>
+            e == null ? null : Banners.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+  );
 }
 
 Map<String, dynamic> _$FindBannerToJson(FindBanner instance) =>
-    <String, dynamic>{'banners': instance.banners};
+    <String, dynamic>{
+      'banners': instance.banners,
+    };
 
 Banners _$BannersFromJson(Map<String, dynamic> json) {
   return Banners(
-      json['imageUrl'] as String,
-      json['targetId'] as int,
-      json['targetType'] as int,
-      json['titleColor'] as String,
-      json['typeTitle'] as String,
-      json['url'] as String,
-      json['exclusive'] as bool,
-      json['encodeId'] as String,
-      json['video'] as String,
-      json['song'] as String);
+    json['imageUrl'] as String,
+    json['targetId'] as int,
+    json['targetType'] as int,
+    json['titleColor'] as String,
+    json['typeTitle'] as String,
+    json['url'] as String,
+    json['exclusive'] as bool,
+    json['encodeId'] as String,
+    json['video'] as String,
+    json['song'] as String,
+  );
 }
 
 Map<String, dynamic> _$BannersToJson(Banners instance) => <String, dynamic>{
@@ -40,5 +45,5 @@ Map<String, dynamic> _$BannersToJson(Banners instance) => <String, dynamic>{
       'exclusive': instance.exclusive,
       'encodeId': instance.encodeId,
       'video': instance.video,
-      'song': instance.song
+      'song': instance.song,
     };

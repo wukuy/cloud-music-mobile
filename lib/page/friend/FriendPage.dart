@@ -1,5 +1,14 @@
+import 'dart:convert';
+import 'package:cloud_music_mobile/models/VideoUrl.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_music_mobile/widget/Img.dart';
+import 'package:cloud_music_mobile/models/UserEvent.dart';
+import 'package:cloud_music_mobile/common/dao/FirendDao.dart';
+import 'package:cloud_music_mobile/models/UserEventSong.dart';
+import 'package:cloud_music_mobile/models/UserEventVideo.dart';
+import 'package:cloud_music_mobile/common/Utils.dart';
+import 'package:cloud_music_mobile/widget/VideoPlay.dart';
+import 'package:cloud_music_mobile/common/dao/CommonDao.dart';
 
 class FriendPage extends StatefulWidget {
   @override
@@ -7,21 +16,32 @@ class FriendPage extends StatefulWidget {
 }
 
 class _FriendPageState extends State with AutomaticKeepAliveClientMixin {
+  UserEvent userEvent;
+
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Container(
       color: Colors.white,
       child: ListView(
-        children: <Widget>[
-          DynamicItem(),
-          DynamicItem(),
-          DynamicItem(),
-          DynamicItem(),
-          DynamicItem(),
-          DynamicItem()
-        ],
+        children: userEvent != null
+            ? userEvent.event.map((item) {
+                return DynamicItem(item);
+              }).toList()
+            : [Container()],
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getUserEvent();
+  }
+
+  getUserEvent() async {
+    userEvent = await FirendDao.userEvent({'lasttime': ''});
+    setState(() {});
   }
 
   @override
@@ -29,8 +49,21 @@ class _FriendPageState extends State with AutomaticKeepAliveClientMixin {
 }
 
 class DynamicItem extends StatelessWidget {
+  final Event event;
+  DynamicItem(this.event);
+
   @override
   Widget build(BuildContext context) {
+    UserEventSong song;
+    UserEventVideo video;
+
+    Map json = jsonDecode(event.json);
+    if (json['song'] != null) {
+      song = UserEventSong.fromJson(json);
+    } else {
+      video = UserEventVideo.fromJson(json);
+    }
+
     return Container(
       padding: EdgeInsets.only(left: 17, right: 17, top: 20, bottom: 20),
       decoration: BoxDecoration(
@@ -38,9 +71,13 @@ class DynamicItem extends StatelessWidget {
               Border(bottom: BorderSide(color: Color(0xffe6e6e6), width: 0.5))),
       child: Column(
         children: <Widget>[
-          DynamicItemTop(),
-          DynamicItemContent(),
-          DynamicItemBottom()
+          DynamicItemTop(event, isVideo: video != null),
+          DynamicItemContent(
+            song: song,
+            video: video,
+            event: event,
+          ),
+          DynamicItemBottom(event)
         ],
       ),
     );
@@ -48,6 +85,10 @@ class DynamicItem extends StatelessWidget {
 }
 
 class DynamicItemTop extends StatelessWidget {
+  final Event event;
+  final bool isVideo;
+  DynamicItemTop(this.event, {this.isVideo});
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -56,11 +97,8 @@ class DynamicItemTop extends StatelessWidget {
         Container(
           margin: EdgeInsets.only(right: 6),
           child: ClipOval(
-            child: Image.network(
-                'http://hbimg.b0.upaiyun.com/6d6ebe96ecc094b23e4b4716d1d911f1d7722371142c1-z9OZQK_fw658',
-                width: 36,
-                height: 36,
-                fit: BoxFit.cover),
+            child: Image.network(event.user.avatarUrl,
+                width: 36, height: 36, fit: BoxFit.cover),
           ),
         ),
         Expanded(
@@ -74,12 +112,12 @@ class DynamicItemTop extends StatelessWidget {
                         Row(
                           children: <Widget>[
                             Text(
-                              "国内爷",
+                              event.user.nickname,
                               style: TextStyle(
                                   fontSize: 13, color: Color(0xff5078a6)),
                             ),
                             Text(
-                              "发布视频",
+                              "${isVideo ? '发布视频' : '分享单曲'}:",
                               style: TextStyle(
                                   fontSize: 13, color: Color(0xff616161)),
                             )
@@ -90,7 +128,7 @@ class DynamicItemTop extends StatelessWidget {
                           child: Row(
                             children: <Widget>[
                               Text(
-                                "6654粉丝",
+                                "${Utils.toTenThousand(event.user.followeds.toDouble())}粉丝",
                                 style: TextStyle(
                                     fontSize: 12, color: Color(0xff979797)),
                               )
@@ -124,97 +162,131 @@ class DynamicItemTop extends StatelessWidget {
   }
 }
 
-class DynamicItemContent extends StatelessWidget {
+class DynamicItemContent extends StatefulWidget {
+  final UserEventSong song;
+  final UserEventVideo video;
+  final Event event;
+
+  DynamicItemContent(
+      {@required this.song, @required this.video, @required this.event});
+
+  @override
+  State<StatefulWidget> createState() {
+    return DynamicItemContentState();
+  }
+}
+
+class DynamicItemContentState extends State<DynamicItemContent> {
+  String url;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _getVideoUrl();
+  }
+
+  _getVideoUrl() async {
+    if (widget.video != null) {
+      VideoUrl videoUrl =
+          await CommonDao.getVideoUrl({'id': widget.video.video.videoId});
+      url = videoUrl.urls[0].url;
+      setState(() {});
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (url != null) {
+      print(url);
+    }
     return Container(
       margin: EdgeInsets.only(top: 10, left: 43, bottom: 18),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text("文章这种状态，大部分男生都懂吧？"),
-          Container(
-            margin: EdgeInsets.only(bottom: 7, top: 7),
-            child: Flex(
-              direction: Axis.horizontal,
+      child: widget.song != null
+          ? Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Expanded(
-                  child: Container(
-                    margin: EdgeInsets.only(right: 4),
-                    child: Img(
-                      'http://hbimg.b0.upaiyun.com/6d6ebe96ecc094b23e4b4716d1d911f1d7722371142c1-z9OZQK_fw658',
-                      height: 150,
-                      // width: 120,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Img(
-                    'http://pic1.win4000.com/pic/2/18/bfc9b3a97c_250_350.jpg',
-                    height: 150,
-                    // width: 120,
+                Text(widget.song?.msg ?? widget.video?.msg),
+                Container(
+                    margin: EdgeInsets.only(bottom: 7, top: 7),
+                    child: Wrap(
+                      direction: Axis.horizontal,
+                      // crossAxisAlignment: CrossAxisAlignment.start,
+                      children: widget.event.pics.map((item) {
+                        return Container(
+                          margin: EdgeInsets.only(right: 4, bottom: 4),
+                          child: Img(
+                            item['originUrl'],
+                            height: 101,
+                            width: 101,
+                            // width: 120,
+                          ),
+                        );
+                      }).toList(),
+                    )),
+                Container(
+                  padding: EdgeInsets.all(6),
+                  decoration: BoxDecoration(
+                      color: Color(0xfff3f3f3),
+                      borderRadius: BorderRadius.circular(4)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        margin: EdgeInsets.only(right: 6),
+                        child: Stack(
+                          children: <Widget>[
+                            Img(
+                              widget.song.song.artists[0].picUrl,
+                              width: 35,
+                              height: 35,
+                            ),
+                            Positioned(
+                              left: 8,
+                              top: 8,
+                              child: ClipOval(
+                                child: Container(
+                                  color: Colors.white.withOpacity(0.8),
+                                  child: Icon(
+                                    Icons.play_arrow,
+                                    color: Color(0xffd33a32),
+                                    size: 18,
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(widget.song.song.name),
+                          Text(
+                            widget.song.song.artists[0].name,
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Color(0xff6b6b6b),
+                            ),
+                          )
+                        ],
+                      ),
+                    ],
                   ),
                 )
               ],
+            )
+          : Container(
+              child: VideoPlay(url: url),
             ),
-          ),
-          Container(
-            padding: EdgeInsets.all(6),
-            decoration: BoxDecoration(
-                color: Color(0xfff3f3f3),
-                borderRadius: BorderRadius.circular(4)),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Container(
-                  margin: EdgeInsets.only(right: 6),
-                  child: Stack(
-                    children: <Widget>[
-                      Img(
-                        'http://pic1.win4000.com/pic/2/18/bfc9b3a97c_250_350.jpg',
-                        width: 35,
-                        height: 35,
-                      ),
-                      Positioned(
-                        left: 8,
-                        top: 8,
-                        child: ClipOval(
-                          child: Container(
-                            color: Colors.white.withOpacity(0.8),
-                            child: Icon(
-                              Icons.play_arrow,
-                              color: Color(0xffd33a32),
-                              size: 18,
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                Column(
-                  children: <Widget>[
-                    Text('Fire Loop'),
-                    Text(
-                      '傻子与白痴',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Color(0xff6b6b6b),
-                      ),
-                    )
-                  ],
-                ),
-              ],
-            ),
-          )
-        ],
-      ),
     );
   }
 }
 
 class DynamicItemBottom extends StatelessWidget {
+  final Event event;
+  DynamicItemBottom(this.event);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -234,7 +306,7 @@ class DynamicItemBottom extends StatelessWidget {
                 Container(
                   margin: EdgeInsets.only(left: 3),
                   child: Text(
-                    '88',
+                    event.info.shareCount.toString(),
                     style: TextStyle(color: Color(0xff999999), fontSize: 12),
                   ),
                 )
@@ -254,7 +326,7 @@ class DynamicItemBottom extends StatelessWidget {
                 Container(
                   margin: EdgeInsets.only(left: 3),
                   child: Text(
-                    '88',
+                    event.info.commentCount.toString(),
                     style: TextStyle(color: Color(0xff999999), fontSize: 12),
                   ),
                 )
@@ -274,7 +346,7 @@ class DynamicItemBottom extends StatelessWidget {
                 Container(
                   margin: EdgeInsets.only(left: 3),
                   child: Text(
-                    '88',
+                    event.info.likedCount.toString(),
                     style: TextStyle(color: Color(0xff999999), fontSize: 12),
                   ),
                 )
