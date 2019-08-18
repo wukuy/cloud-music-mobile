@@ -15,7 +15,7 @@ https://github.com/Binaryify/NeteaseCloudMusicApi/
 ### 下载地址
 平台|二维码|
 ---|:--:|
-android| [下载]()|
+android| [下载](https://github.com/wukuy/cloud-music-mobile/raw/master/Screenshots/app-release.apk)|
 ios|无|
 
 ### 进度
