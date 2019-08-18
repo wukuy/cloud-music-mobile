@@ -7,7 +7,10 @@
  * @LastEditTime: 2019-08-18 19:12:34
  -->
 # cloud_music_mobile
-高仿网易云音乐
+高仿网易云音乐，使用flutter编写。
+
+# API
+https://github.com/Binaryify/NeteaseCloudMusicApi/
 
 ### 下载地址
 平台|二维码|
