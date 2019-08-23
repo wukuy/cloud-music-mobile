@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:cloud_music_mobile/models/VideoUrl.dart';
+
 import 'package:flutter/material.dart';
 import 'package:cloud_music_mobile/widget/Img.dart';
 import 'package:cloud_music_mobile/models/UserEvent.dart';
@@ -8,7 +8,7 @@ import 'package:cloud_music_mobile/models/UserEventSong.dart';
 import 'package:cloud_music_mobile/models/UserEventVideo.dart';
 import 'package:cloud_music_mobile/common/Utils.dart';
 import 'package:cloud_music_mobile/widget/VideoPlay.dart';
-import 'package:cloud_music_mobile/common/dao/CommonDao.dart';
+import 'package:cloud_music_mobile/widget/Loading.dart';
 
 class FriendPage extends StatefulWidget {
   @override
@@ -28,7 +28,7 @@ class _FriendPageState extends State with AutomaticKeepAliveClientMixin {
             ? userEvent.event.map((item) {
                 return DynamicItem(item);
               }).toList()
-            : [Container()],
+            : [Loading()],
       ),
     );
   }
@@ -177,29 +177,13 @@ class DynamicItemContent extends StatefulWidget {
 }
 
 class DynamicItemContentState extends State<DynamicItemContent> {
-  String url;
-
   @override
   void initState() {
     super.initState();
-
-    _getVideoUrl();
-  }
-
-  _getVideoUrl() async {
-    if (widget.video != null) {
-      VideoUrl videoUrl =
-          await CommonDao.getVideoUrl({'id': widget.video.video.videoId});
-      url = videoUrl.urls[0].url;
-      setState(() {});
-    }
   }
 
   @override
   Widget build(BuildContext context) {
-    if (url != null) {
-      print(url);
-    }
     return Container(
       margin: EdgeInsets.only(top: 10, left: 43, bottom: 18),
       child: widget.song != null
@@ -208,22 +192,23 @@ class DynamicItemContentState extends State<DynamicItemContent> {
               children: <Widget>[
                 Text(widget.song?.msg ?? widget.video?.msg),
                 Container(
-                    margin: EdgeInsets.only(bottom: 7, top: 7),
-                    child: Wrap(
-                      direction: Axis.horizontal,
-                      // crossAxisAlignment: CrossAxisAlignment.start,
-                      children: widget.event.pics.map((item) {
-                        return Container(
-                          margin: EdgeInsets.only(right: 4, bottom: 4),
-                          child: Img(
-                            item['originUrl'],
-                            height: 101,
-                            width: 101,
-                            // width: 120,
-                          ),
-                        );
-                      }).toList(),
-                    )),
+                  margin: EdgeInsets.only(bottom: 7, top: 7),
+                  child: Wrap(
+                    direction: Axis.horizontal,
+                    // crossAxisAlignment: CrossAxisAlignment.start,
+                    children: widget.event.pics.map((item) {
+                      return Container(
+                        margin: EdgeInsets.only(right: 4, bottom: 4),
+                        child: Img(
+                          item['originUrl'],
+                          height: 101,
+                          width: 101,
+                          // width: 120,
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ),
                 Container(
                   padding: EdgeInsets.all(6),
                   decoration: BoxDecoration(
@@ -277,7 +262,7 @@ class DynamicItemContentState extends State<DynamicItemContent> {
               ],
             )
           : Container(
-              child: VideoPlay(url: url),
+              child: VideoPlay(id: widget.video.video.videoId),
             ),
     );
   }

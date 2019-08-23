@@ -4,7 +4,7 @@
  * @Author: 웃□宇♂
  * @Date: 2019-08-10 21:41:08
  * @LastEditors: 웃□宇♂
- * @LastEditTime: 2019-08-18 14:23:12
+ * @LastEditTime: 2019-08-23 10:02:59
  */
 
 import 'package:cloud_music_mobile/widget/NetworkMiddleware.dart';
@@ -417,6 +417,7 @@ class SongSheetClassBottomSheet {
             ),
             Expanded(
               child: GridView.builder(
+                physics: NeverScrollableScrollPhysics(),
                 padding: EdgeInsets.only(top: 10),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     childAspectRatio: 10 / 4.5,

@@ -5,6 +5,7 @@ class FirendDao {
   static userEvent(Map<String, dynamic> data) async {
     var result = await Http(loading: false).get('/event', data: data);
     if (result != null) {
+      print(result.toString());
       return UserEvent.fromJson(result);
     }
   }

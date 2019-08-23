@@ -8,6 +8,7 @@ class Http {
   Dio dio;
   static String cookie;
   bool returnData;
+  Response response;
 
   Http({bool loading: true, returnData: true}) {
     dio = Dio();
@@ -18,22 +19,18 @@ class Http {
   static setCookie() {}
 
   request(String path, {Map data, Options options}) async {
-    Response response = await dio.request(path, data: data, options: options);
+    response = await dio.request(path, data: data, options: options);
 
     return response;
   }
 
   get(String path, {Map<String, dynamic> data, Options options}) async {
-    Response response;
+    print('cookie: $cookie');
     try {
       response = await dio.get(path,
-          queryParameters: data,
-          options: Options(headers: {
-            'Cookie':
-                'MUSIC_U=331697943409e104ca0153d6516aef66bed4e5d1ad4623442883064268bdc0fcf6202122451b727414e0b3038c8ba2db63531a931aa80ad0; __remember_me=true; __csrf=9d9390af7162795cdd7fefb47816055b'
-          }));
+          queryParameters: data, options: Options(headers: {'Cookie': cookie}));
     } catch (e) {
-      print(e);
+      print('netErr: $e');
       return null;
     }
 
@@ -57,13 +54,11 @@ class Http {
     // dio.interceptors.add(CookieManager(CookieJar()));
     dio.interceptors.add(InterceptorsWrapper(onRequest: (Options options) {
       if (loading) Loading.show();
-      print(options.cookies);
       return options;
     }, onResponse: (Response response) {
       if (loading) Loading.hide();
       return response;
     }, onError: (DioError e) {
-      print(e);
       if (loading) Loading.hide();
       return e;
     }));

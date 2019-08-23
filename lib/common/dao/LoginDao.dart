@@ -4,16 +4,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
 class LoginDao {
-  /// 获取歌曲
+  /// 登录
   static logoin(Map<String, dynamic> params) async {
-    var data = await Http().get('/login/cellphone', data: params);
+    Http http = Http();
+    var data = await http.get('/login/cellphone', data: params);
 
     if (data != null) {
       int uid = data['account']['id'];
       String backgroundUrl = data['profile']['backgroundUrl'];
       String avatarUrl = data['profile']['avatarUrl'];
       String nickname = data['profile']['nickname'];
-
+      Http.cookie = http.response.headers['set-cookie'].join(';');
+      print(http.response.headers['set-cookie'].join(';'));
       Map<String, dynamic> userInfoMap = {
         "nickname": nickname,
         "uid": uid,
