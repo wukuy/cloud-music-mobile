@@ -39,7 +39,7 @@ i18n|✘|
 <img src="Screenshots/01.png" width = "400" alt="图片名称"/>
 <img src="Screenshots/03.png" width = "400" alt="图片名称"/>
 <img src="Screenshots/02.png" width = "400" alt="图片名称"/>
-
+<img src="Screenshots/07.png" width = "400" alt="图片名称"/>
 <img src="Screenshots/06.png" width = "400" alt="图片名称"/>
 <img src="Screenshots/05.png" width = "400" alt="图片名称"/>
 <img src="Screenshots/04.png" width = "400" alt="图片名称"/>
